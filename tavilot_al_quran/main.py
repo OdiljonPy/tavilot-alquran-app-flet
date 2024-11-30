@@ -9,10 +9,14 @@ from pages.home_page import home
 
 
 def main(page: ft.Page):
+    page.expand = True
     page.padding = 0
     page.clean()
     page.theme_mode = ft.ThemeMode.LIGHT
-    page.add(ft.Column(
+    page.add(ft.Container(
+        alignment=ft.alignment.center,
+        expand=True,
+        content=ft.Column(
         adaptive=True,
         height=page.window_height,
         width=page.window_width,
@@ -22,9 +26,9 @@ def main(page: ft.Page):
             ft.Text("TA'VILOT\nAL-QURAN", size=100, text_align=ft.TextAlign.CENTER, color="#E9BE5F")
         ]
     )
-    )
+    ))
 
-    time.sleep(2)
+    time.sleep(4)
 
     page.clean()
     page.adaptive = True
