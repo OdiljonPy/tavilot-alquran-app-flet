@@ -9,6 +9,7 @@ from pages.home_page import home
 
 
 def main(page: ft.Page):
+    page.padding = 0
     page.clean()
     page.theme_mode = ft.ThemeMode.LIGHT
     page.add(ft.Column(
