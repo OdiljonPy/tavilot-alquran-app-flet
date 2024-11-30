@@ -497,6 +497,7 @@ def home(page):
     page.appbar = ft.AppBar(
         adaptive=True,
         leading=ft.Image(src=os.path.abspath("assets/maturidiy_logo.png")),
+        leading_width=100,
         actions=[
             gesture_text1,
             ft.Text(width=45),
