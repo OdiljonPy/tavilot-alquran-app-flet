@@ -20,3 +20,27 @@ this file is a main file of all project and for running project use:
 
 flet run main.py
 ```
+
+For add elements in page:
+
+```
+page.add('elements')
+```
+
+For updating page:
+
+```
+page.update()
+```
+
+All page configurations will navigating using page:
+
+```
+Example in the main.py file
+```
+
+Flet documentation:
+
+```
+https://flet.dev/
+```
