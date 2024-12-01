@@ -518,7 +518,7 @@ def home(page):
             desktop_size
         ],
         bgcolor='white',
-        toolbar_height=77,
+        toolbar_height=90,
     )
     page.add(new_one, three_windows, divider, text, ft.Container(gv, alignment=ft.alignment.center))
     page.update()
