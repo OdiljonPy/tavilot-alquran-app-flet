@@ -49,6 +49,121 @@ def surah_page(page):
         responses = requests.get(url=urls, headers=headers)
         if responses.status_code == 200:
             result_details = responses.json().get('result').get('verses')
+
+            def change_response(e):
+                if e.control == text_arabic:
+                    right_display.controls.clear()
+                    right_display.controls.append(right_top_bar)
+                    text_arabic.style.color = "white"
+                    text_arabic.style.bgcolor = TC
+                    text_translate.style.color = ft.colors.BLACK
+                    text_translate.style.bgcolor = ft.colors.GREY_200
+                    text_tafsir.style.color = ft.colors.BLACK
+                    text_tafsir.style.bgcolor = ft.colors.GREY_200
+                    for result_detail in result_details:
+                        right_display.controls.append(ft.Column(controls=[ft.Row(
+                            wrap=True,
+                            alignment=ft.MainAxisAlignment.END,
+                            adaptive=True,
+                            controls=[
+                                ft.Container(
+                                    image_src=os.path.abspath("assets/Union.png"),
+                                    alignment=ft.alignment.center,
+                                    width=50,
+                                    height=50,
+                                    adaptive=True,
+                                    content=ft.Text(value=f"{result_detail.get('number')}")
+                                ),
+                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20),
+                            ]),
+                            ft.Divider(color=TC)
+                        ])
+                        )
+                elif e.control == text_translate:
+                    right_display.controls.clear()
+                    right_display.controls.append(right_top_bar)
+                    text_translate.style.color = 'white'
+                    text_translate.style.bgcolor = TC
+                    text_arabic.style.color = ft.colors.BLACK
+                    text_arabic.style.bgcolor = ft.colors.GREY_200
+                    text_tafsir.style.color = ft.colors.BLACK
+                    text_tafsir.style.bgcolor = ft.colors.GREY_200
+                    for result_detail in result_details:
+                        right_display.controls.append(ft.Column(controls=[ft.Row(
+                            wrap=True,
+                            alignment=ft.MainAxisAlignment.END,
+                            adaptive=True,
+                            controls=[
+                                ft.Container(
+                                    image_src=os.path.abspath("assets/Union.png"),
+                                    alignment=ft.alignment.center,
+                                    width=50,
+                                    height=50,
+                                    adaptive=True,
+                                    content=ft.Text(value=f"{result_detail.get('number')}")
+                                ),
+                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20),
+                            ]),
+                            ft.Divider(color=TC)
+                        ])
+                        )
+                elif e.control == text_tafsir:
+                    right_display.controls.clear()
+                    right_display.controls.append(right_top_bar)
+                    text_tafsir.style.color = "white"
+                    text_tafsir.style.bgcolor = TC
+                    text_arabic.style.color = ft.colors.BLACK
+                    text_arabic.style.bgcolor = ft.colors.GREY_200
+                    text_translate.style.color = ft.colors.BLACK
+                    text_translate.style.bgcolor = ft.colors.GREY_200
+                    for result_detail in result_details:
+                        right_display.controls.append(ft.Column(controls=[ft.Row(
+                            wrap=True,
+                            alignment=ft.MainAxisAlignment.END,
+                            adaptive=True,
+                            controls=[
+                                ft.Container(
+                                    image_src=os.path.abspath("assets/Union.png"),
+                                    alignment=ft.alignment.center,
+                                    width=50,
+                                    height=50,
+                                    adaptive=True,
+                                    content=ft.Text(value=f"{result_detail.get('number')}")
+                                ),
+                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20),
+                            ]),
+                            # ft.Divider(color=TC)
+                        ])
+                        )
+                page.update()  # Update the page to reflect changes
+
+            text_arabic = ft.TextButton('Arabcha', data=1, style=ft.ButtonStyle(color='white', bgcolor=TC),
+                                        on_click=change_response)
+            text_translate = ft.TextButton('Tarjima', data=2,
+                                           style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
+                                           on_click=change_response)
+            text_tafsir = ft.TextButton('Tafsir', data=3,
+                                        style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
+                                        on_click=change_response)
+            right_top_bar = ft.Container(
+                expand=True,
+                alignment=ft.alignment.center,
+                border_radius=20,
+                height=30,
+                width=225,
+                bgcolor=ft.colors.GREY_200,
+                adaptive=True,
+                content=ft.Row(
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    adaptive=True,
+                    controls=[
+                        text_arabic,
+                        text_translate,
+                        text_tafsir
+                    ]
+                )
+            )
+            right_display.controls.append(right_top_bar)
             for result_detail in result_details:
                 right_display.controls.append(ft.Column(controls=[ft.Row(
                     wrap=True,
@@ -68,67 +183,12 @@ def surah_page(page):
                     ft.Divider(color=TC)
                 ])
                 )
+
         else:
             print("Error")
         page.update()
 
     # -------------------------------------------------------------------------------------------------------------------
-
-    def change_response(e):
-        if e.control == text_arabic:
-            text_arabic.style.color = "white"
-            text_arabic.style.bgcolor = TC
-            text_translate.style.color = ft.colors.BLACK
-            text_translate.style.bgcolor = ft.colors.GREY_200
-            text_tafsir.style.color = ft.colors.BLACK
-            text_tafsir.style.bgcolor = ft.colors.GREY_200
-            right_display.controls.append(ft.Text('HIIIIIIII'))
-        elif e.control == text_translate:
-            text_translate.style.color = 'white'
-            text_translate.style.bgcolor = TC
-            text_arabic.style.color = ft.colors.BLACK
-            text_arabic.style.bgcolor = ft.colors.GREY_200
-            text_tafsir.style.color = ft.colors.BLACK
-            text_tafsir.style.bgcolor = ft.colors.GREY_200
-            right_display.controls.append(ft.Text('GOOOOOOOO'))
-        elif e.control == text_tafsir:
-            text_tafsir.style.color = "white"
-            text_tafsir.style.bgcolor = TC
-            text_arabic.style.color = ft.colors.BLACK
-            text_arabic.style.bgcolor = ft.colors.GREY_200
-            text_translate.style.color = ft.colors.BLACK
-            text_translate.style.bgcolor = ft.colors.GREY_200
-            right_display.controls.append(ft.Text('NOOOOOOOOOOOO'))
-        page.update()  # Update the page to reflect changes
-
-    text_arabic = ft.TextButton('Arabcha', data=1, style=ft.ButtonStyle(color='white', bgcolor=TC),
-                                on_click=change_response)
-    text_translate = ft.TextButton('Tarjima', data=2,
-                                   style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
-                                   on_click=change_response)
-    text_tafsir = ft.TextButton('Tafsir', data=3,
-                                style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
-                                on_click=change_response)
-
-    # ---------------------------------------------------------------------------------------------------------------
-
-    right_top_bar = ft.Container(
-        alignment=ft.alignment.center,
-        border_radius=20,
-        height=30,
-        width=225,
-        bgcolor=ft.colors.GREY_200,
-        adaptive=True,
-        content=ft.Row(
-            alignment=ft.MainAxisAlignment.CENTER,
-            adaptive=True,
-            controls=[
-                text_arabic,
-                text_translate,
-                text_tafsir
-            ]
-        )
-    )
 
     side_bar = ft.Row(
         expand=True,
@@ -183,7 +243,6 @@ def surah_page(page):
                     adaptive=True,
                     controls=[
                         ft.Text(height=50),
-                        right_top_bar,
                         right_display
 
                     ]
