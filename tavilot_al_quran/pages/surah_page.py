@@ -49,6 +49,7 @@ def surah_page(page):
         responses = requests.get(url=urls, headers=headers)
         if responses.status_code == 200:
             result_details = responses.json().get('result').get('verses')
+            print(result_details)
 
             def change_response(e):
                 if e.control == text_arabic:
@@ -89,23 +90,29 @@ def surah_page(page):
                     text_tafsir.style.color = ft.colors.BLACK
                     text_tafsir.style.bgcolor = ft.colors.GREY_200
                     for result_detail in result_details:
-                        right_display.controls.append(ft.Column(controls=[ft.Row(
-                            wrap=True,
-                            alignment=ft.MainAxisAlignment.END,
-                            adaptive=True,
+                        right_display.controls.append(ft.Column(
                             controls=[
-                                ft.Container(
-                                    image_src=os.path.abspath("assets/Union.png"),
-                                    alignment=ft.alignment.center,
-                                    width=50,
-                                    height=50,
+                                ft.Row(
+                                    wrap=True,
+                                    alignment=ft.MainAxisAlignment.END,
                                     adaptive=True,
-                                    content=ft.Text(value=f"{result_detail.get('number')}")
+                                    controls=[
+                                        ft.Container(
+                                            image_src=os.path.abspath("assets/Union.png"),
+                                            alignment=ft.alignment.center,
+                                            width=50,
+                                            height=50,
+                                            adaptive=True,
+                                            content=ft.Text(value=f"{result_detail.get('number')}")
+                                        ),
+                                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20),
+                                    ]),
+                                ft.Text(
+                                    value=f"{result_detail.get('number')}.{result_detail.get('text')}",
+                                    size=20
                                 ),
-                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20),
-                            ]),
-                            ft.Divider(color=TC)
-                        ])
+                                ft.Divider(color=TC)
+                            ])
                         )
                 elif e.control == text_tafsir:
                     right_display.controls.clear()
@@ -132,7 +139,15 @@ def surah_page(page):
                                 ),
                                 ft.Text(value=f"{result_detail.get('text_arabic')}", size=20),
                             ]),
-                            # ft.Divider(color=TC)
+                            ft.Text(
+                                value=f"{result_detail.get('number')}.{result_detail.get('text')}",
+                                size=20
+                            ),
+                            ft.Text(
+                                value=f"{result_detail.get('description')}",
+                                size=20
+                            ),
+                            ft.Divider(color=TC)
                         ])
                         )
                 page.update()  # Update the page to reflect changes
