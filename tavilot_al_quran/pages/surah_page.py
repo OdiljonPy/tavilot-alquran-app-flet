@@ -19,7 +19,7 @@ def surah_page(page):
     time.sleep(0.6)
 
     list_display = ft.ListView(expand=True, spacing=10, padding=20, adaptive=True)
-    right_display = ft.ListView(expand=True, spacing=10, padding=20, adaptive=True)
+    right_display = ft.Column(expand=True, adaptive=True, scroll=ft.ScrollMode.ALWAYS, horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     # ------Back connection----------------------------------------------------------------------------------------------
     url = "https://alquran.zerodev.uz/api/v1/chapters/"
     response = requests.get(url=url)
@@ -74,8 +74,7 @@ def surah_page(page):
                     text_tafsir.style.bgcolor = ft.colors.GREY_200
                     for result_detail in result_details:
                         right_display.controls.append(ft.Column(controls=[ft.Row(
-                            wrap=True,
-                            alignment=ft.MainAxisAlignment.END,
+                            spacing=100,
                             adaptive=True,
                             controls=[
                                 ft.Container(
@@ -86,7 +85,9 @@ def surah_page(page):
                                     adaptive=True,
                                     content=ft.Text(value=f"{result_detail.get('number')}")
                                 ),
-                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20),
+                                ft.Text(),
+                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
+                                        width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True),
                             ]),
                             ft.Divider(color=TC)
                         ])
@@ -104,8 +105,7 @@ def surah_page(page):
                         right_display.controls.append(ft.Column(
                             controls=[
                                 ft.Row(
-                                    wrap=True,
-                                    alignment=ft.MainAxisAlignment.END,
+                                    spacing=100,
                                     adaptive=True,
                                     controls=[
                                         ft.Container(
@@ -116,11 +116,14 @@ def surah_page(page):
                                             adaptive=True,
                                             content=ft.Text(value=f"{result_detail.get('number')}")
                                         ),
-                                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20),
+                                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
+                                                width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True),
                                     ]),
                                 ft.Text(
                                     value=f"{result_detail.get('number')}.{result_detail.get('text')}",
-                                    size=20
+                                    size=20,
+                                    expand=True,
+                                    width=page.window_width, text_align=ft.TextAlign.RIGHT
                                 ),
                                 ft.Divider(color=TC)
                             ])
@@ -136,8 +139,7 @@ def surah_page(page):
                     text_translate.style.bgcolor = ft.colors.GREY_200
                     for result_detail in result_details:
                         right_display.controls.append(ft.Column(controls=[ft.Row(
-                            wrap=True,
-                            alignment=ft.MainAxisAlignment.END,
+                            spacing=100,
                             adaptive=True,
                             controls=[
                                 ft.Container(
@@ -148,15 +150,21 @@ def surah_page(page):
                                     adaptive=True,
                                     content=ft.Text(value=f"{result_detail.get('number')}")
                                 ),
-                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20),
+                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
+                                        width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True),
                             ]),
                             ft.Text(
                                 value=f"{result_detail.get('number')}.{result_detail.get('text')}",
-                                size=20
+                                size=20,
+                                expand=True,
+                                width=page.window_width, text_align=ft.TextAlign.RIGHT
                             ),
                             ft.Text(
                                 value=f"{result_detail.get('description')}",
-                                size=20
+                                size=20,
+                                expand=True,
+                                width=page.window_width,
+                                text_align=ft.TextAlign.RIGHT
                             ),
                             ft.Divider(color=TC)
                         ])
@@ -192,8 +200,7 @@ def surah_page(page):
             right_display.controls.append(right_top_bar)
             for result_detail in result_details:
                 right_display.controls.append(ft.Column(controls=[ft.Row(
-                    wrap=True,
-                    alignment=ft.MainAxisAlignment.END,
+                    spacing=100,
                     adaptive=True,
                     controls=[
                         ft.Container(
@@ -204,12 +211,13 @@ def surah_page(page):
                             adaptive=True,
                             content=ft.Text(value=f"{result_detail.get('number')}")
                         ),
-                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20),
+                        ft.Text(),
+                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
+                                width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True),
                     ]),
                     ft.Divider(color=TC)
                 ])
                 )
-
         else:
             print("Error")
         page.update()
@@ -228,6 +236,7 @@ def surah_page(page):
                     expand=True,
                     adaptive=True,
                     controls=[
+                        ft.Text(),
                         ft.Row(controls=[
                             ft.Text('Suralar', size=23),
                             ft.Text('Juzlar', size=23),
