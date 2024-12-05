@@ -1,6 +1,7 @@
 import flet as ft
 import requests
 import os
+import time
 
 TC = '#E9BE5F'
 
@@ -8,12 +9,22 @@ TC = '#E9BE5F'
 def surah_page(page):
     page.clean()
     page.scroll = False
+
+    loading = ft.ProgressRing()
+    page.add(ft.Container(
+        expand=True,
+        adaptive=True,
+        content=loading,
+        alignment=ft.alignment.center))
+    time.sleep(0.6)
+
     list_display = ft.ListView(expand=True, spacing=10, padding=20, adaptive=True)
     right_display = ft.ListView(expand=True, spacing=10, padding=20, adaptive=True)
     # ------Back connection----------------------------------------------------------------------------------------------
     url = "https://alquran.zerodev.uz/api/v1/chapters/"
     response = requests.get(url=url)
     if response.status_code == 200:
+        page.clean()
         result_lists = response.json().get('result')
 
         for i in result_lists:
