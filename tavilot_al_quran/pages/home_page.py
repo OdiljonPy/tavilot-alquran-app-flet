@@ -475,15 +475,16 @@ def home(page):
                         ft.Container(content=ft.Text(surah.get('id')), image_src=os.path.abspath("assets/Star1.png"),
                                      width=50, height=50, alignment=ft.alignment.center),
                         ft.Container(content=ft.Row(
-                            spacing=130,
+                            spacing=150,
                             controls=[
                                 ft.Text(f"{surah.get('name')} \n{type_choice}, {surah.get('verse_number')} OYAT",
                                         size=25, color='black'),
-                                ft.Column(
-                                    horizontal_alignment=ft.CrossAxisAlignment.END,
-                                    controls=[ft.Text(f"{surah.get('name_arabic')} \n{surah.get('verse_number')} oyat",
+                                ft.Container(
+                                    expand=True,
+                                    alignment=ft.alignment.center_right,
+                                    content=ft.Text(f"{surah.get('name_arabic')} \n{surah.get('verse_number')} oyat",
                                                       size=20,
-                                                      color='black', text_align=ft.TextAlign.RIGHT)]
+                                                      color='black', text_align=ft.TextAlign.RIGHT)
                                 )
                             ],
                         )
