@@ -1,7 +1,8 @@
 import time
-
+import asyncio
 import flet as ft
 import os
+
 from utils.validations import limit_length
 import requests
 from pages.home_page import home
@@ -56,6 +57,9 @@ def main(page: ft.Page):
             go_to_otp_page(page, otp_key, phone_input)
         elif response.json().get('error_code') == 6:
             register_result.value = 'User already exist'
+            phone_input.border_color = 'red'
+        elif response.json().get('error_code') == 1:
+            register_result.value = 'Too many attmepts! Try later.'
             phone_input.border_color = 'red'
         else:
             register_result.value = 'Invalid phone number'
@@ -312,9 +316,49 @@ def main(page: ft.Page):
     row = ft.Row(adaptive=True, controls=text_fields)
     print(row.controls)
 
-    # ------------------------------------------------------------------------------------------------------------------------
+    # -----OTP Countdown------------------------------------------------------------------------------------------------
+    class Countdown(ft.Text):
+        def __init__(self, seconds, button_to_enable=None):
+            super().__init__()
+            self.seconds = seconds
+            self.button_to_enable = button_to_enable
 
-    def otp_verify(key_otp):
+        def did_mount(self):
+            self.running = True
+            self.page.run_task(self.update_timer)
+
+        def will_unmount(self):
+            self.running = False
+
+        async def update_timer(self):
+            while self.seconds >= 0 and self.running:
+                mins, secs = divmod(self.seconds, 60)
+                self.value = "{:2d}:{:02d}".format(mins, secs)
+                self.update()
+                await asyncio.sleep(1)
+                self.seconds -= 1
+
+            if self.button_to_enable:
+                self.button_to_enable.disabled = False
+                self.button_to_enable.content.color = TC
+                self.button_to_enable.style.side = ft.BorderSide(color=TC, width=1)
+                self.button_to_enable.update()
+
+    # -------------------------------------------------------------------------------------------------------------------
+
+    otp_result = ft.Text(value='\nParolni kiriting', color=TC, size=20, text_align=ft.TextAlign.LEFT,
+                                    width=400)
+
+    resend_button = ft.OutlinedButton(
+        disabled=True,
+        content=ft.Text('Qaytadan yuborish!', color="grey"),
+        style=ft.ButtonStyle(
+            shape=ft.RoundedRectangleBorder(radius=8),
+            side=ft.BorderSide(color='grey', width=1)
+        )
+    )
+
+    def otp_verify(key_otp, on_change):
         url = "https://alquran.zerodev.uz/api/v1/auth/verify/"
         headers = {
             "Content-Type": "application/json",
@@ -329,10 +373,13 @@ def main(page: ft.Page):
         print(response)
         if response.status_code == 200:
             main(page)
+        else:
+            otp_result.value = 'Parolni xato kiritdingiz'
+            otp_result.color = 'red'
+        page.update()
 
     def go_to_otp_page(page, otp, phone_number):
         page.clean()
-        print(phone_number.value)
         page.add(ft.Container(
             adaptive=True,
             content=ft.Row(
@@ -345,6 +392,15 @@ def main(page: ft.Page):
                             ft.Text(value=f"Parol ushbu raqamga jonatildi \n+998{phone_number.value}", width=400,
                                     weight='bold',
                                     style="titleLarge"),
+                            otp_result,
+                            ft.Text(),
+                            ft.Row(
+                                spacing=218,
+                                controls=[
+                                    Countdown(5, button_to_enable=resend_button),
+                                    resend_button,
+                                ]
+                            ),
                             row,
                             ft.Text(),
                             ft.OutlinedButton(
