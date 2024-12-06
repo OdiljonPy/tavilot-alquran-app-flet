@@ -1,5 +1,3 @@
-from math import trunc
-
 import flet as ft
 import requests
 import os
@@ -22,11 +20,77 @@ def surah_page(page):
 
     list_display = ft.ListView(expand=True, spacing=10, padding=20, adaptive=True)
     list_display_juz = ft.ListView(expand=True, spacing=10, padding=20, adaptive=True)
+    right_display_juz = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
+                                  horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     right_display = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
                               horizontal_alignment=ft.CrossAxisAlignment.CENTER)
-
     # -------Back connection juz-----------------------------------------------------------------------------------------
 
+    url = "https://alquran.zerodev.uz/api/v1/juz/"
+    responses = requests.get(url=url)
+    if responses.status_code == 200:
+        result_lists = responses.json().get('result')
+
+        for i in result_lists:
+            list_display_juz.controls.append(ft.Container(
+                data=i.get('id'),
+                on_click=lambda e: take_juz_id(e.control.data),
+                expand=True,
+                content=ft.Row(
+                    controls=[
+                        ft.Container(content=ft.Text(i.get('number'), color='black'), shape=ft.BoxShape.CIRCLE,
+                                     width=60,
+                                     height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)),
+                        ft.Column(controls=[
+                            ft.Text(value=f"{i.get('number')}-JUZ", size=20),
+                            ft.Text(f"{i.get('title')}", size=10)
+                        ])
+                    ]
+                )
+            ))
+
+    def take_juz_id(ids):
+        right_display.controls.clear()
+        urls = f"https://alquran.zerodev.uz/api/v1/juz/{ids}"
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f'Bearer {page.client_storage.get('access_token')}'
+        }
+        juz_response = requests.get(url=urls, headers=headers)
+        if juz_response.status_code == 200:
+            juz_result_list = juz_response.json().get('result').get('chapters')
+
+            for juz_i in juz_result_list:
+                for juz_i_verse in juz_i.get('verses'):
+                    right_display_juz.controls.append(ft.Column(controls=[ft.Row(
+                        adaptive=True,
+                        controls=[
+                            ft.Container(
+                                image_src=os.path.abspath("assets/Union.png"),
+                                alignment=ft.alignment.center,
+                                width=50,
+                                height=50,
+                                adaptive=True,
+                                content=ft.Text(value=f"{juz_i_verse.get('number')}")
+                            ),
+                            ft.Text(value=f"{juz_i_verse.get('text_arabic')}", size=20, expand=True,
+                                    width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True),
+                            ft.Text(width=10)
+                        ]),
+                        ft.Row(
+                            controls=[
+                                ft.Text(
+                                    value=f"{juz_i_verse.get('number')}.{juz_i_verse.get('text')}",
+                                    size=20,
+                                    expand=True,
+                                    width=page.window_width, text_align=ft.TextAlign.RIGHT
+                                ),
+                                ft.Text(width=10),
+                            ]
+                        ),
+                        ft.Divider(color=TC)
+                    ])
+                    )
 
     # ------Back connection----------------------------------------------------------------------------------------------
     url = "https://alquran.zerodev.uz/api/v1/chapters/"
@@ -322,7 +386,10 @@ def surah_page(page):
                 text="Suralar",
                 content=list_display
             ),
-            ft.Tab(text="Juzlar"),
+            ft.Tab(
+                text="Juzlar",
+                content=list_display_juz
+            ),
             ft.Tab(text='Xatchup')
         ]
     )
@@ -340,7 +407,7 @@ def surah_page(page):
                     adaptive=True,
                     controls=[
                         tabs,
-                        list_display
+                        list_display,
                     ]
 
                 ),

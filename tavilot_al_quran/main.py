@@ -358,7 +358,7 @@ def main(page: ft.Page):
         )
     )
 
-    def otp_verify(key_otp, on_change):
+    def otp_verify(key_otp):
         url = "https://alquran.zerodev.uz/api/v1/auth/verify/"
         headers = {
             "Content-Type": "application/json",
