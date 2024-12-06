@@ -1,3 +1,5 @@
+from math import trunc
+
 import flet as ft
 import requests
 import os
@@ -19,7 +21,13 @@ def surah_page(page):
     time.sleep(0.6)
 
     list_display = ft.ListView(expand=True, spacing=10, padding=20, adaptive=True)
-    right_display = ft.Column(expand=True, adaptive=True, scroll=ft.ScrollMode.ALWAYS, horizontal_alignment=ft.CrossAxisAlignment.CENTER)
+    list_display_juz = ft.ListView(expand=True, spacing=10, padding=20, adaptive=True)
+    right_display = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
+                              horizontal_alignment=ft.CrossAxisAlignment.CENTER)
+
+    # -------Back connection juz-----------------------------------------------------------------------------------------
+
+
     # ------Back connection----------------------------------------------------------------------------------------------
     url = "https://alquran.zerodev.uz/api/v1/chapters/"
     response = requests.get(url=url)
@@ -72,9 +80,25 @@ def surah_page(page):
                     text_translate.style.bgcolor = ft.colors.GREY_200
                     text_tafsir.style.color = ft.colors.BLACK
                     text_tafsir.style.bgcolor = ft.colors.GREY_200
+                    chapter_result = responses.json().get('result')
+                    if chapter_result == 1:
+                        chapter_result['type_choice'] = 'Makkada'
+                    else:
+                        chapter_result['type_choice'] = 'Madinada'
+                    chapter_n = ft.Column(
+                        adaptive=True,
+                        expand=True,
+                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                        controls=[
+                            ft.Text(value=f"{chapter_result.get('name')} Surasi", size=25),
+                            ft.Text(
+                                value=f"{chapter_result.get('type_choice')} Nozil Bo'lga, {chapter_result.get('verse_number')} Oyatdan Iborat",
+                                size=20)
+                        ]
+                    )
+                    right_display.controls.append(chapter_n)
                     for result_detail in result_details:
                         right_display.controls.append(ft.Column(controls=[ft.Row(
-                            spacing=100,
                             adaptive=True,
                             controls=[
                                 ft.Container(
@@ -85,9 +109,9 @@ def surah_page(page):
                                     adaptive=True,
                                     content=ft.Text(value=f"{result_detail.get('number')}")
                                 ),
-                                ft.Text(),
                                 ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
                                         width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True),
+                                ft.Text(width=10)
                             ]),
                             ft.Divider(color=TC)
                         ])
@@ -101,11 +125,27 @@ def surah_page(page):
                     text_arabic.style.bgcolor = ft.colors.GREY_200
                     text_tafsir.style.color = ft.colors.BLACK
                     text_tafsir.style.bgcolor = ft.colors.GREY_200
+                    chapter_result = responses.json().get('result')
+                    if chapter_result == 1:
+                        chapter_result['type_choice'] = 'Makkada'
+                    else:
+                        chapter_result['type_choice'] = 'Madinada'
+                    chapter_n = ft.Column(
+                        adaptive=True,
+                        expand=True,
+                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                        controls=[
+                            ft.Text(value=f"{chapter_result.get('name')} Surasi", size=25),
+                            ft.Text(
+                                value=f"{chapter_result.get('type_choice')} Nozil Bo'lga, {chapter_result.get('verse_number')} Oyatdan Iborat",
+                                size=20)
+                        ]
+                    )
+                    right_display.controls.append(chapter_n)
                     for result_detail in result_details:
                         right_display.controls.append(ft.Column(
                             controls=[
                                 ft.Row(
-                                    spacing=100,
                                     adaptive=True,
                                     controls=[
                                         ft.Container(
@@ -118,12 +158,18 @@ def surah_page(page):
                                         ),
                                         ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
                                                 width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True),
+                                        ft.Text(width=10)
                                     ]),
-                                ft.Text(
-                                    value=f"{result_detail.get('number')}.{result_detail.get('text')}",
-                                    size=20,
-                                    expand=True,
-                                    width=page.window_width, text_align=ft.TextAlign.RIGHT
+                                ft.Row(
+                                    controls=[
+                                        ft.Text(
+                                            value=f"{result_detail.get('number')}.{result_detail.get('text')}",
+                                            size=20,
+                                            expand=True,
+                                            width=page.window_width, text_align=ft.TextAlign.RIGHT
+                                        ),
+                                        ft.Text(width=10),
+                                    ]
                                 ),
                                 ft.Divider(color=TC)
                             ])
@@ -137,9 +183,25 @@ def surah_page(page):
                     text_arabic.style.bgcolor = ft.colors.GREY_200
                     text_translate.style.color = ft.colors.BLACK
                     text_translate.style.bgcolor = ft.colors.GREY_200
+                    chapter_result = responses.json().get('result')
+                    if chapter_result == 1:
+                        chapter_result['type_choice'] = 'Makkada'
+                    else:
+                        chapter_result['type_choice'] = 'Madinada'
+                    chapter_n = ft.Column(
+                        adaptive=True,
+                        expand=True,
+                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                        controls=[
+                            ft.Text(value=f"{chapter_result.get('name')} Surasi", size=25),
+                            ft.Text(
+                                value=f"{chapter_result.get('type_choice')} Nozil Bo'lga, {chapter_result.get('verse_number')} Oyatdan Iborat",
+                                size=20)
+                        ]
+                    )
+                    right_display.controls.append(chapter_n)
                     for result_detail in result_details:
                         right_display.controls.append(ft.Column(controls=[ft.Row(
-                            spacing=100,
                             adaptive=True,
                             controls=[
                                 ft.Container(
@@ -152,20 +214,25 @@ def surah_page(page):
                                 ),
                                 ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
                                         width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True),
+                                ft.Text(width=10)
                             ]),
-                            ft.Text(
+                            ft.Row(controls=[ft.Text(
                                 value=f"{result_detail.get('number')}.{result_detail.get('text')}",
                                 size=20,
                                 expand=True,
                                 width=page.window_width, text_align=ft.TextAlign.RIGHT
                             ),
-                            ft.Text(
+                                ft.Text(width=10)
+                            ]),
+                            ft.Row(controls=[ft.Text(
                                 value=f"{result_detail.get('description')}",
                                 size=20,
                                 expand=True,
                                 width=page.window_width,
                                 text_align=ft.TextAlign.RIGHT
                             ),
+                                ft.Text(width=10)
+                            ]),
                             ft.Divider(color=TC)
                         ])
                         )
@@ -198,9 +265,25 @@ def surah_page(page):
                 )
             )
             right_display.controls.append(right_top_bar)
+            chapter_result = responses.json().get('result')
+            if chapter_result == 1:
+                chapter_result['type_choice'] = 'Makkada'
+            else:
+                chapter_result['type_choice'] = 'Madinada'
+            chapter_n = ft.Column(
+                adaptive=True,
+                expand=True,
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                controls=[
+                    ft.Text(value=f"{chapter_result.get('name')} Surasi", size=25),
+                    ft.Text(
+                        value=f"{chapter_result.get('type_choice')} Nozil Bo'lga, {chapter_result.get('verse_number')} Oyatdan Iborat",
+                        size=20)
+                ]
+            )
+            right_display.controls.append(chapter_n)
             for result_detail in result_details:
                 right_display.controls.append(ft.Column(controls=[ft.Row(
-                    spacing=100,
                     adaptive=True,
                     controls=[
                         ft.Container(
@@ -214,6 +297,7 @@ def surah_page(page):
                         ft.Text(),
                         ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
                                 width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True),
+                        ft.Text(width=10)
                     ]),
                     ft.Divider(color=TC)
                 ])
@@ -223,6 +307,25 @@ def surah_page(page):
         page.update()
 
     # -------------------------------------------------------------------------------------------------------------------
+
+    tabs = ft.Tabs(
+        label_text_style=ft.TextStyle(size=20),
+        unselected_label_color='#A4A4A4',
+        label_color='black',
+        indicator_color=TC,
+        divider_height=2,
+        tab_alignment=ft.TabAlignment.CENTER,
+        selected_index=0,
+        animation_duration=200,
+        tabs=[
+            ft.Tab(
+                text="Suralar",
+                content=list_display
+            ),
+            ft.Tab(text="Juzlar"),
+            ft.Tab(text='Xatchup')
+        ]
+    )
 
     side_bar = ft.Row(
         expand=True,
@@ -236,16 +339,7 @@ def surah_page(page):
                     expand=True,
                     adaptive=True,
                     controls=[
-                        ft.Text(),
-                        ft.Row(controls=[
-                            ft.Text('Suralar', size=23),
-                            ft.Text('Juzlar', size=23),
-                            ft.Text('Xatchup', size=23)
-                        ],
-                            alignment=ft.MainAxisAlignment.CENTER,
-                            spacing=40
-                        ),
-                        ft.Text(),
+                        tabs,
                         list_display
                     ]
 
