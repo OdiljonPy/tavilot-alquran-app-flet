@@ -9,6 +9,9 @@ from pages.home_page import home
 
 
 def main(page: ft.Page):
+
+    ft.VideoMedia()
+
     page.expand = True
     page.padding = 0
     page.clean()
@@ -41,7 +44,7 @@ def main(page: ft.Page):
     register_result = ft.Text(color='red', size=15)
 
     def registration_response(phone, passw):
-        url = "https://alquran.zerodev.uz/api/v1/auth/register/"
+        url = "http://alquran.zerodev.uz/api/v1/auth/register/"
         headers = {
             "Content-Type": "application/json",
         }
@@ -188,7 +191,7 @@ def main(page: ft.Page):
     )
 
     def login_response(phone, passw):
-        url = "https://alquran.zerodev.uz/api/v1/auth/login/"
+        url = "http://alquran.zerodev.uz/api/v1/auth/login/"
         headers = {
             "Content-Type": "application/json",
         }
@@ -359,7 +362,7 @@ def main(page: ft.Page):
     )
 
     def otp_verify(key_otp):
-        url = "https://alquran.zerodev.uz/api/v1/auth/verify/"
+        url = "http://alquran.zerodev.uz/api/v1/auth/verify/"
         headers = {
             "Content-Type": "application/json",
         }

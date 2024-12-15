@@ -24,9 +24,9 @@ def surah_page(page):
                                   horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     right_display = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
                               horizontal_alignment=ft.CrossAxisAlignment.CENTER)
-    # -------Back connection juz-----------------------------------------------------------------------------------------
+    # -------Back connection juz----------------------------------------------------------------------------------------
 
-    url = "https://alquran.zerodev.uz/api/v1/juz/"
+    url = "http://alquran.zerodev.uz/api/v1/juz/"
     responses = requests.get(url=url)
     if responses.status_code == 200:
         result_lists = responses.json().get('result')
@@ -51,7 +51,7 @@ def surah_page(page):
 
     def take_juz_id(ids):
         right_display.controls.clear()
-        urls = f"https://alquran.zerodev.uz/api/v1/juz/{ids}"
+        urls = f"http://alquran.zerodev.uz/api/v1/juz/{ids}"
         headers = {
             "Content-Type": "application/json",
             "Authorization": f'Bearer {page.client_storage.get('access_token')}'
@@ -93,7 +93,7 @@ def surah_page(page):
                     )
 
     # ------Back connection----------------------------------------------------------------------------------------------
-    url = "https://alquran.zerodev.uz/api/v1/chapters/"
+    url = "http://alquran.zerodev.uz/api/v1/chapters/"
     response = requests.get(url=url)
     if response.status_code == 200:
         page.clean()
@@ -124,7 +124,7 @@ def surah_page(page):
     # --------------------------------------------------------------------------------------------------------------------
     def take_id(ids):
         right_display.controls.clear()
-        urls = f"https://alquran.zerodev.uz/api/v1/chapter/{ids}"
+        urls = f"http://alquran.zerodev.uz/api/v1/chapter/{ids}"
         headers = {
             "Content-Type": "application/json",
             "Authorization": f'Bearer {page.client_storage.get('access_token')}'

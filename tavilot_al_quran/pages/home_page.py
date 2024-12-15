@@ -458,7 +458,7 @@ def home(page):
     gv = ft.Row(wrap=True, expand=True, alignment=ft.MainAxisAlignment.CENTER)
 
     # API request
-    url = "https://alquran.zerodev.uz/api/v1/chapters/"
+    url = "http://alquran.zerodev.uz/api/v1/chapters/"
     response = requests.get(url)
 
     if response.status_code == 200:

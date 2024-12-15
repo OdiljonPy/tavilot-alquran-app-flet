@@ -13,8 +13,9 @@ def about_us_page(page, navbar_text1, navbar_text2, navbar_text3):
     page.update()
     about_result = ft.Markdown()
 
-    url = "https://alquran.zerodev.uz/api/v1/about/"
+    url = "http://176.221.28.202:8008/api/v1/about/"
     response = requests.get(url=url)
+    print(response.json())
 
     if response.status_code == 200:
         page.clean()
