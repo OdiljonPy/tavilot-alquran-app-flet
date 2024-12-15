@@ -9,9 +9,6 @@ from pages.home_page import home
 
 
 def main(page: ft.Page):
-
-    ft.VideoMedia()
-
     page.expand = True
     page.padding = 0
     page.clean()

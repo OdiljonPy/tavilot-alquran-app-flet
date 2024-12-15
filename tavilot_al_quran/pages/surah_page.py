@@ -373,11 +373,12 @@ def surah_page(page):
     # -------------------------------------------------------------------------------------------------------------------
 
     tabs = ft.Tabs(
+        width=300,
         label_text_style=ft.TextStyle(size=20),
         unselected_label_color='#A4A4A4',
         label_color='black',
         indicator_color=TC,
-        divider_height=2,
+        divider_height=0,
         tab_alignment=ft.TabAlignment.CENTER,
         selected_index=0,
         animation_duration=200,
@@ -399,6 +400,7 @@ def surah_page(page):
         adaptive=True,
         controls=[
             ft.Container(
+                alignment=ft.alignment.center,
                 height=page.window_height,
                 adaptive=True,
                 content=ft.Column(
