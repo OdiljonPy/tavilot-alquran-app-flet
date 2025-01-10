@@ -195,25 +195,26 @@ def home(page):
     #     ],
     # )
 
-    entrance_logo = ft.Container(content=ft.Row(
-        height=600,
-        width=500,
+    entrance_logo = ft.Container(
+        expand=True,
+        adaptive=True,
+        content=ft.Row(
         controls=[
             ft.Image(
                 color='#007577',
                 src=os.path.abspath("assets/tA'VILOT_Монтажная_область1.png"),
                 fit=ft.ImageFit.COVER,
-                width=400,
-                height=200,
+                width=200,
+                height=100,
             )
         ],
         alignment=ft.MainAxisAlignment.CENTER
     ),
+        height=100,
         alignment=ft.alignment.center,
         image_src=os.path.abspath("assets/searchbg.png"),
         width=page.adaptive,
-        height=250,
-        image_fit='cover',
+        image_fit='fitWidth',
         padding=50
 
     )
@@ -233,6 +234,7 @@ def home(page):
                 ft.OutlinedButton(
                     adaptive=True,
                     content=ft.Column(
+                        expand=True,
                         adaptive=True,
                         controls=[
                             ft.Row(
@@ -252,8 +254,8 @@ def home(page):
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
-                    height=250,
-                    width=560,
+                    height=200,
+                    width=460,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
@@ -266,6 +268,7 @@ def home(page):
                 ft.OutlinedButton(
                     adaptive=True,
                     content=ft.Column(
+                        expand=True,
                         adaptive=True,
                         controls=[
                             ft.Row(
@@ -285,8 +288,8 @@ def home(page):
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
-                    height=250,
-                    width=560,
+                    height=200,
+                    width=460,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
@@ -299,6 +302,7 @@ def home(page):
                 ft.OutlinedButton(
                     adaptive=True,
                     content=ft.Column(
+                        expand=True,
                         adaptive=True,
                         controls=[
                             ft.Row(
@@ -318,8 +322,8 @@ def home(page):
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
-                    height=250,
-                    width=560,
+                    height=200,
+                    width=460,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
@@ -331,6 +335,7 @@ def home(page):
                 ft.OutlinedButton(
                     adaptive=True,
                     content=ft.Column(
+                        expand=True,
                         adaptive=True,
                         controls=[
                             ft.Row(
@@ -350,8 +355,8 @@ def home(page):
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
-                    height=250,
-                    width=560,
+                    height=200,
+                    width=460,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
@@ -363,6 +368,7 @@ def home(page):
                 ft.OutlinedButton(
                     adaptive=True,
                     content=ft.Column(
+                        expand=True,
                         adaptive=True,
                         controls=[
                             ft.Row(
@@ -382,8 +388,8 @@ def home(page):
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
-                    height=250,
-                    width=560,
+                    height=200,
+                    width=460,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
@@ -395,6 +401,7 @@ def home(page):
                 ft.OutlinedButton(
                     adaptive=True,
                     content=ft.Column(
+                        expand=True,
                         adaptive=True,
                         controls=[
                             ft.Row(
@@ -415,8 +422,8 @@ def home(page):
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
-                    height=250,
-                    width=560,
+                    height=200,
+                    width=460,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
@@ -500,7 +507,7 @@ def home(page):
                 ),
             ],
             bgcolor='white',
-            toolbar_height=90,
+            toolbar_height=80,
         )
         page.update()
 
