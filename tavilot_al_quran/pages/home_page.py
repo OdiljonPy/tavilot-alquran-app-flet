@@ -511,5 +511,5 @@ def home(page):
         page.update()
 
     update_appbar()
-    page.add(entrance_logo, ft.Text(height=10), three_windows)
+    page.add(entrance_logo, ft.Text(height=10), three_windowsm, ft.Text(height=10))
     page.update()
