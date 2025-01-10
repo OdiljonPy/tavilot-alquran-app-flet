@@ -1,21 +1,21 @@
-import time
 import flet as ft
 import os
-import requests
+
 from .surah_page import surah_page
 from .al_quran_oquvchilariga import al_quron_oquvchilariga
 from .about_us_page import about_us_page
+from .menuscript import menuscript
+from .studies import studies
+from .resources import resources
+from .refusal import refusal
 
 
 def home(page):
     page.clean()
     page.adaptive = True
     page.theme_mode = ft.ThemeMode.LIGHT
-    page.bgcolor = ft.colors.GREY_200
-    page.scroll = True
-    page.window_min_width = 1815
+    page.bgcolor = ft.colors.WHITE
     TC = '#E9BE5F'
-    page.update()
 
     # ----back button--------------------------------------------------------------------------------------------------------
     back_button = ft.Container(content=ft.Row(controls=[ft.Text(width=50),
@@ -39,26 +39,8 @@ def home(page):
                                               )
 
                                )
+
     # -----------------------------------------------------------------------------------------------------------------------
-
-    navbar_text1 = ft.Text('Asosiy Sahifa', color='#007577', size=20,
-                           style=ft.TextStyle(decoration=ft.TextDecoration.UNDERLINE, decoration_color='#007577'))
-    navbar_text2 = ft.Text("TA'VILOT AL-QURON O'QUVCHILARIGA", color='black', size=20, style=None)
-    navbar_text3 = ft.Text('DASTUR XAQIDA', color='black', size=20, style=None)
-
-    gesture_text1 = ft.GestureDetector(adaptive=True, content=navbar_text1, on_tap=lambda e: home(page))
-    gesture_text2 = ft.GestureDetector(adaptive=True, content=navbar_text2,
-                                       on_tap=lambda e: al_quron_oquvchilariga(page, navbar_text1, navbar_text2,
-                                                                               navbar_text3, back_button))
-    gesture_text3 = ft.GestureDetector(adaptive=True, content=navbar_text3,
-                                       on_tap=lambda e: about_us_page(page, navbar_text1, navbar_text2, navbar_text3))
-
-    navbar_text1.style = ft.TextStyle(decoration=ft.TextDecoration.UNDERLINE, decoration_color='#007577')
-    navbar_text1.color = '#007577'
-    navbar_text2.style = None
-    navbar_text2.color = 'black'
-    navbar_text3.style = None
-    navbar_text3.color = 'black'
 
     def buy_page(e):
         page.clean()
@@ -97,7 +79,7 @@ def home(page):
     )
 
     # ----Buy page content---------------------------------------------------------------------------------------------------
-    buy_text = text = ft.Text('         Xaridlar', size=30, color='black', weight='bold')
+    buy_text = ft.Text('         Xaridlar', size=30, color='black', weight='bold')
 
     buy_things = ft.Container(content=ft.Row(controls=[
         ft.Text(width=50),
@@ -145,78 +127,18 @@ def home(page):
     ],
     ))
 
-    # ------Main page--------------------------------------------------------------------------------------------------------
+    # ------Main page-------------------------------------------------------------------------------------------------------
 
-    desktop_size = ft.MenuBar(
-        expand=True,
-        controls=[
-            ft.SubmenuButton(
-                content=ft.Image(src=os.path.abspath("assets/maximize-3.png")),
-                controls=[
-                    ft.Text('hi')
-                ],
-                width=38,
-                height=50
-            )
-        ]
+    about_us_icon = ft.IconButton(
+        icon=ft.Icons.INFO,
+        icon_color=TC,
+        on_click=lambda e: about_us_page(page, back_button)
     )
 
-    hatchup_menu = ft.MenuBar(
-        expand=True,
-        controls=[
-            ft.SubmenuButton(
-                content=ft.Image(src=os.path.abspath("assets/archive-minus.svg")),
-                controls=[
-                    ft.Text('hi')
-                ],
-                width=38,
-                height=50
-            )
-        ]
-    )
-
-    oyat_menu = ft.MenuBar(
-        expand=True,
-        controls=[
-            ft.SubmenuButton(
-                content=ft.Image(src=os.path.abspath("assets/note-2.svg")),
-                controls=[
-                    ft.Text('hi')
-                ],
-                width=38,
-                height=50
-            )
-        ]
-    )
-
-    # PopupMenuButton with font options
-    font_menu = ft.MenuBar(
-        expand=True,
-        controls=[
-            ft.SubmenuButton(
-                content=ft.Image(src=os.path.abspath("assets/smallcaps.svg")),
-                controls=[
-                    ft.MenuItemButton(
-                        content=ft.Text("Arial"), on_click=None
-                    ),
-                    ft.MenuItemButton(
-                        content=ft.Text("Courier New"), on_click=None
-                    ),
-                    ft.MenuItemButton(
-                        content=ft.Text("Times New Roman"), on_click=None
-                    ),
-                    ft.MenuItemButton(
-                        content=ft.Text("Verdana"), on_click=None
-                    ),
-                    ft.MenuItemButton(
-                        content=ft.Text("Georgia"), on_click=None
-                    ),
-
-                ],
-                width=38,
-                height=50
-            )
-        ]
+    logout_icon = ft.IconButton(
+        icon=ft.Icons.LOGOUT,
+        icon_color=TC,
+        on_click=lambda e: None
     )
 
     image = ft.Image(src=os.path.abspath("assets/Ўз.svg"))
@@ -233,93 +155,57 @@ def home(page):
         page.update()
 
     # PopupMenuButton with language options
-    language_menu = ft.MenuBar(
-        expand=True,
-        controls=[
-            ft.SubmenuButton(
-                content=image,
-                controls=[
-                    ft.MenuItemButton(
-                        content=ft.Text("English"), on_click=on_language_select
-                    ),
-                    ft.MenuItemButton(
-                        content=ft.Text("Uzbek"), on_click=on_language_select
-                    ),
-                    ft.MenuItemButton(
-                        content=ft.Text("Russian"), on_click=on_language_select
-                    ),
-                ],
-                width=38,
-                height=50
-            )
+    language_menu = ft.PopupMenuButton(
+        content=image,
+        items=[
+            ft.PopupMenuItem(text="Uzb", on_click=on_language_select),
+            ft.PopupMenuItem(text="ru")
         ]
     )
-    # Function to toggle theme
-    is_light_mode = True
 
-    # Function to handle theme toggle and change background color
-    def change_theme(e):
-        nonlocal is_light_mode
-        if e.control == light_button:
-            page.theme_mode = ft.ThemeMode.LIGHT
-            is_light_mode = True
-            light_button.bgcolor = TC  # Active background color for light mode
-            dark_button.bgcolor = ft.colors.TRANSPARENT  # Inactive background color for dark mode
-        elif e.control == dark_button:
-            page.theme_mode = ft.ThemeMode.DARK
-            is_light_mode = False
-            dark_button.bgcolor = TC  # Active background color for dark mode
-            light_button.bgcolor = ft.colors.TRANSPARENT  # Inactive background color for light mode
-        page.update()  # Update the page to reflect changes
+    # def close_anchor(e):
+    #     text = f"Color {e.control.data}"
+    #     print(f"closing view from {text}")
+    #     anchor.close_view(text)
+    #
+    # def handle_change(e):
+    #     print(f"handle_change e.data: {e.data}")
+    #
+    # def handle_submit(e):
+    #     print(f"handle_submit e.data: {e.data}")
+    #
+    # def handle_tap(e):
+    #     print(f"handle_tap")
+    #     anchor.open_view()
+    #
+    # search = ft.SearchBar(
+    #     bar_bgcolor='white',
+    #     bar_border_side=ft.BorderSide(color=TC, width=1),
+    #     view_elevation=4,
+    #     divider_color=ft.colors.AMBER,
+    #     bar_leading=ft.Icon(ft.icons.SEARCH),
+    #     bar_hint_text="Nima o'qimoqchisiz?...",
+    #     view_hint_text="Choose a color from the suggestions...",
+    #     on_change=handle_change,
+    #     on_submit=handle_submit,
+    #     on_tap=handle_tap,
+    #     controls=[
+    #         ft.ListTile(title=ft.Text(f"Color {i}"), on_click=close_anchor, data=i)
+    #         for i in range(10)
+    #     ],
+    # )
 
-    # Create a switch for toggling themes
-    light_button = ft.IconButton(ft.icons.LIGHT_MODE, on_click=change_theme, bgcolor=TC)
-    dark_button = ft.IconButton(ft.icons.DARK_MODE, on_click=change_theme)
-
-    theme_switcher = ft.Container(
-        content=ft.Row(
-            controls=[light_button, dark_button],
-            spacing=0
-        ),
-        bgcolor='#FFFFFF',
-        border_radius=20
-    )
-
-    def close_anchor(e):
-        text = f"Color {e.control.data}"
-        print(f"closing view from {text}")
-        anchor.close_view(text)
-
-    def handle_change(e):
-        print(f"handle_change e.data: {e.data}")
-
-    def handle_submit(e):
-        print(f"handle_submit e.data: {e.data}")
-
-    def handle_tap(e):
-        print(f"handle_tap")
-        anchor.open_view()
-
-    anchor = ft.SearchBar(
-        bar_bgcolor='white',
-        bar_border_side=ft.BorderSide(color=TC, width=1),
-        view_elevation=4,
-        divider_color=ft.colors.AMBER,
-        bar_leading=ft.Icon(ft.icons.SEARCH),
-        bar_hint_text="Nima o'qimoqchisiz?...",
-        view_hint_text="Choose a color from the suggestions...",
-        on_change=handle_change,
-        on_submit=handle_submit,
-        on_tap=handle_tap,
+    entrance_logo = ft.Container(content=ft.Row(
+        height=600,
+        width=500,
         controls=[
-            ft.ListTile(title=ft.Text(f"Color {i}"), on_click=close_anchor, data=i)
-            for i in range(10)
-        ],
-    )
-
-    new_one = ft.Container(content=ft.Row(
-        controls=[
-            anchor
+            ft.Image(
+                color='#007577',
+                src=os.path.abspath("assets/tA'VILOT_Монтажная_область1.png"),
+                fit=ft.ImageFit.COVER,
+                width=400,
+                height=200,
+            )
         ],
         alignment=ft.MainAxisAlignment.CENTER
     ),
@@ -332,11 +218,15 @@ def home(page):
 
     )
 
-    divider = ft.Divider(height=30, color='white')
+    divider = ft.Divider(height=30)
 
     three_windows = ft.Container(
+        expand=True,
         adaptive=True,
         content=ft.Row(
+            expand=True,
+            wrap=True,
+            run_spacing=40,
             spacing=40,
             adaptive=True,
             controls=[
@@ -345,38 +235,31 @@ def home(page):
                     content=ft.Column(
                         adaptive=True,
                         controls=[
-                            ft.Column(
-                                adaptive=True,
-                                controls=[
-                                    ft.Text('')
-                                ]
-                            ),
                             ft.Row(
-                                run_spacing=100,
+                                width=20,
+                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                height=110,
+                                spacing=100,
                                 adaptive=True,
                                 controls=[
-                                    ft.Text(width=9),
-                                    ft.Image(src=os.path.abspath("assets/book-open_1.svg"))
+                                    ft.Image(src=os.path.abspath("assets/book-open_1.svg"), offset=ft.Offset(0.5, -1)),
+                                    ft.Image(src=os.path.abspath(
+                                        "assets/Безымянный_1_Монтажная_область_1_копияii_06p_02.svg"), height=100,
+                                             color=ft.Colors.WHITE)
                                 ]
                             ),
-                            ft.Column(
-                                adaptive=True,
-                                controls=[
-                                    ft.Text("\n   TA'VILOT AL-QURON \n   O'QUVCHILARIGA", size=25, color='white')
-                                ]
-                            )
+                            ft.Text("\n   Abu Mansur Matrudiy", size=25, color='white')
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
-                    height=200,
+                    height=250,
                     width=560,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
                         shape=ft.RoundedRectangleBorder(radius=20),
                     ),
-                    on_click=lambda e: al_quron_oquvchilariga(page, navbar_text1, navbar_text2, navbar_text3,
-                                                              back_button)
+                    on_click=lambda e: al_quron_oquvchilariga(page, back_button)
 
                 ),
 
@@ -385,33 +268,32 @@ def home(page):
                     content=ft.Column(
                         adaptive=True,
                         controls=[
-                            ft.Column(
-                                adaptive=True,
-                                controls=[
-                                    ft.Text('')
-                                ]),
                             ft.Row(
+                                width=20,
+                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                height=110,
+                                spacing=100,
                                 adaptive=True,
                                 controls=[
-                                    ft.Text(width=9),
-                                    ft.Image(src=os.path.abspath("assets/shopping-bag_1.svg"))
-                                ]),
-                            ft.Column(
-                                adaptive=True,
-                                controls=[
-                                    ft.Text('\n   XARIDLAR', size=25, color='black')
-                                ])
+                                    ft.Image(src=os.path.abspath("assets/book-open_1.svg"), offset=ft.Offset(0.5, -1)),
+                                    ft.Image(src=os.path.abspath(
+                                        "assets/Безымянный_1_Монтажная_область_1_копияr_03.png"), height=100,
+                                        color=ft.Colors.WHITE)
+                                ]
+                            ),
+                            ft.Text("\n   TA'VILOT AL-QURON O'QUVCHILARIGA", size=25, color='white')
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
-                    height=200,
+                    height=250,
                     width=560,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
                         shape=ft.RoundedRectangleBorder(radius=20),
                     ),
-                    on_click=buy_page
+                    on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+
                 ),
 
                 ft.OutlinedButton(
@@ -419,33 +301,129 @@ def home(page):
                     content=ft.Column(
                         adaptive=True,
                         controls=[
-                            ft.Column(
-                                adaptive=True,
-                                controls=[
-                                    ft.Text('')
-                                ]),
                             ft.Row(
+                                width=20,
+                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                height=110,
+                                spacing=100,
                                 adaptive=True,
                                 controls=[
-                                    ft.Text(width=9),
-                                    ft.Image(src=os.path.abspath("assets/info_1.svg"))
-                                ]),
-                            ft.Column(
-                                adaptive=True,
-                                controls=[
-                                    ft.Text('\n   DASTUR XAKIDA', size=25, color='black')
-                                ])
+                                    ft.Image(src=os.path.abspath("assets/book-open_1.svg"), offset=ft.Offset(0.5, -1)),
+                                    ft.Image(src=os.path.abspath(
+                                        "assets/Безымянный_1_Монтажная_область_1_копияr_04.png"), height=100,
+                                        color=ft.Colors.WHITE)
+                                ]
+                            ),
+                            ft.Text("\n   Qo'lyozma va sharhlar", size=25, color='white')
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
-                    height=200,
+                    height=250,
                     width=560,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
                         shape=ft.RoundedRectangleBorder(radius=20),
                     ),
-                    on_click=lambda e: about_us_page(page, navbar_text1, navbar_text2, navbar_text3)
+                    on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+
+                ),
+                ft.OutlinedButton(
+                    adaptive=True,
+                    content=ft.Column(
+                        adaptive=True,
+                        controls=[
+                            ft.Row(
+                                width=20,
+                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                height=110,
+                                spacing=100,
+                                adaptive=True,
+                                controls=[
+                                    ft.Image(src=os.path.abspath("assets/book-open_1.svg"), offset=ft.Offset(0.5, -1)),
+                                    ft.Image(src=os.path.abspath(
+                                        "assets/Безымянный_1_Монтажная_область_1_копияr_05.png"), height=100,
+                                        color=ft.Colors.WHITE)
+                                ]
+                            ),
+                            ft.Text("\n   Zamonaviy tadqiqotlar", size=25, color='white')
+                        ],
+                        horizontal_alignment=ft.CrossAxisAlignment.STRETCH
+                    ),
+                    height=250,
+                    width=560,
+                    style=ft.ButtonStyle(
+                        color='white',
+                        bgcolor='#E9BE5F',
+                        shape=ft.RoundedRectangleBorder(radius=20),
+                    ),
+                    on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+
+                ),
+                ft.OutlinedButton(
+                    adaptive=True,
+                    content=ft.Column(
+                        adaptive=True,
+                        controls=[
+                            ft.Row(
+                                width=20,
+                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                height=110,
+                                spacing=100,
+                                adaptive=True,
+                                controls=[
+                                    ft.Image(src=os.path.abspath("assets/book-open_1.svg"), offset=ft.Offset(0.5, -1)),
+                                    ft.Image(src=os.path.abspath(
+                                        "assets/Безымянный_1_Монтажная_область_1_копияr_06.png"), height=100,
+                                        color=ft.Colors.WHITE)
+                                ]
+                            ),
+                            ft.Text("\n   Resurslar: O'quv qo'llanmalari va \n   O'QUVCHILARIGA", size=25, color='white')
+                        ],
+                        horizontal_alignment=ft.CrossAxisAlignment.STRETCH
+                    ),
+                    height=250,
+                    width=560,
+                    style=ft.ButtonStyle(
+                        color='white',
+                        bgcolor='#E9BE5F',
+                        shape=ft.RoundedRectangleBorder(radius=20),
+                    ),
+                    on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+
+                ),
+                ft.OutlinedButton(
+                    adaptive=True,
+                    content=ft.Column(
+                        adaptive=True,
+                        controls=[
+                            ft.Row(
+                                width=20,
+                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                height=110,
+                                spacing=100,
+                                adaptive=True,
+                                controls=[
+                                    ft.Image(src=os.path.abspath("assets/book-open_1.svg"), offset=ft.Offset(0.5, -1)),
+                                    ft.Image(src=os.path.abspath(
+                                        "assets/Безымянный_1_Монтажная_область_1_копияr_Монтажная_область_1.png"),
+                                        height=100,
+                                        color=ft.Colors.WHITE)
+                                ]
+                            ),
+                            ft.Text("\n   Mutaassib oqimlarga raddiyalar", size=25, color='white')
+                        ],
+                        horizontal_alignment=ft.CrossAxisAlignment.STRETCH
+                    ),
+                    height=250,
+                    width=560,
+                    style=ft.ButtonStyle(
+                        color='white',
+                        bgcolor='#E9BE5F',
+                        shape=ft.RoundedRectangleBorder(radius=20),
+                    ),
+                    on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+
                 ),
             ],
             alignment=ft.MainAxisAlignment.CENTER
@@ -453,85 +431,77 @@ def home(page):
         alignment=ft.alignment.center
     )
 
-    text = ft.Text('            Suralar', size=30, color='black', weight='bold')
+    routes = {
+        "Abu Mansur Motrudiy": al_quron_oquvchilariga,
+        "Tavilot al-Quron": surah_page,
+        "Qo'lyozma va sharhlar": menuscript,
+        "Zamonaviy tadqiqotlar": studies,
+        "Resurslar": resources,
+        "Mutaassib oqimlarga raddiyalar": refusal
+    }
 
-    gv = ft.Row(wrap=True, expand=True, alignment=ft.MainAxisAlignment.CENTER)
+    active_route = None
 
-    # API request
-    url = "http://alquran.zerodev.uz/api/v1/chapters/"
-    response = requests.get(url)
+    def navigate(e, route):
+        nonlocal active_route
+        if route != active_route:
+            active_route = route
+            update_appbar()  # Refresh the AppBar with updated colors
+            if route in routes:
+                routes[route](page, back_button)  # Call the corresponding route function
+            else:
+                page.clean()
+                page.add(ft.Text("404 - Page Not Found", size=20))
+                page.update()
 
-    if response.status_code == 200:
-        result_lists = response.json().get("result")
-
-        for surah in result_lists:
-            type_choice = "Makkiy" if surah.get("type_choice") == 1 else "Madaniy"
-            gv.controls.append(ft.OutlinedButton(content=ft.Column(
-                controls=[
-                    ft.Column(controls=[
-                        ft.Text('')
-                    ]),
-                    ft.Row(controls=[
-                        ft.Container(content=ft.Text(surah.get('id')), image_src=os.path.abspath("assets/Star1.png"),
-                                     width=50, height=50, alignment=ft.alignment.center),
-                        ft.Container(content=ft.Row(
-                            spacing=150,
-                            controls=[
-                                ft.Text(f"{surah.get('name')} \n{type_choice}, {surah.get('verse_number')} OYAT",
-                                        size=25, color='black'),
-                                ft.Container(
-                                    expand=True,
-                                    alignment=ft.alignment.center_right,
-                                    content=ft.Text(f"{surah.get('name_arabic')} \n{surah.get('verse_number')} oyat",
-                                                      size=20,
-                                                      color='black', text_align=ft.TextAlign.RIGHT)
-                                )
-                            ],
-                        )
-                        )
-                    ]
-                    ),
-                ],
-                horizontal_alignment=ft.CrossAxisAlignment.STRETCH
-            ),
-                height=120,
-                width=580,
+    def generate_appbar_actions():
+        return [
+            ft.TextButton(
+                text=route_label,
                 style=ft.ButtonStyle(
-                    color='white',
-                    shape=ft.RoundedRectangleBorder(radius=10),
+                    text_style=ft.TextStyle(size=17),
+                    color='#007577' if route == active_route else ft.colors.BLACK,
                 ),
-                on_click=lambda e: surah_page(page),
-
-            ),
+                on_click=lambda e, r=route: navigate(e, r)
             )
-    else:
-        print("Error retrieving data")
+            for route, route_label in [
+                ("Abu Mansur Motrudiy", "Abu Mansur Motrudiy"),
+                ("Tavilot al-Quron", "Tavilot al-Quron"),
+                ("Qo'lyozma va sharhlar", "Qo'lyozma va sharhlar"),
+                ("Zamonaviy tadqiqotlar", "Zamonaviy tadqiqotlar"),
+                ("Resurslar", "Resurslar"),
+                ("Mutaassib oqimlarga raddiyalar", "Mutaassib oqimlarga raddiyalar")
 
-    page.appbar = ft.AppBar(
-        adaptive=True,
-        leading=ft.Image(src=os.path.abspath("assets/maturidiy_logo.png")),
-        leading_width=100,
-        actions=[
-            gesture_text1,
-            ft.Text(width=45),
-            gesture_text2,
-            ft.Text(width=30),
-            gesture_text3,
-            ft.Text(width=250),
-            theme_switcher,
-            ft.Text(width=100),
-            language_menu,
-            ft.Text(width=30),
-            font_menu,
-            ft.Text(width=30),
-            oyat_menu,
-            ft.Text(width=30),
-            hatchup_menu,
-            ft.Text(width=30),
-            desktop_size
-        ],
-        bgcolor='white',
-        toolbar_height=90,
-    )
-    page.add(new_one, three_windows, divider, text, ft.Container(gv, alignment=ft.alignment.center))
+            ]
+        ]
+
+    def update_appbar():
+        page.appbar = ft.AppBar(
+            adaptive=True,
+            leading=ft.Image(
+                color='#007577',
+                src=os.path.abspath("assets/tA'VILOT_Монтажная_область1.svg")
+            ),
+            leading_width=100,
+            actions=[
+                ft.Row(
+                    adaptive=True,
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    spacing=25,
+                    controls=[*generate_appbar_actions()]
+                ),
+                ft.Text(width=250),
+                language_menu,
+                ft.Text(width=30),
+                logout_icon,
+                ft.Text(width=30),
+                about_us_icon
+            ],
+            bgcolor='white',
+            toolbar_height=90,
+        )
+        page.update()
+
+    update_appbar()
+    page.add(entrance_logo, ft.Text(height=50), three_windows)
     page.update()

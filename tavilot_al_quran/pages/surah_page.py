@@ -6,20 +6,19 @@ import time
 TC = '#E9BE5F'
 
 
-def surah_page(page):
+def surah_page(page, back_button):
     page.clean()
-    page.scroll = False
 
     loading = ft.ProgressRing()
-    page.add(ft.Container(
-        expand=True,
-        adaptive=True,
-        content=loading,
-        alignment=ft.alignment.center))
-    time.sleep(0.6)
 
-    list_display = ft.ListView(expand=True, spacing=10, padding=20, adaptive=True)
-    list_display_juz = ft.ListView(expand=True, spacing=10, padding=20, adaptive=True)
+    page.add(ft.Container(
+        content=ft.Column(controls=[ft.Text(height=480), loading], alignment=ft.MainAxisAlignment.CENTER),
+        alignment=ft.alignment.center))
+
+    page.update()
+
+    list_display = ft.ListView(expand=True, spacing=10, padding=20)
+    list_display_juz = ft.ListView(expand=True, spacing=10, padding=20)
     right_display_juz = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
                                   horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     right_display = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
@@ -108,15 +107,16 @@ def surah_page(page):
             list_display.controls.append(ft.Container(
                 data=i.get('id'),
                 on_click=lambda e: take_id(e.control.data),
-                expand=True,
-                content=ft.Row(controls=[
+                content=ft.Row(
+                    expand=True,
+                    controls=[
                     ft.Container(content=ft.Text(i.get('id'), color='black'), shape=ft.BoxShape.CIRCLE, width=60,
                                  height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)),
                     ft.Column(controls=[
                         ft.Text(i.get('name'), size=20),
                         ft.Text(f"{i.get('type_choice')}, {i.get('verse_number')} oyat", size=10)
                     ]),
-                    ft.Text(i.get('name_arabic'), size=15, text_align=ft.TextAlign.RIGHT, width=150)
+                    ft.Text(value=i.get('name_arabic'), size=15, text_align=ft.TextAlign.RIGHT, width=150)
                 ])))
     else:
         print('Error')
@@ -372,49 +372,67 @@ def surah_page(page):
 
     # -------------------------------------------------------------------------------------------------------------------
 
-    tabs = ft.Tabs(
-        width=300,
-        label_text_style=ft.TextStyle(size=20),
-        unselected_label_color='#A4A4A4',
-        label_color='black',
-        indicator_color=TC,
-        divider_height=0,
-        tab_alignment=ft.TabAlignment.CENTER,
-        selected_index=0,
-        animation_duration=200,
-        tabs=[
-            ft.Tab(
-                text="Suralar",
-                content=list_display
-            ),
-            ft.Tab(
-                text="Juzlar",
-                content=list_display_juz
-            ),
-            ft.Tab(text='Xatchup')
-        ]
+    # Initialize default colors
+    button1_color = TC
+    button2_color = ft.colors.BLACK
+
+    # Define ListView
+    list_view = ft.ListView(expand=1, spacing=10)
+    list_view.controls = list_display.controls
+
+    # Button click handler
+    def button_click(e):
+        nonlocal button1_color, button2_color
+
+        # Update text colors and ListView content based on which button was clicked
+        if e.control.data == "button1":
+            button1_color = TC
+            button2_color = ft.colors.BLACK
+            list_view.controls = list_display.controls
+        elif e.control.data == "button2":
+            button1_color = ft.colors.BLACK
+            button2_color = TC
+            list_view.controls = list_display_juz.controls
+
+        # Refresh UI
+        button1.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button1_color)
+        button2.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button2_color)
+        page.update()
+
+    # Define TextButtons
+    button1 = ft.TextButton(
+        "Surah",
+        data="button1",
+        style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button1_color),
+        on_click=button_click,
     )
 
-    side_bar = ft.Row(
-        expand=True,
-        adaptive=True,
-        controls=[
-            ft.Container(
-                alignment=ft.alignment.center,
-                height=page.window_height,
-                adaptive=True,
-                content=ft.Column(
-                    height=page.window_height,
-                    expand=True,
-                    adaptive=True,
-                    controls=[
-                        tabs,
-                        list_display,
-                    ]
+    button2 = ft.TextButton(
+        "Juz",
+        data="button2",
+        style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button2_color),
+        on_click=button_click,
+    )
 
-                ),
-                bgcolor='#FFFFFF',
+
+    side_bar = ft.Row(
+        vertical_alignment=ft.CrossAxisAlignment.START,
+        expand=True,
+        controls=[
+            ft.Column(
                 width=350,
+                controls=[
+                    ft.Row(
+                        spacing=20,
+                        adaptive=True,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[
+                            button1,
+                            button2
+                        ]
+                    ),
+                    list_view
+                ],
             ),
             ft.Column(
                 adaptive=True,
@@ -442,13 +460,14 @@ def surah_page(page):
                     controls=[
                         ft.Text(height=50),
                         right_display
-
                     ]
                 )
             )
         ],
-        height=page.window_height,
         spacing=0
     )
     page.add(side_bar)
     page.update()
+
+
+

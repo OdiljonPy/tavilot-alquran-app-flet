@@ -1,11 +1,12 @@
 import flet as ft
 import os
 import requests
-from .motrudiy_detail import take_content_id
+from .studies_detail import take_content_id
 
-def al_quron_oquvchilariga(page, back_button):
-    page.clean()
+def studies(page, back_button):
     TC = '#E9BE5F'
+    page.clean()
+
     loading = ft.ProgressRing()
 
     page.add(ft.Container(
@@ -14,7 +15,7 @@ def al_quron_oquvchilariga(page, back_button):
 
     page.update()
 
-    url = "http://176.221.28.202:8008/api/v1/moturudiy/"
+    url = "http://176.221.28.202:8008/api/v1/studies/"
     response = requests.get(url=url)
     print(response.json())
     data_list = ft.Row(wrap=True, expand=True, scroll=ft.ScrollMode.ALWAYS, alignment=ft.MainAxisAlignment.START)
