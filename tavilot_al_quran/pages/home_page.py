@@ -196,7 +196,6 @@ def home(page):
     # )
 
     entrance_logo = ft.Container(
-        expand=True,
         adaptive=True,
         content=ft.Row(
         controls=[
@@ -210,7 +209,7 @@ def home(page):
         ],
         alignment=ft.MainAxisAlignment.CENTER
     ),
-        height=100,
+        height=180,
         alignment=ft.alignment.center,
         image_src=os.path.abspath("assets/searchbg.png"),
         width=page.adaptive,
@@ -227,8 +226,8 @@ def home(page):
         content=ft.Row(
             expand=True,
             wrap=True,
-            run_spacing=40,
-            spacing=40,
+            run_spacing=20,
+            spacing=20,
             adaptive=True,
             controls=[
                 ft.OutlinedButton(
@@ -255,7 +254,7 @@ def home(page):
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
                     height=200,
-                    width=460,
+                    width=400,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
@@ -289,7 +288,7 @@ def home(page):
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
                     height=200,
-                    width=460,
+                    width=400,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
@@ -323,7 +322,7 @@ def home(page):
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
                     height=200,
-                    width=460,
+                    width=400,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
@@ -356,7 +355,7 @@ def home(page):
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
                     height=200,
-                    width=460,
+                    width=400,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
@@ -389,7 +388,7 @@ def home(page):
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
                     height=200,
-                    width=460,
+                    width=400,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
@@ -423,7 +422,7 @@ def home(page):
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
                     height=200,
-                    width=460,
+                    width=400,
                     style=ft.ButtonStyle(
                         color='white',
                         bgcolor='#E9BE5F',
@@ -512,5 +511,5 @@ def home(page):
         page.update()
 
     update_appbar()
-    page.add(entrance_logo, ft.Text(height=50), three_windows)
+    page.add(entrance_logo, ft.Text(height=20), three_windows)
     page.update()
