@@ -488,6 +488,7 @@ def home(page):
             actions=[
                 ft.Row(
                     adaptive=True,
+                    expand=True,
                     alignment=ft.MainAxisAlignment.CENTER,
                     spacing=25,
                     controls=[*generate_appbar_actions(),
