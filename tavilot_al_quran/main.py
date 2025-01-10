@@ -9,6 +9,7 @@ from pages.home_page import home
 
 
 def main(page: ft.Page):
+    TC = '#E9BE5F'
     page.expand = True
     page.padding = 0
     page.clean()
@@ -27,14 +28,34 @@ def main(page: ft.Page):
             ]
         )
     ))
-
     time.sleep(2)
-
     page.clean()
+    # page.scroll=True
     page.adaptive = True
     page.window_min_width = 1250
     page.window_min_height = 800
     page.theme_mode = ft.ThemeMode.LIGHT
+
+    #------Enter without registration button----------------------------------------------------------------------------
+
+    enter_button = ft.Row(
+        alignment=ft.MainAxisAlignment.END,
+        controls=[
+            ft.OutlinedButton(
+                text="Dasturga kirish",
+                on_click=lambda e: home(page),
+                # Link the button to validation
+                width=200,
+                height=60,
+                style=ft.ButtonStyle(
+                    color='white',
+                    bgcolor=TC,
+                    shape=ft.RoundedRectangleBorder(radius=8),
+                )
+            ),
+            ft.Text()
+        ]
+    )
 
     # -----Registration page---------------------------------------------------------------------------------------------
 
@@ -66,7 +87,6 @@ def main(page: ft.Page):
             phone_input.border_color = 'red'
         page.update()
 
-    TC = '#E9BE5F'
 
     def on_password_change(p, phone):
         print(p, phone)
@@ -259,8 +279,8 @@ def main(page: ft.Page):
             ft.Container(
                 content=ft.Image(
                     src=os.path.abspath("assets/tavilot_book.png"),
-                    width=700,
-                    height=900,
+                    width=650,
+                    height=800,
                     fit=ft.ImageFit.COVER,
                     border_radius=100
                 ),
@@ -439,7 +459,7 @@ def main(page: ft.Page):
 
     # ------------------------------------------------------------------------------------------------------------------
     # Add the centered container to the page
-    page.add(centered_container)
+    page.add(enter_button, centered_container)
     page.update()
 
 
