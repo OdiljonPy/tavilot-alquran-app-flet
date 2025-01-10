@@ -30,6 +30,7 @@ def main(page: ft.Page):
     ))
     time.sleep(2)
     page.clean()
+    page.window_resizable = True
     page.adaptive = True
     page.expand = True
     page.window_min_width = 1250
