@@ -12,6 +12,7 @@ from .refusal import refusal
 
 def home(page):
     page.clean()
+    page.scrol=True
     page.adaptive = True
     page.theme_mode = ft.ThemeMode.LIGHT
     page.bgcolor = ft.colors.WHITE
