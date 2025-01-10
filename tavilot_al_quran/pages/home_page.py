@@ -461,7 +461,7 @@ def home(page):
                 adaptive=True,
                 text=route_label,
                 style=ft.ButtonStyle(
-                    text_style=ft.TextStyle(size=17),
+                    text_style=ft.TextStyle(size=10),
                     color='#007577' if route == active_route else ft.colors.BLACK,
                 ),
                 on_click=lambda e, r=route: navigate(e, r)
@@ -490,14 +490,13 @@ def home(page):
                     adaptive=True,
                     alignment=ft.MainAxisAlignment.CENTER,
                     spacing=25,
-                    controls=[*generate_appbar_actions()]
+                    controls=[*generate_appbar_actions(),
+                              ft.Text(width=20),
+                              language_menu,
+                    logout_icon,
+                    about_us_icon],
+
                 ),
-                ft.Text(width=250),
-                language_menu,
-                ft.Text(width=30),
-                logout_icon,
-                ft.Text(width=30),
-                about_us_icon
             ],
             bgcolor='white',
             toolbar_height=90,
