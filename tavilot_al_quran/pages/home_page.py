@@ -457,6 +457,8 @@ def home(page):
     def generate_appbar_actions():
         return [
             ft.TextButton(
+                expand=True,
+                adaptive=True,
                 text=route_label,
                 style=ft.ButtonStyle(
                     text_style=ft.TextStyle(size=17),
