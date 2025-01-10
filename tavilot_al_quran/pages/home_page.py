@@ -226,8 +226,8 @@ def home(page):
         content=ft.Row(
             expand=True,
             wrap=True,
-            run_spacing=20,
-            spacing=20,
+            run_spacing=10,
+            spacing=10,
             adaptive=True,
             controls=[
                 ft.OutlinedButton(
@@ -511,5 +511,5 @@ def home(page):
         page.update()
 
     update_appbar()
-    page.add(entrance_logo, ft.Text(height=20), three_windows)
+    page.add(entrance_logo, ft.Text(height=10), three_windows)
     page.update()
