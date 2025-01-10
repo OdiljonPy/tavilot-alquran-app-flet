@@ -461,7 +461,7 @@ def home(page):
                 adaptive=True,
                 text=route_label,
                 style=ft.ButtonStyle(
-                    text_style=ft.TextStyle(size=10),
+                    text_style=ft.TextStyle(size=12),
                     color='#007577' if route == active_route else ft.colors.BLACK,
                 ),
                 on_click=lambda e, r=route: navigate(e, r)
