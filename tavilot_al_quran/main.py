@@ -30,8 +30,9 @@ def main(page: ft.Page):
     ))
     time.sleep(2)
     page.clean()
-    # page.scroll=True
+    page.scroll=True
     page.adaptive = True
+    page.expand = True
     page.window_min_width = 1250
     page.window_min_height = 800
     page.theme_mode = ft.ThemeMode.LIGHT
