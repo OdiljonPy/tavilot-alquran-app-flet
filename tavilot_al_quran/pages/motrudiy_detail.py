@@ -1,5 +1,3 @@
-from sqlite3 import adapt
-
 import flet as ft
 import os
 import requests
