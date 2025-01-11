@@ -1,12 +1,8 @@
 import re
 import binascii
-import requests
 import os
 import pyhtml2md
 import flet as ft
-import pymupdf
-from PIL import Image
-from io import BytesIO
 import base64
 
 

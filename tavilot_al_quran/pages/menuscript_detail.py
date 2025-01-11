@@ -1,7 +1,7 @@
 import flet as ft
 import os
 import requests
-from .html_handler.html_pdf_handler import extract_and_process_videos, extract_base64_and_save_images, render_content
+from tavilot_al_quran.html_handler.html_pdf_handler import extract_and_process_videos, extract_base64_and_save_images, render_content
 
 
 def take_content_id(page, back_button, ids):
