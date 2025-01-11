@@ -55,7 +55,7 @@ def main(page: ft.Page):
     page.theme_mode = ft.ThemeMode.LIGHT
     page.update()
 
-    #------Enter without registration button----------------------------------------------------------------------------
+    # ------Enter without registration button----------------------------------------------------------------------------
 
     enter_button = ft.Row(
         alignment=ft.MainAxisAlignment.END,
@@ -105,7 +105,6 @@ def main(page: ft.Page):
             register_result.value = 'Invalid phone number'
             phone_input.border_color = 'red'
         page.update()
-
 
     def on_password_change(p, phone):
         print(p, phone)
@@ -296,12 +295,17 @@ def main(page: ft.Page):
         controls=[
             content_column,
             ft.Container(
-                content=ft.Image(
-                    src=os.path.abspath("assets/tavilot_book.png"),
-                    width=650,
-                    height=800,
-                    fit=ft.ImageFit.COVER,
-                    border_radius=100
+                content=ft.Column(
+                    controls=[
+                        enter_button,
+                        ft.Image(
+                            src=os.path.abspath("assets/tavilot_book.png"),
+                            width=650,
+                            height=800,
+                            fit=ft.ImageFit.COVER,
+                            border_radius=100
+                        )
+                    ]
                 ),
                 clip_behavior=ft.ClipBehavior.ANTI_ALIAS,  # Enable anti-aliasing for smoother edges
             ),
@@ -386,7 +390,7 @@ def main(page: ft.Page):
     # -------------------------------------------------------------------------------------------------------------------
 
     otp_result = ft.Text(value='\nParolni kiriting', color=TC, size=20, text_align=ft.TextAlign.LEFT,
-                                    width=400)
+                         width=400)
 
     resend_button = ft.OutlinedButton(
         disabled=True,
@@ -478,7 +482,7 @@ def main(page: ft.Page):
 
     # ------------------------------------------------------------------------------------------------------------------
     # Add the centered container to the page
-    page.add(enter_button, centered_container)
+    page.add(centered_container)
     page.update()
 
 

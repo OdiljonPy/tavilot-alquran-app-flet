@@ -250,7 +250,7 @@ def home(page):
                                              color=ft.Colors.WHITE)
                                 ]
                             ),
-                            ft.Text("\n   Abu Mansur Matrudiy", size=25, color='white')
+                            ft.Text("\n   Abu Mansur Matrudiy", size=10, color='white', expand=True)
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
@@ -284,7 +284,7 @@ def home(page):
                                         color=ft.Colors.WHITE)
                                 ]
                             ),
-                            ft.Text("\n   TA'VILOT AL-QURON O'QUVCHILARIGA", size=25, color='white')
+                            ft.Text("\n   TA'VILOT AL-QURON O'QUVCHILARIGA", size=10, color='white', expand=True)
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
@@ -318,7 +318,7 @@ def home(page):
                                         color=ft.Colors.WHITE)
                                 ]
                             ),
-                            ft.Text("\n   Qo'lyozma va sharhlar", size=25, color='white')
+                            ft.Text("\n   Qo'lyozma va sharhlar", size=10, color='white', expand=True)
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
@@ -351,7 +351,7 @@ def home(page):
                                         color=ft.Colors.WHITE)
                                 ]
                             ),
-                            ft.Text("\n   Zamonaviy tadqiqotlar", size=25, color='white')
+                            ft.Text("\n   Zamonaviy tadqiqotlar", size=10, color='white', expand=True)
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
@@ -384,7 +384,7 @@ def home(page):
                                         color=ft.Colors.WHITE)
                                 ]
                             ),
-                            ft.Text("\n   Resurslar: O'quv qo'llanmalari va \n   O'QUVCHILARIGA", size=25, color='white')
+                            ft.Text("\n   Resurslar: O'quv qo'llanmalari va \n   O'QUVCHILARIGA", size=10, color='white', expand=True)
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),
@@ -418,7 +418,7 @@ def home(page):
                                         color=ft.Colors.WHITE)
                                 ]
                             ),
-                            ft.Text("\n   Mutaassib oqimlarga raddiyalar", size=25, color='white')
+                            ft.Text("\n   Mutaassib oqimlarga raddiyalar", size=10, color='white', expand=True)
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                     ),

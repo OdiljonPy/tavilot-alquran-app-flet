@@ -1,7 +1,6 @@
 import flet as ft
 import requests
 import os
-import time
 
 TC = '#E9BE5F'
 
