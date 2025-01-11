@@ -4,7 +4,7 @@ import pymupdf
 from PIL import Image
 from io import BytesIO
 import base64
-from tavilot_al_quran.html_handler.html_pdf_handler import extract_base64_and_save_images, extract_and_process_videos, render_content
+from .html_pdf_handler import extract_base64_and_save_images, extract_and_process_videos, render_content
 
 def about_us_page(page, back_button):
     page.clean()
