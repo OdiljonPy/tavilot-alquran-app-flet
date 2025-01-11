@@ -16,9 +16,22 @@ def surah_page(page, back_button):
         alignment=ft.alignment.center))
 
     page.update()
+    divider = ft.Container(
+                adaptive=True,
+                bgcolor=TC,  # The line's color
+                width=5,  # Thickness of the line
+                height=page.window_width,  # Match the height of the containers
+            )
 
-    list_display = ft.ListView(expand=True, spacing=10, padding=20)
-    list_display_juz = ft.ListView(expand=True, spacing=10, padding=20)
+    def on_resize(event):
+        divider
+        page.update()
+
+    # Attach resize event handler
+    page.on_resize = on_resize
+
+    list_display = ft.ListView(adaptive=True, spacing=10, padding=20)
+    list_display_juz = ft.ListView(adaptive=True, spacing=10, padding=20)
     right_display_juz = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
                                   horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     right_display = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
@@ -37,12 +50,14 @@ def surah_page(page, back_button):
                 expand=True,
                 content=ft.Row(
                     controls=[
-                        ft.Container(content=ft.Text(i.get('number'), color='black'), shape=ft.BoxShape.CIRCLE,
+                        ft.Container(adaptive=True, content=ft.Text(i.get('number'), color='black'), shape=ft.BoxShape.CIRCLE,
                                      width=60,
                                      height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)),
-                        ft.Column(controls=[
-                            ft.Text(value=f"{i.get('number')}-JUZ", size=20),
-                            ft.Text(f"{i.get('title')}", size=10)
+                        ft.Column(
+                            adaptive=True,
+                            controls=[
+                            ft.Text(expand=True, value=f"{i.get('number')}-JUZ", size=20),
+                            ft.Text(f"{i.get('title')}", size=10, expand=True)
                         ])
                     ]
                 )
@@ -108,15 +123,16 @@ def surah_page(page, back_button):
                 data=i.get('id'),
                 on_click=lambda e: take_id(e.control.data),
                 content=ft.Row(
-                    expand=True,
+                    adaptive=True,
                     controls=[
-                    ft.Container(content=ft.Text(i.get('id'), color='black'), shape=ft.BoxShape.CIRCLE, width=60,
+                    ft.Container(adaptive=True, content=ft.Text(i.get('id'), color='black'), shape=ft.BoxShape.CIRCLE, width=60,
                                  height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)),
-                    ft.Column(controls=[
-                        ft.Text(i.get('name'), size=20),
-                        ft.Text(f"{i.get('type_choice')}, {i.get('verse_number')} oyat", size=10)
+                    ft.Column(
+                        controls=[
+                        ft.Text(i.get('name'), size=20, expand=True),
+                        ft.Text(f"{i.get('type_choice')}, {i.get('verse_number')} oyat", size=10, expand=True)
                     ]),
-                    ft.Text(value=i.get('name_arabic'), size=15, text_align=ft.TextAlign.RIGHT, width=150)
+                    ft.Text(value=i.get('name_arabic'), size=15, text_align=ft.TextAlign.RIGHT, width=150, expand=True)
                 ])))
     else:
         print('Error')
@@ -405,6 +421,7 @@ def surah_page(page, back_button):
         data="button1",
         style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button1_color),
         on_click=button_click,
+
     )
 
     button2 = ft.TextButton(
@@ -412,6 +429,7 @@ def surah_page(page, back_button):
         data="button2",
         style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button2_color),
         on_click=button_click,
+
     )
 
 
@@ -420,6 +438,7 @@ def surah_page(page, back_button):
         expand=True,
         controls=[
             ft.Column(
+                adaptive=True,
                 width=350,
                 controls=[
                     ft.Row(
@@ -434,21 +453,7 @@ def surah_page(page, back_button):
                     list_view
                 ],
             ),
-            ft.Column(
-                adaptive=True,
-                controls=[
-                    ft.Container(
-                        expand=True,
-                        adaptive=True,
-                        bgcolor=TC,  # The line's color
-                        width=5,  # Thickness of the line
-                        height=page.window_height,  # Match the height of the containers
-                    ),
-                ],
-                alignment=ft.MainAxisAlignment.CENTER,  # Center the button inside the line
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                spacing=0,  # No space between the line and the button
-            ),
+            divider,
             ft.Container(
                 bgcolor='white',
                 expand=True,

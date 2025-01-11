@@ -9,7 +9,24 @@ from pages.home_page import home
 
 
 def main(page: ft.Page):
+    # Ensure the font file path is correct relative to your script
+    font_path = os.path.join(os.path.dirname(__file__), "fonts", "Amiri-BoldItalic.ttf")
+    font_page_trajan = os.path.join(os.path.dirname(__file__), "fonts", "Trajan.ttf")
+
+    # Check if the font file exists
+    if not os.path.exists(font_path):
+        print(f"Font file not found at {font_path}")
+        return
+
+    # Load custom font
+    page.fonts = {
+        "Amiri": font_path,
+        "Trajan": font_page_trajan
+    }
+
+    print(f"Font file loaded from {font_path}")
     TC = '#E9BE5F'
+    page.theme = ft.Theme(font_family="Trajan")
     page.expand = True
     page.padding = 0
     page.clean()

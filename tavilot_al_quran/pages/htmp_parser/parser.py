@@ -102,7 +102,7 @@ def parse_html_to_flet(element):
     # Heading tags
     elif element.name in HTML.HEADINGS_TEXT_SIZE.keys():
         heading_text = ft.Text(
-            value=element.text, size=HTML.HEADINGS_TEXT_SIZE[element.name], alignment=ft.alignment.center
+            value=element.text, size=HTML.HEADINGS_TEXT_SIZE[element.name], text_align=ft.alignment.center
         )
         return heading_text
 
@@ -124,7 +124,7 @@ def parse_html_to_flet(element):
                     text_content = child.strip()
                     if text_content:
                         text_element = ft.Text(text_content, style=style[0], text_align=ft.alignment.center,
-                        size = 40,
+                        # size = 40,
                         )
                         paragraph.controls.append(text_element)
         return paragraph
@@ -140,8 +140,8 @@ def parse_html_to_flet(element):
                     style=ft.TextStyle(italic=True, color="blue"),
                 )
             ],
-            alignment=ft.alignment.center,
-            size=40,
+            text_align=ft.alignment.center,
+            # size=40,
 
         )
         return link
@@ -163,11 +163,11 @@ def parse_html_to_flet(element):
 
         for i, li in enumerate(element.find_all(HTML.Tags.LI)):
             _leading = (
-                ft.Text("\u2022", size=40)
+                ft.Text("\u2022", )#size=40)
                 if element.name == HTML.Tags.UL
-                else ft.Text(f"{i+1}", size=40)
+                else ft.Text(f"{i+1}", )#size=40)
             )
-            list_item = ft.ListTile(title=ft.Text(li.text, size=40), leading=_leading)
+            list_item = ft.ListTile(title=ft.Text(li.text, ), leading=_leading) #size=40
 
             list_container.controls.append(list_item)
         return list_container
@@ -180,7 +180,7 @@ def parse_html_to_flet(element):
             if element.name == HTML.Tags.B
             else ft.FontWeight.W_900,
             text_align=ft.alignment.center,
-            size=40,
+            # size=40,
 
         )
         return bold_text
@@ -193,7 +193,7 @@ def parse_html_to_flet(element):
 
     # Italic Tag
     elif element.name == HTML.Tags.I or element.name == HTML.Tags.EM:
-        italic_text = ft.Text(element.text, italic=True, alignment=ft.alignment.center, size=40)
+        italic_text = ft.Text(element.text, italic=True, text_align=ft.alignment.center,)# size=40)
         return italic_text
 
     # Underline Tag
@@ -206,7 +206,7 @@ def parse_html_to_flet(element):
                 )
             ],
             text_align=ft.alignment.center,
-            size=40
+            # size=40
         )
         return underlined_text
 
@@ -222,7 +222,7 @@ def parse_html_to_flet(element):
                 )
             ],
             text_align=ft.alignment.center,
-            size=40
+            # size=40
         )
 
     # Code Tag
@@ -231,14 +231,14 @@ def parse_html_to_flet(element):
             element.text,
             selectable=True,
             extension_set="gitHubWeb",
-            code_theme="atom-one-dark",
+            code_theme="atom-onests-htmle-dark",
             alignment=ft.alignment.center
         )
 
     # Span Tag
     elif element.name == HTML.Tags.SPAN:
         span_style = get_style(element)
-        return ft.Text(spans=[ft.TextSpan(element.text, style=span_style[0])], text_align=ft.alignment.center, size=40)
+        return ft.Text(spans=[ft.TextSpan(element.text, style=span_style[0])], text_align=ft.alignment.center,) #size=40)
 
     else:
         # Default to ft.Container for unrecognized elements
@@ -265,13 +265,13 @@ def html_table_to_flet(element, container):
             if headers != []:
                 for i in range(len(headers)):
                     header_text = headers[i].text
-                    flet_table.columns.append(ft.DataColumn(ft.Text(header_text, size=40)))
+                    flet_table.columns.append(ft.DataColumn(ft.Text(header_text, ))) #size=40
 
             if columns != []:
                 data_cells = []
                 for i in range(len(columns)):
                     cell_text = columns[i].text
-                    data_cells.append(ft.DataCell(ft.Text(cell_text, size=40)))
+                    data_cells.append(ft.DataCell(ft.Text(cell_text, ))) #size=40
                 flet_table.rows.append(ft.DataRow(cells=data_cells))
         container.content.controls.append(flet_table)
 
@@ -284,7 +284,7 @@ html_to_flet_style_mapping = {
     "background-color": "bgcolor",
     "font-family": "font_family",
     "font-size": "size",
-    "text-align": "text_align",
+    # "text-align": "text_align",
     "text-decoration": "decoration",
     "display": "display",
     "justify-content": "alignment",
