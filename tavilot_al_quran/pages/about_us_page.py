@@ -110,30 +110,37 @@ def about_us_page(page, back_button):
                 current_page_index += 1
                 render_page()
 
+        # Only create the buttons once
         prev_button = ft.ElevatedButton("Previous Page", on_click=go_to_previous_page, disabled=True)
         next_button = ft.ElevatedButton("Next Page", on_click=go_to_next_page, disabled=True)
 
-        def on_fetch_pdf(e):
-            api_url = requests.get(url="http://176.221.28.202:8008/api/v1/moturudiy/5/").json().get('result').get('file')  # Replace with your API endpoint
+        # Automatically fetch PDF when the app starts
+        def fetch_pdf_on_start():
+            api_url = requests.get(url="http://176.221.28.202:8008/api/v1/moturudiy/5/").json().get('result').get(
+                'file')  # Replace with your API endpoint
             load_pdf_from_api(api_url)
 
-        fetch_button = ft.ElevatedButton("Fetch PDF from API", on_click=on_fetch_pdf)
+        # Call the fetch function when the page is initialized
+        fetch_pdf_on_start()
 
-        page.add(content_container, ft.Column(
-            [
-                ft.Column(
-                    [
-                        fetch_button,
-                        current_page_image,
-                        ft.Row([prev_button, next_button], alignment=ft.MainAxisAlignment.CENTER),
-                    ],
-                    expand=True,
+        page.update()
+
+        page.add(content_container, ft.Container(
+            alignment=ft.alignment.center,
+            content=ft.Column(
+            controls=[
+                current_page_image,
+                ft.Row(
                     alignment=ft.MainAxisAlignment.CENTER,
-                ),
-                ft.Row([prev_button, next_button], alignment=ft.MainAxisAlignment.CENTER),
+                    controls=[
+                        prev_button, next_button
+                    ]
+                )
             ],
             expand=True,
             alignment=ft.MainAxisAlignment.CENTER,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER
+        )
         ))
 
         # Render the extracted parts (text, images, videos)

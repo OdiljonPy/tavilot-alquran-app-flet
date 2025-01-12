@@ -511,13 +511,14 @@ def home(page):
                     adaptive=True,
                     expand=True,
                     alignment=ft.MainAxisAlignment.CENTER,
-                    spacing=25,
-                    controls=[*generate_appbar_actions(),
-                              ft.Text(width=20),
-                              language_menu,
-                              logout_icon,
-                              about_us_icon],
-
+                    spacing=15,  # Reduced spacing to allow more room for items
+                    controls=[
+                        *generate_appbar_actions(),
+                        ft.Text(width=10),  # Reduced width for better adaptability
+                        language_menu,
+                        logout_icon,
+                        about_us_icon,
+                    ],
                 ),
             ],
             bgcolor='white',
