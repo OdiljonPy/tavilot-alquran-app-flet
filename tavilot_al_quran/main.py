@@ -48,25 +48,24 @@ def main(page: ft.Page):
     ))
     time.sleep(2)
     page.clean()
-    page.window_resizable = True
     page.adaptive = True
-    page.expand = True
-    # page.window_width = 1250
-    # page.window_height = 800
+    page.window_width = 1250
+    page.window_height = 800
     page.theme_mode = ft.ThemeMode.LIGHT
     page.update()
 
     # ------Enter without registration button----------------------------------------------------------------------------
 
     enter_button = ft.Row(
+        adaptive=True,
         alignment=ft.MainAxisAlignment.END,
         controls=[
             ft.OutlinedButton(
-                text="Dasturga kirish",
+                text="Otkazib yuborish >",
                 on_click=lambda e: home(page),
                 # Link the button to validation
                 width=200,
-                height=60,
+                height=40,
                 style=ft.ButtonStyle(
                     color='white',
                     bgcolor=TC,
@@ -296,16 +295,21 @@ def main(page: ft.Page):
         controls=[
             content_column,
             ft.Container(
+                margin=30,
+                adaptive=True,
                 content=ft.Column(
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    horizontal_alignment=ft.CrossAxisAlignment.END,
                     controls=[
                         enter_button,
                         ft.Image(
+                            expand=True,
                             src=os.path.abspath("assets/tavilot_book.png"),
                             width=650,
                             height=800,
                             fit=ft.ImageFit.COVER,
                             border_radius=100
-                        )
+                        ),
                     ]
                 ),
                 clip_behavior=ft.ClipBehavior.ANTI_ALIAS,  # Enable anti-aliasing for smoother edges
