@@ -12,7 +12,7 @@ from .refusal import refusal
 
 def home(page):
     page.clean()
-    page.scroll=True
+    page.scroll = True
     page.adaptive = True
     page.theme_mode = ft.ThemeMode.LIGHT
     page.bgcolor = ft.colors.WHITE
@@ -199,17 +199,17 @@ def home(page):
     entrance_logo = ft.Container(
         adaptive=True,
         content=ft.Row(
-        controls=[
-            ft.Image(
-                color='#007577',
-                src=os.path.abspath("assets/tA'VILOT_Монтажная_область1.png"),
-                fit=ft.ImageFit.COVER,
-                width=200,
-                height=100,
-            )
-        ],
-        alignment=ft.MainAxisAlignment.CENTER
-    ),
+            controls=[
+                ft.Image(
+                    color='#007577',
+                    src=os.path.abspath("assets/tA'VILOT_Монтажная_область1.png"),
+                    fit=ft.ImageFit.COVER,
+                    width=200,
+                    height=100,
+                )
+            ],
+            alignment=ft.MainAxisAlignment.CENTER
+        ),
         height=180,
         alignment=ft.alignment.center,
         image_src=os.path.abspath("assets/searchbg.png"),
@@ -224,216 +224,223 @@ def home(page):
     three_windows = ft.Container(
         expand=True,
         adaptive=True,
-        content=ft.Row(
-            expand=True,
-            wrap=True,
-            run_spacing=10,
-            spacing=10,
+        content=ft.Column(
             adaptive=True,
+            expand=True,
             controls=[
-                ft.OutlinedButton(
+                ft.Row(
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    expand=True,
+                    run_spacing=10,
+                    spacing=10,
                     adaptive=True,
-                    content=ft.Column(
-                        expand=True,
-                        adaptive=True,
-                        controls=[
-                            ft.Row(
-                                width=20,
-                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                                height=110,
-                                spacing=100,
+                    controls=[
+                        ft.OutlinedButton(
+                            adaptive=True,
+                            content=ft.Column(
+                                expand=True,
                                 adaptive=True,
                                 controls=[
-                                    ft.Image(src=os.path.abspath("assets/book-open_1.svg"), offset=ft.Offset(0.5, -1)),
-                                    ft.Image(src=os.path.abspath(
-                                        "assets/Безымянный_1_Монтажная_область_1_копияii_06p_02.svg"), height=100,
-                                             color=ft.Colors.WHITE)
-                                ]
+                                    ft.Row(
+                                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                        height=110,
+                                        spacing=20,
+                                        adaptive=True,
+                                        controls=[
+                                            ft.Image(src=os.path.abspath("assets/book-open_1.svg"),
+                                                     offset=ft.Offset(0.5, -1)),
+                                            ft.Image(src=os.path.abspath(
+                                                "assets/Безымянный_1_Монтажная_область_1_копияii_06p_02.svg"),
+                                                     height=100, color=ft.Colors.WHITE)
+                                        ]
+                                    ),
+                                    ft.Text("\n   Abu Mansur Matrudiy", size=10, color='white', expand=True)
+                                ],
+                                horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
-                            ft.Text("\n   Abu Mansur Matrudiy", size=10, color='white', expand=True)
-                        ],
-                        horizontal_alignment=ft.CrossAxisAlignment.STRETCH
-                    ),
-                    height=200,
-                    width=400,
-                    style=ft.ButtonStyle(
-                        color='white',
-                        bgcolor='#E9BE5F',
-                        shape=ft.RoundedRectangleBorder(radius=20),
-                    ),
-                    on_click=lambda e: al_quron_oquvchilariga(page, back_button)
-
-                ),
-
-                ft.OutlinedButton(
-                    adaptive=True,
-                    content=ft.Column(
-                        expand=True,
-                        adaptive=True,
-                        controls=[
-                            ft.Row(
-                                width=20,
-                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                                height=110,
-                                spacing=100,
+                            height=200,
+                            width=400,
+                            style=ft.ButtonStyle(
+                                color='white',
+                                bgcolor='#E9BE5F',
+                                shape=ft.RoundedRectangleBorder(radius=20),
+                            ),
+                            on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+                        ),
+                        ft.OutlinedButton(
+                            adaptive=True,
+                            content=ft.Column(
+                                expand=True,
                                 adaptive=True,
                                 controls=[
-                                    ft.Image(src=os.path.abspath("assets/book-open_1.svg"), offset=ft.Offset(0.5, -1)),
-                                    ft.Image(src=os.path.abspath(
-                                        "assets/Безымянный_1_Монтажная_область_1_копияr_03.png"), height=100,
-                                        color=ft.Colors.WHITE)
-                                ]
+                                    ft.Row(
+                                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                        height=110,
+                                        spacing=20,
+                                        adaptive=True,
+                                        controls=[
+                                            ft.Image(src=os.path.abspath("assets/book-open_1.svg"),
+                                                     offset=ft.Offset(0.5, -1)),
+                                            ft.Image(src=os.path.abspath(
+                                                "assets/Безымянный_1_Монтажная_область_1_копияr_03.png"),
+                                                     height=100, color=ft.Colors.WHITE)
+                                        ]
+                                    ),
+                                    ft.Text("\n   TA'VILOT AL-QURON O'QUVCHILARIGA", size=10, color='white',
+                                            expand=True)
+                                ],
+                                horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
-                            ft.Text("\n   TA'VILOT AL-QURON O'QUVCHILARIGA", size=10, color='white', expand=True)
-                        ],
-                        horizontal_alignment=ft.CrossAxisAlignment.STRETCH
-                    ),
-                    height=200,
-                    width=400,
-                    style=ft.ButtonStyle(
-                        color='white',
-                        bgcolor='#E9BE5F',
-                        shape=ft.RoundedRectangleBorder(radius=20),
-                    ),
-                    on_click=lambda e: al_quron_oquvchilariga(page, back_button)
-
-                ),
-
-                ft.OutlinedButton(
-                    adaptive=True,
-                    content=ft.Column(
-                        expand=True,
-                        adaptive=True,
-                        controls=[
-                            ft.Row(
-                                width=20,
-                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                                height=110,
-                                spacing=100,
+                            height=200,
+                            width=400,
+                            style=ft.ButtonStyle(
+                                color='white',
+                                bgcolor='#E9BE5F',
+                                shape=ft.RoundedRectangleBorder(radius=20),
+                            ),
+                            on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+                        ),
+                        ft.OutlinedButton(
+                            adaptive=True,
+                            content=ft.Column(
+                                expand=True,
                                 adaptive=True,
                                 controls=[
-                                    ft.Image(src=os.path.abspath("assets/book-open_1.svg"), offset=ft.Offset(0.5, -1)),
-                                    ft.Image(src=os.path.abspath(
-                                        "assets/Безымянный_1_Монтажная_область_1_копияr_04.png"), height=100,
-                                        color=ft.Colors.WHITE)
-                                ]
+                                    ft.Row(
+                                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                        height=110,
+                                        spacing=20,
+                                        adaptive=True,
+                                        controls=[
+                                            ft.Image(src=os.path.abspath("assets/book-open_1.svg"),
+                                                     offset=ft.Offset(0.5, -1)),
+                                            ft.Image(src=os.path.abspath(
+                                                "assets/Безымянный_1_Монтажная_область_1_копияr_04.png"),
+                                                     height=100, color=ft.Colors.WHITE)
+                                        ]
+                                    ),
+                                    ft.Text("\n   Qo'lyozma va sharhlar", size=10, color='white', expand=True)
+                                ],
+                                horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
-                            ft.Text("\n   Qo'lyozma va sharhlar", size=10, color='white', expand=True)
-                        ],
-                        horizontal_alignment=ft.CrossAxisAlignment.STRETCH
-                    ),
-                    height=200,
-                    width=400,
-                    style=ft.ButtonStyle(
-                        color='white',
-                        bgcolor='#E9BE5F',
-                        shape=ft.RoundedRectangleBorder(radius=20),
-                    ),
-                    on_click=lambda e: al_quron_oquvchilariga(page, back_button)
-
+                            height=200,
+                            width=400,
+                            style=ft.ButtonStyle(
+                                color='white',
+                                bgcolor='#E9BE5F',
+                                shape=ft.RoundedRectangleBorder(radius=20),
+                            ),
+                            on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+                        ),
+                    ]
                 ),
-                ft.OutlinedButton(
+                ft.Row(
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    expand=True,
+                    run_spacing=10,
+                    spacing=10,
                     adaptive=True,
-                    content=ft.Column(
-                        expand=True,
-                        adaptive=True,
-                        controls=[
-                            ft.Row(
-                                width=20,
-                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                                height=110,
-                                spacing=100,
+                    controls=[
+                        ft.OutlinedButton(
+                            adaptive=True,
+                            content=ft.Column(
+                                expand=True,
                                 adaptive=True,
                                 controls=[
-                                    ft.Image(src=os.path.abspath("assets/book-open_1.svg"), offset=ft.Offset(0.5, -1)),
-                                    ft.Image(src=os.path.abspath(
-                                        "assets/Безымянный_1_Монтажная_область_1_копияr_05.png"), height=100,
-                                        color=ft.Colors.WHITE)
-                                ]
+                                    ft.Row(
+                                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                        height=110,
+                                        spacing=20,
+                                        adaptive=True,
+                                        controls=[
+                                            ft.Image(src=os.path.abspath("assets/book-open_1.svg"),
+                                                     offset=ft.Offset(0.5, -1)),
+                                            ft.Image(src=os.path.abspath(
+                                                "assets/Безымянный_1_Монтажная_область_1_копияr_05.png"),
+                                                     height=100, color=ft.Colors.WHITE)
+                                        ]
+                                    ),
+                                    ft.Text("\n   Zamonaviy tadqiqotlar", size=10, color='white', expand=True)
+                                ],
+                                horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
-                            ft.Text("\n   Zamonaviy tadqiqotlar", size=10, color='white', expand=True)
-                        ],
-                        horizontal_alignment=ft.CrossAxisAlignment.STRETCH
-                    ),
-                    height=200,
-                    width=400,
-                    style=ft.ButtonStyle(
-                        color='white',
-                        bgcolor='#E9BE5F',
-                        shape=ft.RoundedRectangleBorder(radius=20),
-                    ),
-                    on_click=lambda e: al_quron_oquvchilariga(page, back_button)
-
-                ),
-                ft.OutlinedButton(
-                    adaptive=True,
-                    content=ft.Column(
-                        expand=True,
-                        adaptive=True,
-                        controls=[
-                            ft.Row(
-                                width=20,
-                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                                height=110,
-                                spacing=100,
+                            height=200,
+                            width=400,
+                            style=ft.ButtonStyle(
+                                color='white',
+                                bgcolor='#E9BE5F',
+                                shape=ft.RoundedRectangleBorder(radius=20),
+                            ),
+                            on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+                        ),
+                        ft.OutlinedButton(
+                            adaptive=True,
+                            content=ft.Column(
+                                expand=True,
                                 adaptive=True,
                                 controls=[
-                                    ft.Image(src=os.path.abspath("assets/book-open_1.svg"), offset=ft.Offset(0.5, -1)),
-                                    ft.Image(src=os.path.abspath(
-                                        "assets/Безымянный_1_Монтажная_область_1_копияr_06.png"), height=100,
-                                        color=ft.Colors.WHITE)
-                                ]
+                                    ft.Row(
+                                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                        height=110,
+                                        spacing=20,
+                                        adaptive=True,
+                                        controls=[
+                                            ft.Image(src=os.path.abspath("assets/book-open_1.svg"),
+                                                     offset=ft.Offset(0.5, -1)),
+                                            ft.Image(src=os.path.abspath(
+                                                "assets/Безымянный_1_Монтажная_область_1_копияr_06.png"),
+                                                     height=100, color=ft.Colors.WHITE)
+                                        ]
+                                    ),
+                                    ft.Text("\n   Resurslar: O'quv qo'llanmalari va \n   O'QUVCHILARIGA", size=10,
+                                            color='white', expand=True)
+                                ],
+                                horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
-                            ft.Text("\n   Resurslar: O'quv qo'llanmalari va \n   O'QUVCHILARIGA", size=10, color='white', expand=True)
-                        ],
-                        horizontal_alignment=ft.CrossAxisAlignment.STRETCH
-                    ),
-                    height=200,
-                    width=400,
-                    style=ft.ButtonStyle(
-                        color='white',
-                        bgcolor='#E9BE5F',
-                        shape=ft.RoundedRectangleBorder(radius=20),
-                    ),
-                    on_click=lambda e: al_quron_oquvchilariga(page, back_button)
-
-                ),
-                ft.OutlinedButton(
-                    adaptive=True,
-                    content=ft.Column(
-                        expand=True,
-                        adaptive=True,
-                        controls=[
-                            ft.Row(
-                                width=20,
-                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                                height=110,
-                                spacing=100,
+                            height=200,
+                            width=400,
+                            style=ft.ButtonStyle(
+                                color='white',
+                                bgcolor='#E9BE5F',
+                                shape=ft.RoundedRectangleBorder(radius=20),
+                            ),
+                            on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+                        ),
+                        ft.OutlinedButton(
+                            adaptive=True,
+                            content=ft.Column(
+                                expand=True,
                                 adaptive=True,
                                 controls=[
-                                    ft.Image(src=os.path.abspath("assets/book-open_1.svg"), offset=ft.Offset(0.5, -1)),
-                                    ft.Image(src=os.path.abspath(
-                                        "assets/Безымянный_1_Монтажная_область_1_копияr_Монтажная_область_1.png"),
-                                        height=100,
-                                        color=ft.Colors.WHITE)
-                                ]
+                                    ft.Row(
+                                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                        height=110,
+                                        spacing=20,
+                                        adaptive=True,
+                                        controls=[
+                                            ft.Image(src=os.path.abspath("assets/book-open_1.svg"),
+                                                     offset=ft.Offset(0.5, -1)),
+                                            ft.Image(src=os.path.abspath(
+                                                "assets/Безымянный_1_Монтажная_область_1_копияr_Монтажная_область_1.png"),
+                                                     height=100, color=ft.Colors.WHITE)
+                                        ]
+                                    ),
+                                    ft.Text("\n   Mutaassib oqimlarga raddiyalar", size=10, color='white', expand=True)
+                                ],
+                                horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
-                            ft.Text("\n   Mutaassib oqimlarga raddiyalar", size=10, color='white', expand=True)
-                        ],
-                        horizontal_alignment=ft.CrossAxisAlignment.STRETCH
-                    ),
-                    height=200,
-                    width=400,
-                    style=ft.ButtonStyle(
-                        color='white',
-                        bgcolor='#E9BE5F',
-                        shape=ft.RoundedRectangleBorder(radius=20),
-                    ),
-                    on_click=lambda e: al_quron_oquvchilariga(page, back_button)
-
-                ),
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
+                            height=200,
+                            width=400,
+                            style=ft.ButtonStyle(
+                                color='white',
+                                bgcolor='#E9BE5F',
+                                shape=ft.RoundedRectangleBorder(radius=20),
+                            ),
+                            on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+                        ),
+                    ]
+                )
+            ]
         ),
         alignment=ft.alignment.center
     )
@@ -501,8 +508,8 @@ def home(page):
                     controls=[*generate_appbar_actions(),
                               ft.Text(width=20),
                               language_menu,
-                    logout_icon,
-                    about_us_icon],
+                              logout_icon,
+                              about_us_icon],
 
                 ),
             ],

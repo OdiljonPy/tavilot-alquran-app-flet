@@ -48,6 +48,7 @@ def main(page: ft.Page):
     ))
     time.sleep(2)
     page.clean()
+    page.window.focused = True
     page.adaptive = True
     page.window_width = 1250
     page.window_height = 800
@@ -114,6 +115,7 @@ def main(page: ft.Page):
         page.update()
 
     phone_input = ft.TextField(
+        adaptive=True,
         label='Phone number',
         prefix_text="+998 ",
         keyboard_type=ft.KeyboardType.NUMBER,
@@ -126,6 +128,7 @@ def main(page: ft.Page):
     )
 
     password = ft.TextField(
+        adaptive=True,
         on_change=lambda e: on_password_change(password, phone_input),
         label='Password',
         password=True,
@@ -213,6 +216,7 @@ def main(page: ft.Page):
     login_result = ft.Text(value="", color="red")
 
     continue_button_login = ft.OutlinedButton(
+        adaptive=True,
         disabled=True,
         text="Davom etish",
         on_click=lambda e: login_response(phone_input, password),
