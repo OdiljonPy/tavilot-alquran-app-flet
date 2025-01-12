@@ -49,9 +49,8 @@ def main(page: ft.Page):
     time.sleep(2)
     page.clean()
     page.window.focused = True
+    page.window.frameless = False
     page.adaptive = True
-    # page.window_width = 1250
-    # page.window_height = 800
     page.theme_mode = ft.ThemeMode.LIGHT
     page.update()
 
