@@ -50,8 +50,8 @@ def main(page: ft.Page):
     page.clean()
     page.window.focused = True
     page.adaptive = True
-    page.window_width = 1250
-    page.window_height = 800
+    # page.window_width = 1250
+    # page.window_height = 800
     page.theme_mode = ft.ThemeMode.LIGHT
     page.update()
 
