@@ -11,8 +11,8 @@ from .refusal import refusal
 
 
 def home(page):
+    page.scroll = False
     page.clean()
-    page.scroll = True
     page.adaptive = True
     page.theme_mode = ft.ThemeMode.LIGHT
     page.bgcolor = ft.colors.WHITE
@@ -222,7 +222,7 @@ def home(page):
     divider = ft.Divider(height=30)
 
     three_windows = ft.Container(
-        margin=40,
+        margin=30,
         expand=True,
         adaptive=True,
         content=ft.Column(
@@ -253,14 +253,14 @@ def home(page):
                                                      offset=ft.Offset(0.5, -1)),
                                             ft.Image(src=os.path.abspath(
                                                 "assets/Безымянный_1_Монтажная_область_1_копияii_06p_02.svg"),
-                                                     height=100, color=ft.Colors.WHITE)
+                                                height=100, color=ft.Colors.WHITE)
                                         ]
                                     ),
-                                    ft.Text("\n   Abu Mansur Matrudiy", size=10, color='white', expand=True)
+                                    ft.Text("\n   Abu Mansur Matrudiy", size=15, color='white')
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
-                            height=200,
+                            height=300,
                             width=400,
                             style=ft.ButtonStyle(
                                 color='white',
@@ -286,15 +286,14 @@ def home(page):
                                                      offset=ft.Offset(0.5, -1)),
                                             ft.Image(src=os.path.abspath(
                                                 "assets/Безымянный_1_Монтажная_область_1_копияr_03.png"),
-                                                     height=100, color=ft.Colors.WHITE)
+                                                height=100, color=ft.Colors.WHITE)
                                         ]
                                     ),
-                                    ft.Text("\n   TA'VILOT AL-QURON O'QUVCHILARIGA", size=10, color='white',
-                                            expand=True)
+                                    ft.Text("\n   TA'VILOT AL-QURON O'QUVCHILARIGA", size=15, color='white')
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
-                            height=200,
+                            height=300,
                             width=400,
                             style=ft.ButtonStyle(
                                 color='white',
@@ -320,14 +319,14 @@ def home(page):
                                                      offset=ft.Offset(0.5, -1)),
                                             ft.Image(src=os.path.abspath(
                                                 "assets/Безымянный_1_Монтажная_область_1_копияr_04.png"),
-                                                     height=100, color=ft.Colors.WHITE)
+                                                height=100, color=ft.Colors.WHITE)
                                         ]
                                     ),
-                                    ft.Text("\n   Qo'lyozma va sharhlar", size=10, color='white', expand=True)
+                                    ft.Text("\n   Qo'lyozma va sharhlar", size=15, color='white')
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
-                            height=200,
+                            height=300,
                             width=400,
                             style=ft.ButtonStyle(
                                 color='white',
@@ -362,14 +361,14 @@ def home(page):
                                                      offset=ft.Offset(0.5, -1)),
                                             ft.Image(src=os.path.abspath(
                                                 "assets/Безымянный_1_Монтажная_область_1_копияr_05.png"),
-                                                     height=100, color=ft.Colors.WHITE)
+                                                height=100, color=ft.Colors.WHITE)
                                         ]
                                     ),
-                                    ft.Text("\n   Zamonaviy tadqiqotlar", size=10, color='white', expand=True)
+                                    ft.Text("\n   Zamonaviy tadqiqotlar", size=15, color='white')
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
-                            height=200,
+                            height=300,
                             width=400,
                             style=ft.ButtonStyle(
                                 color='white',
@@ -395,15 +394,15 @@ def home(page):
                                                      offset=ft.Offset(0.5, -1)),
                                             ft.Image(src=os.path.abspath(
                                                 "assets/Безымянный_1_Монтажная_область_1_копияr_06.png"),
-                                                     height=100, color=ft.Colors.WHITE)
+                                                height=100, color=ft.Colors.WHITE)
                                         ]
                                     ),
-                                    ft.Text("\n   Resurslar: O'quv qo'llanmalari va \n   O'QUVCHILARIGA", size=10,
-                                            color='white', expand=True)
+                                    ft.Text("\n   Resurslar: O'quv qo'llanmalari va \n   O'QUVCHILARIGA", size=15,
+                                            color='white')
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
-                            height=200,
+                            height=300,
                             width=400,
                             style=ft.ButtonStyle(
                                 color='white',
@@ -429,14 +428,14 @@ def home(page):
                                                      offset=ft.Offset(0.5, -1)),
                                             ft.Image(src=os.path.abspath(
                                                 "assets/Безымянный_1_Монтажная_область_1_копияr_Монтажная_область_1.png"),
-                                                     height=100, color=ft.Colors.WHITE)
+                                                height=100, color=ft.Colors.WHITE)
                                         ]
                                     ),
-                                    ft.Text("\n   Mutaassib oqimlarga raddiyalar", size=10, color='white', expand=True)
+                                    ft.Text("\n   Mutaassib oqimlarga raddiyalar", size=15, color='white')
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
-                            height=200,
+                            height=300,
                             width=400,
                             style=ft.ButtonStyle(
                                 color='white',
@@ -478,11 +477,10 @@ def home(page):
     def generate_appbar_actions():
         return [
             ft.TextButton(
-                expand=True,
                 adaptive=True,
                 text=route_label,
                 style=ft.ButtonStyle(
-                    text_style=ft.TextStyle(size=12),
+                    text_style=ft.TextStyle(size=15),
                     color='#007577' if route == active_route else ft.colors.BLACK,
                 ),
                 on_click=lambda e, r=route: navigate(e, r)
@@ -500,8 +498,19 @@ def home(page):
 
     def update_appbar():
         page.appbar = ft.AppBar(
+            title=ft.Row(
+                spacing=20,
+                alignment=ft.MainAxisAlignment.CENTER,
+                expand=True,
+                adaptive=True,
+                controls=[
+                    *generate_appbar_actions(),
+                ]
+            ),
+            center_title=True,
             adaptive=True,
             leading=ft.Image(
+                expand=True,
                 color='#007577',
                 src=os.path.abspath("assets/tA'VILOT_Монтажная_область1.svg")
             ),
@@ -513,8 +522,6 @@ def home(page):
                     alignment=ft.MainAxisAlignment.CENTER,
                     spacing=15,  # Reduced spacing to allow more room for items
                     controls=[
-                        *generate_appbar_actions(),
-                        ft.Text(width=10),  # Reduced width for better adaptability
                         language_menu,
                         logout_icon,
                         about_us_icon,
