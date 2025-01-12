@@ -8,7 +8,7 @@ from .html_pdf_handler import extract_base64_and_save_images, extract_and_proces
 
 def about_us_page(page, back_button):
     page.clean()
-
+    page.scroll = True
     # Show a loading indicator
     loading = ft.ProgressRing()
     page.add(ft.Container(

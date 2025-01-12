@@ -12,7 +12,7 @@ from .refusal import refusal
 
 def home(page):
     page.clean()
-    # page.scroll = True
+    page.scroll = True
     page.adaptive = True
     page.theme_mode = ft.ThemeMode.LIGHT
     page.bgcolor = ft.colors.WHITE
@@ -222,6 +222,7 @@ def home(page):
     divider = ft.Divider(height=30)
 
     three_windows = ft.Container(
+        margin=40,
         expand=True,
         adaptive=True,
         content=ft.Column(
@@ -236,6 +237,7 @@ def home(page):
                     adaptive=True,
                     controls=[
                         ft.OutlinedButton(
+                            expand=True,
                             adaptive=True,
                             content=ft.Column(
                                 expand=True,
@@ -268,6 +270,7 @@ def home(page):
                             on_click=lambda e: al_quron_oquvchilariga(page, back_button)
                         ),
                         ft.OutlinedButton(
+                            expand=True,
                             adaptive=True,
                             content=ft.Column(
                                 expand=True,
@@ -301,6 +304,7 @@ def home(page):
                             on_click=lambda e: al_quron_oquvchilariga(page, back_button)
                         ),
                         ft.OutlinedButton(
+                            expand=True,
                             adaptive=True,
                             content=ft.Column(
                                 expand=True,
@@ -342,6 +346,7 @@ def home(page):
                     adaptive=True,
                     controls=[
                         ft.OutlinedButton(
+                            expand=True,
                             adaptive=True,
                             content=ft.Column(
                                 expand=True,
@@ -374,6 +379,7 @@ def home(page):
                             on_click=lambda e: al_quron_oquvchilariga(page, back_button)
                         ),
                         ft.OutlinedButton(
+                            expand=True,
                             adaptive=True,
                             content=ft.Column(
                                 expand=True,
@@ -407,6 +413,7 @@ def home(page):
                             on_click=lambda e: al_quron_oquvchilariga(page, back_button)
                         ),
                         ft.OutlinedButton(
+                            expand=True,
                             adaptive=True,
                             content=ft.Column(
                                 expand=True,
