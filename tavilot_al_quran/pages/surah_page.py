@@ -87,7 +87,7 @@ def surah_page(page, back_button):
                                 content=ft.Text(value=f"{juz_i_verse.get('number')}")
                             ),
                             ft.Text(value=f"{juz_i_verse.get('text_arabic')}", size=20, expand=True,
-                                    width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True),
+                                    width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True, font_family="Amiri"),
                             ft.Text(width=10)
                         ]),
                         ft.Row(
@@ -131,7 +131,7 @@ def surah_page(page, back_button):
                         ft.Text(i.get('name'), size=20, expand=True),
                         ft.Text(f"{i.get('type_choice')}, {i.get('verse_number')} oyat", size=10, expand=True)
                     ]),
-                    ft.Text(value=i.get('name_arabic'), size=15, text_align=ft.TextAlign.RIGHT, width=150, expand=True)
+                    ft.Text(value=i.get('name_arabic'), size=15, text_align=ft.TextAlign.RIGHT, width=150, font_family='Amiri', expand=True)
                 ])))
     else:
         print('Error')
@@ -189,7 +189,7 @@ def surah_page(page, back_button):
                                     content=ft.Text(value=f"{result_detail.get('number')}")
                                 ),
                                 ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                        width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True),
+                                        width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True, font_family="Amiri"),
                                 ft.Text(width=10)
                             ]),
                             ft.Divider(color=TC)
@@ -236,7 +236,7 @@ def surah_page(page, back_button):
                                             content=ft.Text(value=f"{result_detail.get('number')}")
                                         ),
                                         ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                                width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True),
+                                                width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True, font_family="Amiri"),
                                         ft.Text(width=10)
                                     ]),
                                 ft.Row(
@@ -292,7 +292,7 @@ def surah_page(page, back_button):
                                     content=ft.Text(value=f"{result_detail.get('number')}")
                                 ),
                                 ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                        width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True),
+                                        width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True, font_family="Amiri"),
                                 ft.Text(width=10)
                             ]),
                             ft.Row(controls=[ft.Text(
@@ -330,7 +330,7 @@ def surah_page(page, back_button):
                 alignment=ft.alignment.center,
                 border_radius=20,
                 height=30,
-                width=225,
+                width=245,
                 bgcolor=ft.colors.GREY_200,
                 adaptive=True,
                 content=ft.Row(
@@ -375,7 +375,7 @@ def surah_page(page, back_button):
                         ),
                         ft.Text(),
                         ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True),
+                                width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True, font_family="Amiri"),
                         ft.Text(width=10)
                     ]),
                     ft.Divider(color=TC)
@@ -385,7 +385,52 @@ def surah_page(page, back_button):
             print("Error")
         page.update()
 
-    # -------------------------------------------------------------------------------------------------------------------
+    # -----Close button logic---------------------------------------------------------------------------------------------
+    button3 = ft.TextButton(
+        text='< Yopish',
+        data='button3',
+        style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=ft.colors.BLACK),
+        on_click=lambda e: toggle_widgets(e)
+    )
+
+    is_cleaned = True
+
+    column_data = [button3]
+    response_data = response
+    if response_data.status_code == 200:
+        response_list = response_data.json().get('result')
+        for response_detail in response_list:
+            column_data.append(ft.Container(adaptive=True, content=ft.Text(response_detail.get('id'), color='black'), shape=ft.BoxShape.CIRCLE, width=60,
+                         height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)))
+
+    # Function to toggle widgets
+    def toggle_widgets(e):
+        nonlocal is_cleaned
+        if is_cleaned:
+            button3.text="Ochish >"
+            button3.style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC)
+            side_bar.controls[0].controls=column_data
+            side_bar.controls[0].width=100
+        else:
+            button3.text="< Yopish"
+            button3.style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=ft.colors.BLACK)
+            side_bar.controls[0].width = 350
+            side_bar.controls[0].controls=[ft.Row(
+                spacing=20,
+                adaptive=True,
+                alignment=ft.MainAxisAlignment.CENTER,
+                controls=[
+                    button1,
+                    button2,
+                    button3
+                ]
+            ),
+            list_view
+            ]
+        is_cleaned = not is_cleaned  # Toggle the state
+        page.update()
+
+
 
     # Initialize default colors
     button1_color = TC
@@ -419,7 +464,7 @@ def surah_page(page, back_button):
         "Surah",
         data="button1",
         style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button1_color),
-        on_click=button_click,
+        on_click=lambda e: button_click(e),
 
     )
 
@@ -427,7 +472,7 @@ def surah_page(page, back_button):
         "Juz",
         data="button2",
         style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button2_color),
-        on_click=button_click,
+        on_click=lambda e: button_click(e),
 
     )
 
@@ -437,6 +482,7 @@ def surah_page(page, back_button):
         expand=True,
         controls=[
             ft.Column(
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                 adaptive=True,
                 width=350,
                 controls=[
@@ -446,7 +492,8 @@ def surah_page(page, back_button):
                         alignment=ft.MainAxisAlignment.CENTER,
                         controls=[
                             button1,
-                            button2
+                            button2,
+                            button3
                         ]
                     ),
                     list_view
