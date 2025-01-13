@@ -32,6 +32,7 @@ def about_us_page(page, back_button):
 
         # Container to hold the rendered content
         content_container = ft.Container(
+            margin=40,
             content=ft.Column(
                 controls=[
                     ft.Text(result, text_align=ft.TextAlign.CENTER, size=30),
