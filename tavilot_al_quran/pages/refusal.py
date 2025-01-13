@@ -4,9 +4,9 @@ import requests
 from .resources_detail import take_content_id
 
 def refusal(page, back_button):
-    TC = '#E9BE5F'
+    page.scroll = True
     page.clean()
-
+    TC = '#E9BE5F'
     loading = ft.ProgressRing()
 
     page.add(ft.Container(
@@ -18,36 +18,52 @@ def refusal(page, back_button):
     url = "http://176.221.28.202:8008/api/v1/refusal/"
     response = requests.get(url=url)
     print(response.json())
-    data_list = ft.Row(wrap=True, expand=True, scroll=ft.ScrollMode.ALWAYS, alignment=ft.MainAxisAlignment.START)
+    data_list = ft.Row(wrap=True, expand=True, scroll=ft.ScrollMode.ALWAYS, alignment=ft.MainAxisAlignment.START,
+                       adaptive=True)
 
     if response.status_code == 200:
         page.clean()
         datas = response.json().get('result')
         for date in datas:
             motrudiy_data = ft.OutlinedButton(
+                adaptive=True,
                 data=date.get('id'),
                 on_click=lambda e: take_content_id(page, back_button, e.control.data),
                 content=ft.Column(
-                                    controls=[
-                                        ft.Column(controls=[
-                                            ft.Text(),
-                                            ft.Image(src=os.path.abspath("assets/book_1.svg"), color="white"),
-                                            ft.Text(f"\n{date.get('title')}", size=22, color='white'),
-                                        ])
-                                    ],
-                                    horizontal_alignment=ft.CrossAxisAlignment.STRETCH
-                                ),
-                                    height=240,
-                                    width=560,
-                                    style=ft.ButtonStyle(
-                                        bgcolor=TC,
-                                        shape=ft.RoundedRectangleBorder(radius=14),
-                                    ),
+                    controls=[
+                        ft.Column(controls=[
+                            ft.Text(),
+                            ft.Image(src=os.path.abspath("assets/book_1.svg"), color="white"),
+                            ft.Text(f"\n{date.get('title')}", size=20, color='white'),
+                        ])
+                    ],
+                    horizontal_alignment=ft.CrossAxisAlignment.STRETCH
+                ),
+                height=250,
+                width=410,
+                style=ft.ButtonStyle(
+                    bgcolor=TC,
+                    shape=ft.RoundedRectangleBorder(radius=14),
+                ),
 
-                                )
+            )
             data_list.controls.append(motrudiy_data)
         page.update()
 
-
     divider = ft.Divider(height=30, color='white')
-    page.add(divider, back_button, ft.Container(alignment=ft.alignment.center, content=data_list))
+    page.add(divider, ft.Container(
+        margin=15,
+        adaptive=True,
+        expand=True,
+        alignment=ft.alignment.center_left,
+        content=ft.Column(
+            horizontal_alignment=ft.CrossAxisAlignment.START,
+            adaptive=True,
+            controls=[
+                back_button,
+                ft.Text(height=70),
+                data_list
+            ]
+        )
+    )
+             )

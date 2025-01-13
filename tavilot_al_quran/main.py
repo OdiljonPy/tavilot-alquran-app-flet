@@ -54,6 +54,8 @@ def main(page: ft.Page):
     page.theme_mode = ft.ThemeMode.LIGHT
     page.update()
 
+
+
     # ------Enter without registration button----------------------------------------------------------------------------
 
     enter_button = ft.Row(

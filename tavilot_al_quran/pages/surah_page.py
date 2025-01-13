@@ -23,7 +23,7 @@ def surah_page(page, back_button):
             )
 
     def on_resize(event):
-        divider
+        divider.height = page.window_width
         page.update()
 
     # Attach resize event handler

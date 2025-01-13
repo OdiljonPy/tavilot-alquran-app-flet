@@ -1,6 +1,5 @@
 import flet as ft
 import os
-
 from .surah_page import surah_page
 from .al_quran_oquvchilariga import al_quron_oquvchilariga
 from .about_us_page import about_us_page
@@ -19,27 +18,22 @@ def home(page):
     TC = '#E9BE5F'
 
     # ----back button--------------------------------------------------------------------------------------------------------
-    back_button = ft.Container(content=ft.Row(controls=[ft.Text(width=50),
-                                                        ft.OutlinedButton(
-                                                            content=ft.Row(controls=[
-                                                                ft.Icon(ft.icons.ARROW_BACK, color='black', size=20),
-                                                                ft.Text('Orqaga qaytish', color='black')
-                                                            ]),
-                                                            height=40,
-                                                            width=170,
-                                                            style=ft.ButtonStyle(
-                                                                shape=ft.RoundedRectangleBorder(radius=10),
-                                                                side=ft.BorderSide(color=TC, width=1),
-                                                                bgcolor='white'
+    back_button = ft.OutlinedButton(
+        content=ft.Row(controls=[
+            ft.Icon(ft.icons.ARROW_BACK, color='black', size=20),
+            ft.Text('Orqaga qaytish', color='black')
+        ]),
+        height=40,
+        width=170,
+        style=ft.ButtonStyle(
+            shape=ft.RoundedRectangleBorder(radius=10),
+            side=ft.BorderSide(color=TC, width=1),
+            bgcolor='white'
 
-                                                            ),
-                                                            adaptive=True,
-                                                            on_click=lambda e: home(page),
-                                                        )
-                                                        ]
-                                              )
-
-                               )
+        ),
+        adaptive=True,
+        on_click=lambda e: home(page),
+    )
 
     # -----------------------------------------------------------------------------------------------------------------------
 
