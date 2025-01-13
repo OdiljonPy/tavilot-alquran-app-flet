@@ -13,6 +13,9 @@ from pages.home_page import home
 
 def main(page: ft.Page):
     page.update()
+    page.theme = ft.Theme(
+        font_family="Trajan"
+    )
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     # Ensure the font file path is correct relative to your script
