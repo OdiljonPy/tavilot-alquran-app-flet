@@ -1,6 +1,7 @@
 import flet as ft
 import requests
 import os
+from .html_pdf_handler import extract_base64_and_save_images, extract_and_process_videos, render_content
 
 TC = '#E9BE5F'
 
@@ -37,7 +38,7 @@ def surah_page(page, back_button):
                               horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     # -------Back connection juz----------------------------------------------------------------------------------------
 
-    url = "http://alquran.zerodev.uz/api/v1/juz/"
+    url = "http://176.221.28.202:8008/api/v1/juz/"
     responses = requests.get(url=url)
     if responses.status_code == 200:
         result_lists = responses.json().get('result')
@@ -64,7 +65,7 @@ def surah_page(page, back_button):
 
     def take_juz_id(ids):
         right_display.controls.clear()
-        urls = f"http://alquran.zerodev.uz/api/v1/juz/{ids}"
+        urls = f"http://176.221.28.202:8008/api/v1/juz/{ids}"
         headers = {
             "Content-Type": "application/json",
             "Authorization": f'Bearer {page.client_storage.get('access_token')}'
@@ -106,7 +107,7 @@ def surah_page(page, back_button):
                     )
 
     # ------Back connection----------------------------------------------------------------------------------------------
-    url = "http://alquran.zerodev.uz/api/v1/chapters/"
+    url = "http://176.221.28.202:8008/api/v1/chapters/"
     response = requests.get(url=url)
     if response.status_code == 200:
         page.clean()
@@ -139,12 +140,14 @@ def surah_page(page, back_button):
     # --------------------------------------------------------------------------------------------------------------------
     def take_id(ids):
         right_display.controls.clear()
-        urls = f"http://alquran.zerodev.uz/api/v1/chapter/{ids}"
+        urls = f"http://176.221.28.202:8008/api/v1/chapter/{ids}"
+        print(page.client_storage.get('access_token'), "ACCESS TOKEN IS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f'Bearer {page.client_storage.get('access_token')}'
+            "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3MzcwNzIyLCJpYXQiOjE3MzY3NjU5MjIsImp0aSI6ImQwODk3YmUwOGRlMjQ1OGI4N2NjMDBjNWNmNWU5MDg1IiwidXNlcl9pZCI6MSwicmF0ZSI6MiwibG9naW5fdGltZSI6IjIwMjUtMDEtMTNUMTA6NTg6NDEuODA4MzE1KzAwOjAwIn0._pfTSJ6sIMZx9RCOxXmeZNKN0tFh_hKERlhbm6dfrEQ'
         }
         responses = requests.get(url=urls, headers=headers)
+        print(responses.status_code, "STATUS CODE IS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
         if responses.status_code == 200:
             result_details = responses.json().get('result').get('verses')
             print(result_details)
@@ -279,42 +282,50 @@ def surah_page(page, back_button):
                         ]
                     )
                     right_display.controls.append(chapter_n)
+                    global parts, result, video_files, tafsir_data
                     for result_detail in result_details:
-                        right_display.controls.append(ft.Column(controls=[ft.Row(
-                            adaptive=True,
-                            controls=[
-                                ft.Container(
-                                    image_src=os.path.abspath("assets/Union.png"),
-                                    alignment=ft.alignment.center,
-                                    width=50,
-                                    height=50,
-                                    adaptive=True,
-                                    content=ft.Text(value=f"{result_detail.get('number')}")
+                        if result_detail.get('description'):
+
+                            parts, result = extract_base64_and_save_images(result_detail.get('description'))
+                            video_files = extract_and_process_videos(result_detail.get('description'))
+                            tafsir_data = ft.Column(controls=[ft.Row(
+                                adaptive=True,
+                                controls=[
+                                    ft.Container(
+                                        image_src=os.path.abspath("assets/Union.png"),
+                                        alignment=ft.alignment.center,
+                                        width=50,
+                                        height=50,
+                                        adaptive=True,
+                                        content=ft.Text(value=f"{result_detail.get('number')}")
+                                    ),
+                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
+                                            width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True, font_family="Amiri"),
+                                    ft.Text(width=10)
+                                ]),
+                                ft.Row(controls=[ft.Text(
+                                    value=f"{result_detail.get('number')}.{result_detail.get('text')}",
+                                    size=20,
+                                    expand=True,
+                                    width=page.window_width, text_align=ft.TextAlign.RIGHT
                                 ),
-                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                        width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True, font_family="Amiri"),
-                                ft.Text(width=10)
-                            ]),
-                            ft.Row(controls=[ft.Text(
-                                value=f"{result_detail.get('number')}.{result_detail.get('text')}",
-                                size=20,
-                                expand=True,
-                                width=page.window_width, text_align=ft.TextAlign.RIGHT
-                            ),
-                                ft.Text(width=10)
-                            ]),
-                            ft.Row(controls=[ft.Text(
-                                value=f"{result_detail.get('description')}",
-                                size=20,
-                                expand=True,
-                                width=page.window_width,
-                                text_align=ft.TextAlign.RIGHT
-                            ),
-                                ft.Text(width=10)
-                            ]),
-                            ft.Divider(color=TC)
-                        ])
-                        )
+                                    ft.Text(width=10)
+                                ]),
+
+                                ft.Row(controls=[ft.Text(
+                                    value=f"{result}",
+                                    size=20,
+                                    expand=True,
+                                    width=page.window_width,
+                                    text_align=ft.TextAlign.RIGHT
+                                ),
+                                    ft.Text(width=10)
+                                ]),
+                                ft.Divider(color=TC)
+                            ])
+                            right_display.controls.append(tafsir_data),
+                        else:
+                            print("Tafsir not found")
                 page.update()  # Update the page to reflect changes
 
             text_arabic = ft.TextButton('Arabcha', data=1, style=ft.ButtonStyle(color='white', bgcolor=TC),
@@ -518,6 +529,8 @@ def surah_page(page, back_button):
         spacing=0
     )
     page.add(side_bar)
+    # Render the extracted parts (text, images, videos)
+    render_content(tafsir_data, parts, video_files)
     page.update()
 
 

@@ -44,7 +44,7 @@ def extract_base64_and_save_images(api_html_response):
         text_content = api_html_response[last_end:].strip()
         parts.append({"type": "text", "content": text_content})
 
-    return parts, "Images processed and saved."
+    return parts, ""
 
 
 def extract_and_process_videos(api_html_response):
@@ -110,7 +110,7 @@ def render_content(container, parts, video_files):
                     else:
                         # Render non-Arabic content as Markdown
                         if line.strip():
-                            container.controls.append(ft.Markdown(line))
+                            container.controls.append(ft.Markdown(f"# {line}"))
 
         elif part["type"] == "image":
             # Directly render base64 images using ft.Image(src_base64=)
