@@ -289,15 +289,16 @@ def home(page):
                                         height=110,
                                         spacing=20,
                                         adaptive=True,
+                                        expand=True,
                                         controls=[
                                             ft.Image(src=os.path.abspath("assets/book-open_1.svg"),
-                                                     offset=ft.Offset(0.5, -1)),
+                                                     offset=ft.Offset(0.5, -0.2)),
                                             ft.Image(src=os.path.abspath(
                                                 "assets/Безымянный_1_Монтажная_область_1_копияii_06p_02.svg"),
-                                                height=100, color=ft.Colors.WHITE)
+                                                height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    ft.Text("\n   Abu Mansur Matrudiy", size=15, color='white')
+                                    ft.Text("\n   Abu Mansur Matrudiy", size=15, color='white', expand=True)
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -322,15 +323,16 @@ def home(page):
                                         height=110,
                                         spacing=20,
                                         adaptive=True,
+                                        expand=True,
                                         controls=[
                                             ft.Image(src=os.path.abspath("assets/book-open_1.svg"),
-                                                     offset=ft.Offset(0.5, -1)),
+                                                     offset=ft.Offset(0.5, -0.2)),
                                             ft.Image(src=os.path.abspath(
                                                 "assets/Безымянный_1_Монтажная_область_1_копияr_03.png"),
-                                                height=100, color=ft.Colors.WHITE)
+                                                height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    ft.Text("\n   TA'VILOT AL-QURON O'QUVCHILARIGA", size=15, color='white')
+                                    ft.Text("\n   TA'VILOT AL-QURON O'QUVCHILARIGA", size=15, color='white', expand=True)
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -355,15 +357,16 @@ def home(page):
                                         height=110,
                                         spacing=20,
                                         adaptive=True,
+                                        expand=True,
                                         controls=[
                                             ft.Image(src=os.path.abspath("assets/book-open_1.svg"),
-                                                     offset=ft.Offset(0.5, -1)),
+                                                     offset=ft.Offset(0.5, -0.2)),
                                             ft.Image(src=os.path.abspath(
                                                 "assets/Безымянный_1_Монтажная_область_1_копияr_04.png"),
-                                                height=100, color=ft.Colors.WHITE)
+                                                height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    ft.Text("\n   Qo'lyozma va sharhlar", size=15, color='white')
+                                    ft.Text("\n   Qo'lyozma va sharhlar", size=15, color='white', expand=True)
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -397,15 +400,16 @@ def home(page):
                                         height=110,
                                         spacing=20,
                                         adaptive=True,
+                                        expand=True,
                                         controls=[
                                             ft.Image(src=os.path.abspath("assets/book-open_1.svg"),
-                                                     offset=ft.Offset(0.5, -1)),
+                                                     offset=ft.Offset(0.5, -0.2)),
                                             ft.Image(src=os.path.abspath(
                                                 "assets/Безымянный_1_Монтажная_область_1_копияr_05.png"),
-                                                height=100, color=ft.Colors.WHITE)
+                                                height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    ft.Text("\n   Zamonaviy tadqiqotlar", size=15, color='white')
+                                    ft.Text("\n   Zamonaviy tadqiqotlar", size=15, color='white', expand=True)
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -430,16 +434,17 @@ def home(page):
                                         height=110,
                                         spacing=20,
                                         adaptive=True,
+                                        expand=True,
                                         controls=[
                                             ft.Image(src=os.path.abspath("assets/book-open_1.svg"),
-                                                     offset=ft.Offset(0.5, -1)),
+                                                     offset=ft.Offset(0.5, -0.2)),
                                             ft.Image(src=os.path.abspath(
                                                 "assets/Безымянный_1_Монтажная_область_1_копияr_06.png"),
-                                                height=100, color=ft.Colors.WHITE)
+                                                height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
                                     ft.Text("\n   Resurslar: O'quv qo'llanmalari va \n   O'QUVCHILARIGA", size=15,
-                                            color='white')
+                                            color='white', expand=True)
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -464,15 +469,16 @@ def home(page):
                                         height=110,
                                         spacing=20,
                                         adaptive=True,
+                                        expand=True,
                                         controls=[
                                             ft.Image(src=os.path.abspath("assets/book-open_1.svg"),
-                                                     offset=ft.Offset(0.5, -1)),
+                                                     offset=ft.Offset(0.5, -0.2)),
                                             ft.Image(src=os.path.abspath(
                                                 "assets/Безымянный_1_Монтажная_область_1_копияr_Монтажная_область_1.png"),
-                                                height=100, color=ft.Colors.WHITE)
+                                                height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    ft.Text("\n   Mutaassib oqimlarga raddiyalar", size=15, color='white')
+                                    ft.Text("\n   Mutaassib oqimlarga raddiyalar", size=15, color='white', expand=True)
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
