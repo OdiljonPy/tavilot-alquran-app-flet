@@ -5,14 +5,22 @@ import flet as ft
 import requests
 
 def take_content_id(page, back_button, ids):
-    page.scroll = True
     page.clean()
 
     loading = ft.ProgressRing()
 
-    page.add(ft.Container(
-        content=ft.Column(controls=[loading], alignment=ft.MainAxisAlignment.CENTER),
-        alignment=ft.alignment.center))
+    page.add(
+        ft.Container(
+            expand=True,
+            content=ft.Column(
+                expand=True,
+                controls=[loading],
+                alignment=ft.MainAxisAlignment.CENTER,
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            ),
+            alignment=ft.alignment.center,
+        )
+    )
 
     page.update()
     url = f"http://176.221.28.202:8008/api/v1/moturudiy/{ids}/"
@@ -27,6 +35,7 @@ def take_content_id(page, back_button, ids):
 
     if response.status_code == 200:
         page.clean()
+        page.scroll = True
         # Container to hold the rendered content
         content_container = ft.Container(
             height=page.window.height,

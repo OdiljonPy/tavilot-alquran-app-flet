@@ -9,7 +9,8 @@ from pages.home_page import home
 
 
 def main(page: ft.Page):
-    page.window_focused = True
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER
     # Ensure the font file path is correct relative to your script
     font_path = os.path.join(os.path.dirname(__file__), "fonts", "Amiri-BoldItalic.ttf")
     font_page_trajan = os.path.join(os.path.dirname(__file__), "fonts", "Trajan.ttf")
@@ -27,8 +28,7 @@ def main(page: ft.Page):
 
     print(f"Font file loaded from {font_path}")
     TC = '#E9BE5F'
-    page.theme = ft.Theme(font_family="Trajan")
-    page.expand = True
+    # page.expand = True
     page.padding = 0
     page.clean()
     page.theme_mode = ft.ThemeMode.LIGHT
