@@ -130,10 +130,57 @@ def home(page):
         on_click=lambda e: about_us_page(page, back_button)
     )
 
+    def handle_close(e):
+        page.close(dlg_modal)
+
+    def handle_out(page):
+        page.close(dlg_modal)
+        page.update()
+        from tavilot_al_quran.main import main
+        page.appbar=None
+        page.client_storage.clear()
+        main(page)
+
+    def handle_click(e):
+        page.open(dlg_modal)
+
+    dlg_modal = ft.AlertDialog(
+        actions_alignment=ft.MainAxisAlignment.CENTER,
+        adaptive=True,
+        modal=True,
+        content=ft.Text("Haqiqatdan ham hisobingizdan\nchiqmoqchimisiz?", text_align=ft.TextAlign.CENTER),
+        actions=[
+            ft.OutlinedButton(
+                text="Ha",
+                on_click=lambda e: handle_out(page),
+                # Link the button to validation
+                width=100,
+                height=50,
+                style=ft.ButtonStyle(
+                    color='white',
+                    bgcolor=TC,
+                    shape=ft.RoundedRectangleBorder(radius=8),
+                )
+            ),
+            ft.OutlinedButton(
+                text="Yo'q",
+                on_click=handle_close,
+                # Link the button to validation
+                width=100,
+                height=50,
+                style=ft.ButtonStyle(
+                    color=TC,
+                    bgcolor='white',
+                    shape=ft.RoundedRectangleBorder(radius=8),
+                )
+            ),
+        ],
+    )
+
     logout_icon = ft.IconButton(
         icon=ft.Icons.LOGOUT,
         icon_color=TC,
-        on_click=lambda e: None
+        on_click=lambda e: handle_click(e)
     )
 
     image = ft.Image(src=os.path.abspath("assets/Ўз.svg"))

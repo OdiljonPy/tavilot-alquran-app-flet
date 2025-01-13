@@ -1,7 +1,10 @@
 import time
 import asyncio
 import flet as ft
+import sys
 import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 
 from utils.validations import limit_length
 import requests
@@ -9,6 +12,7 @@ from pages.home_page import home
 
 
 def main(page: ft.Page):
+    page.update()
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     # Ensure the font file path is correct relative to your script
@@ -46,7 +50,7 @@ def main(page: ft.Page):
             ]
         )
     ))
-    time.sleep(2)
+    time.sleep(1.8)
     page.clean()
     page.window.focused = True
     page.window.frameless = False
