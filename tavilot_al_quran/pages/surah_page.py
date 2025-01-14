@@ -602,24 +602,24 @@ def surah_page(page, back_button):
 
     def scroll_to_item(item_id):
 
-        # Find the element in the dictionary
-        target_element = elements_by_key.get(item_id)
-
-        if target_element:
-            # Save the original background color
-            original_bgcolor = target_element.controls[0].bgcolor
-
-            # Set the highlight color
-            target_element.controls.controls.controls[0].bgcolor = "yellow"
-            target_element.update()  # Update the UI to reflect the highlight
-
-            # # After a delay, reset the background color to the original
-            # def reset_bgcolor():
-            #     target_element.bgcolor = original_bgcolor
-            #     target_element.update()
-            #
-            # # Set a timeout to reset the background color after 2 seconds
-            # page.set_timeout(reset_bgcolor, 2000)
+        # # Find the element in the dictionary
+        # target_element = elements_by_key.get(item_id)
+        #
+        # if target_element:
+        #     # Save the original background color
+        #     original_bgcolor = target_element.controls[0].bgcolor
+        #
+        #     # Set the highlight color
+        #     target_element.controls.controls.controls[0].bgcolor = "yellow"
+        #     target_element.update()  # Update the UI to reflect the highlight
+        #
+        #     # # After a delay, reset the background color to the original
+        #     # def reset_bgcolor():
+        #     #     target_element.bgcolor = original_bgcolor
+        #     #     target_element.update()
+        #     #
+        #     # # Set a timeout to reset the background color after 2 seconds
+        #     # page.set_timeout(reset_bgcolor, 2000)
 
         # Scroll to the target element
         right_display.scroll_to(key=f"{item_id}", duration=700, curve=ft.AnimationCurve.BOUNCE_OUT)
