@@ -7,20 +7,15 @@ import requests
 
 
 def pdf_page(page, pdf_file, back_button):
+    page.scroll = False
     TC = '#E9BE5F'
     page.clean()
-    loading = ft.ProgressRing(expand=True, color=TC)
+    loading = ft.ProgressRing(color=TC)
     page.add(ft.Container(
-        alignment=ft.alignment.center,
         expand=True,
         adaptive=True,
-        content=ft.Column(
-            adaptive=True,
-            expand=True,
-            controls=[loading],
-            alignment=ft.MainAxisAlignment.CENTER,
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER
-        ))
+        content=loading,
+        alignment=ft.alignment.center)
     )
     page.update()
     pdf_document = None
@@ -91,6 +86,8 @@ def pdf_page(page, pdf_file, back_button):
     load_pdf_from_api(requests.get(pdf_file).content)
     page.update()
     page.clean()
+    page.scroll = True
+
 
     page.add(ft.InteractiveViewer(
         expand=True,

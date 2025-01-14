@@ -13,34 +13,32 @@ from pages.home_page import home
 
 def main(page: ft.Page):
     page.update()
+    page.scroll = False
+    page.padding = 0
+    # Ensure the font file path is correct relative to your script
+    font_path = os.path.join(os.path.dirname(__file__), "fonts", "Amiri-Regular.ttf")
+    font_page_trajan = os.path.join(os.path.dirname(__file__), "fonts", "Trajan.ttf")
+
+    page.theme = ft.Theme(
+        font_family="Trajan"
+    )
+
+    if not os.path.exists(font_path):
+        return
+
+    page.fonts = {
+        "Amiri": font_path,
+        "Trajan": font_page_trajan
+    }
+
     if page.client_storage.get('access_token'):
         home(page)
 
     else:
-        page.theme = ft.Theme(
-            font_family="Trajan"
-        )
         page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
         page.vertical_alignment = ft.MainAxisAlignment.CENTER
-        # Ensure the font file path is correct relative to your script
-        font_path = os.path.join(os.path.dirname(__file__), "fonts", "Amiri-BoldItalic.ttf")
-        font_page_trajan = os.path.join(os.path.dirname(__file__), "fonts", "Trajan.ttf")
 
-        # Check if the font file exists
-        if not os.path.exists(font_path):
-            print(f"Font file not found at {font_path}")
-            return
-
-        # Load custom font
-        page.fonts = {
-            "Amiri": font_path,
-            "Trajan": font_page_trajan
-        }
-
-        print(f"Font file loaded from {font_path}")
         TC = '#E9BE5F'
-        # page.expand = True
-        page.padding = 0
         page.clean()
         page.theme_mode = ft.ThemeMode.LIGHT
         page.add(ft.Container(

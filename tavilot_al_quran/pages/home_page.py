@@ -217,7 +217,7 @@ def home(page):
                                                 height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    ft.Text("\n   Abu Mansur Matrudiy", size=15, color='white', expand=True)
+                                    ft.Text("\n   Abu Mansur Matrudiy", size=18, color='white', expand=True)
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -251,7 +251,7 @@ def home(page):
                                                 height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    ft.Text("\n   TA'VILOT AL-QURON O'QUVCHILARIGA", size=15, color='white', expand=True)
+                                    ft.Text("\n   TA'VILOT AL-QURON", size=18, color='white', expand=True)
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -285,7 +285,7 @@ def home(page):
                                                 height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    ft.Text("\n   Qo'lyozma va sharhlar", size=15, color='white', expand=True)
+                                    ft.Text("\n   Qo'lyozma va sharhlar", size=18, color='white', expand=True)
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -328,7 +328,7 @@ def home(page):
                                                 height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    ft.Text("\n   Zamonaviy tadqiqotlar", size=15, color='white', expand=True)
+                                    ft.Text("\n   Zamonaviy tadqiqotlar", size=18, color='white', expand=True)
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -362,7 +362,7 @@ def home(page):
                                                 height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    ft.Text("\n   Resurslar: O'quv qo'llanmalari va \n   O'QUVCHILARIGA", size=15,
+                                    ft.Text("\n   Resurslar: O'quv qo'llanmalari va \n   ilmiy manba'lar", size=18,
                                             color='white', expand=True)
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
@@ -397,7 +397,7 @@ def home(page):
                                                 height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    ft.Text("\n   Mutaassib oqimlarga raddiyalar", size=15, color='white', expand=True)
+                                    ft.Text("\n   Mutaassib oqimlarga raddiyalar", size=18, color='white', expand=True)
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -418,5 +418,5 @@ def home(page):
     )
 
     appbar_all(page)
-    page.add(entrance_logo, ft.Text(height=10), three_windows, ft.Text(height=10))
+    page.add(entrance_logo, three_windows)
     page.update()
