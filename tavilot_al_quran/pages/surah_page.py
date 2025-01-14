@@ -158,6 +158,7 @@ def surah_page(page, back_button):
         print('Error')
 
     # --------------------------------------------------------------------------------------------------------------------
+    button_number = 2
     global parts, result, video_files, tafsir_data
 
     def take_id(ids):
@@ -173,6 +174,8 @@ def surah_page(page, back_button):
 
             def change_response(e):
                 if e.control == text_arabic:
+                    nonlocal button_number
+                    button_number = 1
                     right_display.controls.clear()
                     right_display.controls.append(right_top_bar)
                     text_arabic.style.color = "white"
@@ -221,6 +224,7 @@ def surah_page(page, back_button):
                         ])
                         )
                 elif e.control == text_translate:
+                    button_number = 2
                     right_display.controls.clear()
                     right_display.controls.append(right_top_bar)
                     text_translate.style.color = 'white'
@@ -281,6 +285,7 @@ def surah_page(page, back_button):
                             ])
                         )
                 elif e.control == text_tafsir:
+                    button_number = 3
                     right_display.controls.clear()
                     right_display.controls.append(right_top_bar)
                     text_tafsir.style.color = "white"
@@ -588,7 +593,8 @@ def surah_page(page, back_button):
     )
 
     def fetch_data(query):
-        url = f"http://176.221.28.202:8008/api/v1/search/?q={query}"
+        print(button_number, 'BUTTON NUMBER IS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE')
+        url = f"http://176.221.28.202:8008/api/v1/search/?q={query}&search_type={button_number}"
         response = requests.get(url)
         if response.status_code == 200:
             return response.json().get("result", [])
@@ -598,28 +604,13 @@ def surah_page(page, back_button):
 
     # Dictionary to store created elements by their keys
     # Dictionary to store created elements by their keys
-    elements_by_key = {}
+    # elements_by_key = {}
 
-    def scroll_to_item(item_id):
+    def scroll_to_item(item_id, chapter_id):
+        print(f"Scrolling to item {item_id} with chapter_id {chapter_id}")
 
-        # # Find the element in the dictionary
-        # target_element = elements_by_key.get(item_id)
-        #
-        # if target_element:
-        #     # Save the original background color
-        #     original_bgcolor = target_element.controls[0].bgcolor
-        #
-        #     # Set the highlight color
-        #     target_element.controls.controls.controls[0].bgcolor = "yellow"
-        #     target_element.update()  # Update the UI to reflect the highlight
-        #
-        #     # # After a delay, reset the background color to the original
-        #     # def reset_bgcolor():
-        #     #     target_element.bgcolor = original_bgcolor
-        #     #     target_element.update()
-        #     #
-        #     # # Set a timeout to reset the background color after 2 seconds
-        #     # page.set_timeout(reset_bgcolor, 2000)
+        # Perform the necessary actions (e.g., highlight or take some action with chapter_id)
+        take_id(chapter_id)
 
         # Scroll to the target element
         right_display.scroll_to(key=f"{item_id}", duration=700, curve=ft.AnimationCurve.BOUNCE_OUT)
@@ -637,19 +628,19 @@ def surah_page(page, back_button):
         search_data = fetch_data(query)
 
         search.controls.clear()
-        elements_by_key.clear()  # Clear the tracking dictionary
 
         for search_detail in search_data:
             item_id = search_detail.get('id')
+            chapter_id = search_detail.get('chapter_id')
+
+            # Pass both item_id and chapter_id to the scroll_to_item function
             list_tile = ft.ListTile(
                 key=item_id,
-                on_click=lambda e, id=item_id: scroll_to_item(id),
+                on_click=lambda e, id=item_id, chapter_id=chapter_id: scroll_to_item(id, chapter_id),
                 title=ft.Text(
                     f"{search_detail.get('chapter_name')}, {search_detail.get('number')} - oyat"
                 )
             )
-            # Add the created element to the dictionary
-            elements_by_key[item_id] = right_display
             search.controls.append(list_tile)
 
         search.open_view()
