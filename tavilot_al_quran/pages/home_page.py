@@ -7,7 +7,18 @@ from .menuscript import menuscript
 from .studies import studies
 from .resources import resources
 from .refusal import refusal
-from .appbars import appbar_all
+from .appbars import appbar_all, current_language
+
+translations = {
+    "uz": {
+        "back_button_text": "Orqaga qaytish",
+        "three_window_moturudiy": "\n   Abu Mansur Matrudiy",
+    },
+    "kr": {
+        "back_button_text": "Оркага кайтиш",
+        "three_window_moturudiy": "\n   Абу Мансур Мотрудий",
+    }
+}
 
 def home(page):
     page.scroll = False
@@ -18,10 +29,12 @@ def home(page):
     TC = '#E9BE5F'
 
     # ----back button--------------------------------------------------------------------------------------------------------
+    back_button_text = ft.Text(value=translations[current_language]["back_button_text"], color='black')
+
     back_button = ft.OutlinedButton(
         content=ft.Row(controls=[
             ft.Icon(ft.icons.ARROW_BACK, color='black', size=20),
-            ft.Text('Orqaga qaytish', color='black')
+            back_button_text
         ]),
         height=40,
         width=170,
@@ -34,6 +47,7 @@ def home(page):
         adaptive=True,
         on_click=lambda e: home(page),
     )
+    page.update()
 
     # ------Main page---------------------------------------------------------------------------------------------------
 
@@ -59,6 +73,8 @@ def home(page):
         padding=50
 
     )
+
+    three_window_moturudiy = ft.Text(value=translations[current_language]["three_window_moturudiy"], size=18, color='white', expand=True)
 
     three_windows = ft.Container(
         margin=30,
@@ -96,7 +112,7 @@ def home(page):
                                                 height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    ft.Text("\n   Abu Mansur Matrudiy", size=18, color='white', expand=True)
+                                    three_window_moturudiy
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),

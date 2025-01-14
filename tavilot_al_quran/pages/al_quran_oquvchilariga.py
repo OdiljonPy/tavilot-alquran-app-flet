@@ -74,4 +74,5 @@ def al_quron_oquvchilariga(page, back_button):
              )
 
     appbar_all(page)
+    page.update()
 

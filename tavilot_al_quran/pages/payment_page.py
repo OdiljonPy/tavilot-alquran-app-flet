@@ -78,6 +78,8 @@ def payment_page(page, back_button):
         alignment=ft.MainAxisAlignment.CENTER
     )
 
+
+
     page.update()
 
     page.add(text_premium, description_text, payment_text)
