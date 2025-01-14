@@ -3,16 +3,17 @@ import flet as ft
 from .html_pdf_handler import extract_base64_and_save_images, extract_and_process_videos, render_content
 
 def about_us_page(page, back_button):
+    TC = '#E9BE5F'
     page.clean()
-    page.scroll = True
+    page.scroll = False
     # Show a loading indicator
-    loading = ft.ProgressRing()
+    loading = ft.ProgressRing(color=TC)
     page.add(ft.Container(
-        content=ft.Column(controls=[loading],
-                          alignment=ft.MainAxisAlignment.CENTER),
-        alignment=ft.alignment.center,
-        expand=True
-    ))
+        expand=True,
+        adaptive=True,
+        content=loading,
+        alignment=ft.alignment.center)
+    )
     page.update()
 
     # API call to fetch the "about" page data
@@ -29,6 +30,7 @@ def about_us_page(page, back_button):
 
         # Clear the page content after the data is loaded
         page.clean()
+        page.scroll = True
 
         # Container to hold the rendered content
         content_container = ft.Container(

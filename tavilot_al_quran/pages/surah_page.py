@@ -10,11 +10,14 @@ TC = '#E9BE5F'
 def surah_page(page, back_button):
     page.clean()
 
-    loading = ft.ProgressRing()
 
+    loading = ft.ProgressRing(color=TC)
     page.add(ft.Container(
-        content=ft.Column(controls=[ft.Text(height=480), loading], alignment=ft.MainAxisAlignment.CENTER),
-        alignment=ft.alignment.center))
+        expand=True,
+        adaptive=True,
+        content=loading,
+        alignment=ft.alignment.center)
+    )
 
     page.update()
     divider = ft.Container(
@@ -344,7 +347,7 @@ def surah_page(page, back_button):
                                            on_click=change_response)
 
             text_tafsir = ''
-            if page.client_storage.get('access_token'):
+            if page.client_storage.get('access_token') and page.client_storage.get('user_rate') == 2:
                 text_tafsir = ft.TextButton('Tafsir', data=3,
                                             style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
                                             on_click=change_response)

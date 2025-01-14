@@ -7,12 +7,15 @@ from .pdf_page import pdf_page
 def take_content_id(page, back_button, ids):
     page.scroll = True
     page.clean()
+    TC = '#E9BE5F'
 
-    loading = ft.ProgressRing()
-
+    loading = ft.ProgressRing(color=TC)
     page.add(ft.Container(
-        content=ft.Column(controls=[ft.Text(height=480), loading], alignment=ft.MainAxisAlignment.CENTER),
-        alignment=ft.alignment.center))
+        expand=True,
+        adaptive=True,
+        content=loading,
+        alignment=ft.alignment.center)
+    )
 
     page.update()
     url = f"http://176.221.28.202:8008/api/v1/resources/{ids}/"

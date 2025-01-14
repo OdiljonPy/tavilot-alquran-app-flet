@@ -5,14 +5,16 @@ from .menuscript_detail import take_content_id
 
 def menuscript(page, back_button):
     from .appbars import appbar_all
-    page.scroll = True
+    page.scroll = False
     page.clean()
     TC = '#E9BE5F'
-    loading = ft.ProgressRing()
-
+    loading = ft.ProgressRing(color=TC)
     page.add(ft.Container(
-        content=ft.Column(controls=[ft.Text(height=480), loading], alignment=ft.MainAxisAlignment.CENTER),
-        alignment=ft.alignment.center))
+        expand=True,
+        adaptive=True,
+        content=loading,
+        alignment=ft.alignment.center)
+    )
 
     page.update()
 
@@ -24,6 +26,7 @@ def menuscript(page, back_button):
 
     if response.status_code == 200:
         page.clean()
+        page.scroll = True
         datas = response.json().get('result')
         for date in datas:
             motrudiy_data = ft.OutlinedButton(

@@ -5,14 +5,17 @@ from .html_pdf_handler import extract_and_process_videos, extract_base64_and_sav
 from .pdf_page import pdf_page
 
 def take_content_id(page, back_button, ids):
-    page.scroll = True
+    page.scroll = False
     page.clean()
+    TC = '#E9BE5F'
 
-    loading = ft.ProgressRing()
-
+    loading = ft.ProgressRing(color=TC)
     page.add(ft.Container(
-        content=ft.Column(controls=[ft.Text(height=480), loading], alignment=ft.MainAxisAlignment.CENTER),
-        alignment=ft.alignment.center))
+        expand=True,
+        adaptive=True,
+        content=loading,
+        alignment=ft.alignment.center)
+    )
 
     page.update()
     url = f"http://176.221.28.202:8008/api/v1/manuscript/{ids}/"
@@ -27,6 +30,7 @@ def take_content_id(page, back_button, ids):
 
     if response.status_code == 200:
         page.clean()
+        page.scroll = True
         # Container to hold the rendered content
         content_container = ft.Container(
             height=page.window.height,

@@ -4,22 +4,18 @@ from .pdf_page import pdf_page
 import flet as ft
 import requests
 
+
 def take_content_id(page, back_button, ids):
+    page.scroll = False
     page.clean()
+    TC = '#E9BE5F'
 
-    loading = ft.ProgressRing()
-
-    page.add(
-        ft.Container(
-            expand=True,
-            content=ft.Column(
-                expand=True,
-                controls=[loading],
-                alignment=ft.MainAxisAlignment.CENTER,
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            ),
-            alignment=ft.alignment.center,
-        )
+    loading = ft.ProgressRing(color=TC)
+    page.add(ft.Container(
+        expand=True,
+        adaptive=True,
+        content=loading,
+        alignment=ft.alignment.center)
     )
 
     page.update()
@@ -70,6 +66,7 @@ def take_content_id(page, back_button, ids):
         def on_resize(event):
             content_container.height = page.window.height
             page.update()
+
         page.on_resize = on_resize
 
         page.add(content_container)
@@ -86,6 +83,5 @@ def take_content_id(page, back_button, ids):
             )
 
             content_container.content.content.controls.append(pdf)
-
 
         page.update()
