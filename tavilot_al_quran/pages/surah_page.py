@@ -10,7 +10,6 @@ TC = '#E9BE5F'
 def surah_page(page, back_button):
     page.clean()
 
-
     loading = ft.ProgressRing(color=TC)
     page.add(ft.Container(
         expand=True,
@@ -36,8 +35,6 @@ def surah_page(page, back_button):
 
     list_display = ft.ListView(adaptive=True, spacing=10, padding=20)
     list_display_juz = ft.ListView(adaptive=True, spacing=10, padding=20)
-    right_display_juz = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
-                                  horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     right_display = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
                               horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     # -------Back connection juz----------------------------------------------------------------------------------------
@@ -69,6 +66,7 @@ def surah_page(page, back_button):
             ))
 
     def take_juz_id(ids):
+        print("IN JUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ")
         right_display.controls.clear()
         urls = f"http://176.221.28.202:8008/api/v1/juz/{ids}"
         headers = {
@@ -78,39 +76,46 @@ def surah_page(page, back_button):
         juz_response = requests.get(url=urls, headers=headers)
         if juz_response.status_code == 200:
             juz_result_list = juz_response.json().get('result').get('chapters')
+            print(juz_result_list, "JUZ IS HEREREREEEEEEEEEEEEE")
 
             for juz_i in juz_result_list:
                 for juz_i_verse in juz_i.get('verses'):
-                    right_display_juz.controls.append(ft.Column(controls=[ft.Row(
+                    print(juz_i_verse)
+                    right_display.controls.append(ft.Column(
                         adaptive=True,
-                        controls=[
-                            ft.Container(
-                                image_src=os.path.abspath("assets/Union.png"),
-                                alignment=ft.alignment.center,
-                                width=50,
-                                height=50,
-                                adaptive=True,
-                                content=ft.Text(value=f"{juz_i_verse.get('number')}")
-                            ),
-                            ft.Text(value=f"{juz_i_verse.get('text_arabic')}", size=20, expand=True,
-                                    width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True,
-                                    font_family="Amiri"),
-                            ft.Text(width=10)
-                        ]),
-                        ft.Row(
+                        expand=True,
+                        controls=[ft.Row(
+                            expand=True,
+                            adaptive=True,
                             controls=[
-                                ft.Text(
-                                    value=f"{juz_i_verse.get('number')}.{juz_i_verse.get('text')}",
-                                    size=20,
-                                    expand=True,
-                                    width=page.window_width, text_align=ft.TextAlign.RIGHT
+                                ft.Container(
+                                    image_src=os.path.abspath("assets/Union.png"),
+                                    alignment=ft.alignment.center,
+                                    width=50,
+                                    height=50,
+                                    adaptive=True,
+                                    content=ft.Text(value=f"{juz_i_verse.get('number')}")
                                 ),
-                                ft.Text(width=10),
-                            ]
-                        ),
-                        ft.Divider(color=TC)
-                    ])
+                                ft.Text(value=f"{juz_i_verse.get('text_arabic')}", size=20, expand=True,
+                                        width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True,
+                                        font_family="Amiri"),
+                                ft.Text(width=10)
+                            ]),
+                            ft.Row(
+                                controls=[
+                                    ft.Text(
+                                        value=f"{juz_i_verse.get('number')}.{juz_i_verse.get('text')}",
+                                        size=20,
+                                        expand=True,
+                                        width=page.window_width, text_align=ft.TextAlign.RIGHT
+                                    ),
+                                    ft.Text(width=10),
+                                ]
+                            ),
+                            ft.Divider(color=TC)
+                        ])
                     )
+        page.update()
 
     # ------Back connection----------------------------------------------------------------------------------------------
     url = "http://176.221.28.202:8008/api/v1/chapters/"
