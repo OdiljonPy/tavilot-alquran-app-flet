@@ -2,6 +2,7 @@ import flet as ft
 import requests
 import os
 from .html_pdf_handler import extract_base64_and_save_images, extract_and_process_videos, render_content
+from .appbars import appbar_search
 
 TC = '#E9BE5F'
 
@@ -17,11 +18,11 @@ def surah_page(page, back_button):
 
     page.update()
     divider = ft.Container(
-                adaptive=True,
-                bgcolor=TC,  # The line's color
-                width=5,  # Thickness of the line
-                height=page.window_width,  # Match the height of the containers
-            )
+        adaptive=True,
+        bgcolor=TC,  # The line's color
+        width=5,  # Thickness of the line
+        height=page.window_width,  # Match the height of the containers
+    )
 
     def on_resize(event):
         divider.height = page.window_width
@@ -50,15 +51,16 @@ def surah_page(page, back_button):
                 expand=True,
                 content=ft.Row(
                     controls=[
-                        ft.Container(adaptive=True, content=ft.Text(i.get('number'), color='black'), shape=ft.BoxShape.CIRCLE,
+                        ft.Container(adaptive=True, content=ft.Text(i.get('number'), color='black'),
+                                     shape=ft.BoxShape.CIRCLE,
                                      width=60,
                                      height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)),
                         ft.Column(
                             adaptive=True,
                             controls=[
-                            ft.Text(expand=True, value=f"{i.get('number')}-JUZ", size=20),
-                            ft.Text(f"{i.get('title')}", size=10, expand=True)
-                        ])
+                                ft.Text(expand=True, value=f"{i.get('number')}-JUZ", size=20),
+                                ft.Text(f"{i.get('title')}", size=10, expand=True)
+                            ])
                     ]
                 )
             ))
@@ -88,7 +90,8 @@ def surah_page(page, back_button):
                                 content=ft.Text(value=f"{juz_i_verse.get('number')}")
                             ),
                             ft.Text(value=f"{juz_i_verse.get('text_arabic')}", size=20, expand=True,
-                                    width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True, font_family="Amiri"),
+                                    width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True,
+                                    font_family="Amiri"),
                             ft.Text(width=10)
                         ]),
                         ft.Row(
@@ -125,19 +128,23 @@ def surah_page(page, back_button):
                 content=ft.Row(
                     adaptive=True,
                     controls=[
-                    ft.Container(adaptive=True, content=ft.Text(i.get('id'), color='black'), shape=ft.BoxShape.CIRCLE, width=60,
-                                 height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)),
-                    ft.Column(
-                        controls=[
-                        ft.Text(i.get('name'), size=20, expand=True),
-                        ft.Text(f"{i.get('type_choice')}, {i.get('verse_number')} oyat", size=10, expand=True)
-                    ]),
-                    ft.Text(value=i.get('name_arabic'), size=15, text_align=ft.TextAlign.RIGHT, width=150, font_family='Amiri', expand=True)
-                ])))
+                        ft.Container(adaptive=True, content=ft.Text(i.get('id'), color='black'),
+                                     shape=ft.BoxShape.CIRCLE, width=60,
+                                     height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)),
+                        ft.Column(
+                            controls=[
+                                ft.Text(i.get('name'), size=20, expand=True),
+                                ft.Text(f"{i.get('type_choice')}, {i.get('verse_number')} oyat", size=10, expand=True)
+                            ]),
+                        ft.Text(value=i.get('name_arabic'), size=15, text_align=ft.TextAlign.RIGHT, width=150,
+                                font_family='Amiri', expand=True)
+                    ])))
     else:
         print('Error')
 
     # --------------------------------------------------------------------------------------------------------------------
+    global parts, result, video_files, tafsir_data
+
     def take_id(ids):
         right_display.controls.clear()
         urls = f"http://176.221.28.202:8008/api/v1/chapter/{ids}"
@@ -192,7 +199,8 @@ def surah_page(page, back_button):
                                     content=ft.Text(value=f"{result_detail.get('number')}")
                                 ),
                                 ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                        width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True, font_family="Amiri"),
+                                        width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True,
+                                        font_family="Amiri"),
                                 ft.Text(width=10)
                             ]),
                             ft.Divider(color=TC)
@@ -239,7 +247,8 @@ def surah_page(page, back_button):
                                             content=ft.Text(value=f"{result_detail.get('number')}")
                                         ),
                                         ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                                width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True, font_family="Amiri"),
+                                                width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True,
+                                                font_family="Amiri"),
                                         ft.Text(width=10)
                                     ]),
                                 ft.Row(
@@ -282,7 +291,6 @@ def surah_page(page, back_button):
                         ]
                     )
                     right_display.controls.append(chapter_n)
-                    global parts, result, video_files, tafsir_data
                     for result_detail in result_details:
                         if result_detail.get('description'):
 
@@ -300,7 +308,8 @@ def surah_page(page, back_button):
                                         content=ft.Text(value=f"{result_detail.get('number')}")
                                     ),
                                     ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                            width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True, font_family="Amiri"),
+                                            width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True,
+                                            font_family="Amiri"),
                                     ft.Text(width=10)
                                 ]),
                                 ft.Row(controls=[ft.Text(
@@ -333,15 +342,29 @@ def surah_page(page, back_button):
             text_translate = ft.TextButton('Tarjima', data=2,
                                            style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
                                            on_click=change_response)
-            text_tafsir = ft.TextButton('Tafsir', data=3,
-                                        style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
-                                        on_click=change_response)
+
+            text_tafsir = ''
+            if page.client_storage.get('access_token'):
+                text_tafsir = ft.TextButton('Tafsir', data=3,
+                                            style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
+                                            on_click=change_response)
+            else:
+                text_tafsir = ft.TextButton(
+                    disabled=True,
+                    content=ft.Row(controls=[
+                        ft.Text('Tafsir'),
+                        ft.Image(src=os.path.abspath("assets/lock.png"))
+                    ]
+                    ),
+                    data=3,
+                    style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
+                    on_click=change_response)
             right_top_bar = ft.Container(
                 expand=True,
                 alignment=ft.alignment.center,
                 border_radius=20,
                 height=30,
-                width=245,
+                width=275,
                 bgcolor=ft.colors.GREY_200,
                 adaptive=True,
                 content=ft.Row(
@@ -411,22 +434,24 @@ def surah_page(page, back_button):
     if response_data.status_code == 200:
         response_list = response_data.json().get('result')
         for response_detail in response_list:
-            column_data.append(ft.Container(adaptive=True, content=ft.Text(response_detail.get('id'), color='black'), shape=ft.BoxShape.CIRCLE, width=60,
-                         height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)))
+            column_data.append(ft.Container(adaptive=True, content=ft.Text(response_detail.get('id'), color='black'),
+                                            shape=ft.BoxShape.CIRCLE, width=60,
+                                            height=60, alignment=ft.alignment.center,
+                                            border=ft.border.all(2, color=TC)))
 
     # Function to toggle widgets
     def toggle_widgets(e):
         nonlocal is_cleaned
         if is_cleaned:
-            button3.text="Ochish >"
-            button3.style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC)
-            side_bar.controls[0].controls=column_data
-            side_bar.controls[0].width=100
+            button3.text = "Ochish >"
+            button3.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC)
+            side_bar.controls[0].controls = column_data
+            side_bar.controls[0].width = 100
         else:
-            button3.text="< Yopish"
-            button3.style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=ft.colors.BLACK)
+            button3.text = "< Yopish"
+            button3.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=ft.colors.BLACK)
             side_bar.controls[0].width = 350
-            side_bar.controls[0].controls=[ft.Row(
+            side_bar.controls[0].controls = [ft.Row(
                 spacing=20,
                 adaptive=True,
                 alignment=ft.MainAxisAlignment.CENTER,
@@ -436,12 +461,10 @@ def surah_page(page, back_button):
                     button3
                 ]
             ),
-            list_view
+                list_view
             ]
         is_cleaned = not is_cleaned  # Toggle the state
         page.update()
-
-
 
     # Initialize default colors
     button1_color = TC
@@ -487,7 +510,6 @@ def surah_page(page, back_button):
 
     )
 
-
     side_bar = ft.Row(
         vertical_alignment=ft.CrossAxisAlignment.START,
         expand=True,
@@ -528,10 +550,8 @@ def surah_page(page, back_button):
         ],
         spacing=0
     )
+    appbar_search(page)
     page.add(side_bar)
     # Render the extracted parts (text, images, videos)
     render_content(tafsir_data, parts, video_files)
     page.update()
-
-
-

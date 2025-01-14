@@ -7,7 +7,7 @@ from .menuscript import menuscript
 from .studies import studies
 from .resources import resources
 from .refusal import refusal
-
+from .appbars import appbar_all
 
 def home(page):
     page.scroll = False
@@ -122,88 +122,7 @@ def home(page):
     ],
     ))
 
-    # ------Main page-------------------------------------------------------------------------------------------------------
-
-    about_us_icon = ft.IconButton(
-        icon=ft.Icons.INFO,
-        icon_color=TC,
-        on_click=lambda e: about_us_page(page, back_button)
-    )
-
-    def handle_close(e):
-        page.close(dlg_modal)
-
-    def handle_out(page):
-        page.close(dlg_modal)
-        page.update()
-        from tavilot_al_quran.main import main
-        page.appbar=None
-        page.client_storage.clear()
-        main(page)
-
-    def handle_click(e):
-        page.open(dlg_modal)
-
-    dlg_modal = ft.AlertDialog(
-        actions_alignment=ft.MainAxisAlignment.CENTER,
-        adaptive=True,
-        modal=True,
-        content=ft.Text("Haqiqatdan ham hisobingizdan\nchiqmoqchimisiz?", text_align=ft.TextAlign.CENTER),
-        actions=[
-            ft.OutlinedButton(
-                text="Ha",
-                on_click=lambda e: handle_out(page),
-                # Link the button to validation
-                width=100,
-                height=50,
-                style=ft.ButtonStyle(
-                    color='white',
-                    bgcolor=TC,
-                    shape=ft.RoundedRectangleBorder(radius=8),
-                )
-            ),
-            ft.OutlinedButton(
-                text="Yo'q",
-                on_click=handle_close,
-                # Link the button to validation
-                width=100,
-                height=50,
-                style=ft.ButtonStyle(
-                    color=TC,
-                    bgcolor='white',
-                    shape=ft.RoundedRectangleBorder(radius=8),
-                )
-            ),
-        ],
-    )
-
-    logout_icon = ft.IconButton(
-        icon=ft.Icons.LOGOUT,
-        icon_color=TC,
-        on_click=lambda e: handle_click(e)
-    )
-
-    image = ft.Image(src=os.path.abspath("assets/Ўз.svg"))
-
-    # Callback function to handle language selection
-    def on_language_select(e):
-        selected_lang_text = e.control.content.value
-
-        if selected_lang_text == 'English':
-            pass
-        #     image = ft.Image(src=)
-        #
-        # selected_language.value = selected_lang_text[:2].upper()
-        page.update()
-
-    # PopupMenuButton with language options
-    language_menu = ft.PopupMenuButton(
-        content=image,
-        items=[
-            ft.PopupMenuItem(text="Uzb", on_click=on_language_select),
-            ft.PopupMenuItem(text="ru")
-        ]
-    )
+    # ------Main page---------------------------------------------------------------------------------------------------
 
     # def close_anchor(e):
     #     text = f"Color {e.control.data}"
@@ -498,88 +417,6 @@ def home(page):
         alignment=ft.alignment.center
     )
 
-    routes = {
-        "Abu Mansur Motrudiy": al_quron_oquvchilariga,
-        "Tavilot al-Quron": surah_page,
-        "Qo'lyozma va sharhlar": menuscript,
-        "Zamonaviy tadqiqotlar": studies,
-        "Resurslar": resources,
-        "Mutaassib oqimlarga raddiyalar": refusal
-    }
-
-    active_route = None
-
-    def navigate(e, route):
-        nonlocal active_route
-        if route != active_route:
-            active_route = route
-            update_appbar()  # Refresh the AppBar with updated colors
-            if route in routes:
-                routes[route](page, back_button)  # Call the corresponding route function
-            else:
-                page.clean()
-                page.add(ft.Text("404 - Page Not Found", size=20))
-                page.update()
-
-    def generate_appbar_actions():
-        return [
-            ft.TextButton(
-                adaptive=True,
-                text=route_label,
-                style=ft.ButtonStyle(
-                    text_style=ft.TextStyle(size=15),
-                    color='#007577' if route == active_route else ft.colors.BLACK,
-                ),
-                on_click=lambda e, r=route: navigate(e, r)
-            )
-            for route, route_label in [
-                ("Abu Mansur Motrudiy", "Abu Mansur Motrudiy"),
-                ("Tavilot al-Quron", "Tavilot al-Quron"),
-                ("Qo'lyozma va sharhlar", "Qo'lyozma va sharhlar"),
-                ("Zamonaviy tadqiqotlar", "Zamonaviy tadqiqotlar"),
-                ("Resurslar", "Resurslar"),
-                ("Mutaassib oqimlarga raddiyalar", "Mutaassib oqimlarga raddiyalar")
-
-            ]
-        ]
-
-    def update_appbar():
-        page.appbar = ft.AppBar(
-            title=ft.Row(
-                spacing=20,
-                alignment=ft.MainAxisAlignment.CENTER,
-                expand=True,
-                adaptive=True,
-                controls=[
-                    *generate_appbar_actions(),
-                ]
-            ),
-            center_title=True,
-            adaptive=True,
-            leading=ft.Image(
-                expand=True,
-                color='#007577',
-                src=os.path.abspath("assets/tA'VILOT_Монтажная_область1.svg")
-            ),
-            leading_width=100,
-            actions=[
-                ft.Row(
-                    adaptive=True,
-                    expand=True,
-                    alignment=ft.MainAxisAlignment.CENTER,
-                    spacing=15,  # Reduced spacing to allow more room for items
-                    controls=[
-                        language_menu,
-                        logout_icon,
-                        about_us_icon,
-                    ],
-                ),
-            ],
-            bgcolor='white',
-            toolbar_height=80,
-        )
-        page.update()
-
-    update_appbar()
+    appbar_all(page)
     page.add(entrance_logo, ft.Text(height=10), three_windows, ft.Text(height=10))
     page.update()

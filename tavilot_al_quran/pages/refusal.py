@@ -4,6 +4,7 @@ import requests
 from .resources_detail import take_content_id
 
 def refusal(page, back_button):
+    from .appbars import appbar_all
     page.scroll = True
     page.clean()
     TC = '#E9BE5F'
@@ -67,3 +68,5 @@ def refusal(page, back_button):
         )
     )
              )
+
+    appbar_all(page)

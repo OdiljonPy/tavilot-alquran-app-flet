@@ -5,6 +5,7 @@ from .motrudiy_detail import take_content_id
 
 
 def al_quron_oquvchilariga(page, back_button):
+    from .appbars import appbar_all
     page.scroll = True
     page.clean()
     TC = '#E9BE5F'
@@ -68,3 +69,6 @@ def al_quron_oquvchilariga(page, back_button):
         )
     )
              )
+
+    appbar_all(page)
+
