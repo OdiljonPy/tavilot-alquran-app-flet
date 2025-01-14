@@ -3,6 +3,7 @@ import requests
 import os
 from .html_pdf_handler import extract_base64_and_save_images, extract_and_process_videos, render_content
 from .appbars import appbar_search
+from .payment_page import payment_page
 
 TC = '#E9BE5F'
 
@@ -358,7 +359,6 @@ def surah_page(page, back_button):
                                             on_click=change_response)
             else:
                 text_tafsir = ft.TextButton(
-                    disabled=True,
                     content=ft.Row(controls=[
                         ft.Text('Tafsir'),
                         ft.Image(src=os.path.abspath("assets/lock.png"))
@@ -366,7 +366,9 @@ def surah_page(page, back_button):
                     ),
                     data=3,
                     style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
-                    on_click=change_response)
+                    on_click=lambda e: payment_page(page, back_button)
+                )
+
             right_top_bar = ft.Container(
                 expand=True,
                 alignment=ft.alignment.center,

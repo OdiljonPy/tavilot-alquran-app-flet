@@ -35,9 +35,6 @@ def main(page: ft.Page):
         home(page)
 
     else:
-        page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-        page.vertical_alignment = ft.MainAxisAlignment.CENTER
-
         TC = '#E9BE5F'
         page.clean()
         page.theme_mode = ft.ThemeMode.LIGHT

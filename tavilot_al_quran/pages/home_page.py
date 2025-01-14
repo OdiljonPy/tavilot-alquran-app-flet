@@ -35,126 +35,7 @@ def home(page):
         on_click=lambda e: home(page),
     )
 
-    # -----------------------------------------------------------------------------------------------------------------------
-
-    def buy_page(e):
-        page.clean()
-        page.add(divider, back_button, divider, buy_text, buy_things)
-
-    def payment_page(e):
-        page.clean()
-        page.add(divider, back_button, text_premium, description_text)
-
-    # -----Payment Page------------------------------------------------------------------------------------------------------
-
-    text_premium = ft.Row(controls=[ft.Container(content=ft.Row(
-        controls=[
-            ft.Text('Premium version', color=TC, size=60, weight='bold')
-        ],
-        alignment=ft.MainAxisAlignment.CENTER
-    ),
-        alignment=ft.alignment.center,
-        image_src=os.path.abspath("assets/searchbg.png"),
-        width=1000,
-        height=200,
-        image_fit='cover',
-        image_opacity=1,
-        padding=50
-
-    )
-    ],
-        alignment=ft.MainAxisAlignment.CENTER
-    )
-
-    description_text = ft.Row(controls=[
-        ft.Text('Премиум версия орқали қуйидаги ҳусусиятларга эга бӯласиз', size=30, width=600,
-                text_align=ft.TextAlign.CENTER)
-    ],
-        alignment=ft.MainAxisAlignment.CENTER
-    )
-
-    # ----Buy page content---------------------------------------------------------------------------------------------------
-    buy_text = ft.Text('         Xaridlar', size=30, color='black', weight='bold')
-
-    buy_things = ft.Container(content=ft.Row(controls=[
-        ft.Text(width=50),
-        ft.OutlinedButton(content=ft.Column(
-            controls=[
-                ft.Column(controls=[
-                    ft.Text('')
-                ]),
-                ft.Row(controls=[
-                    ft.Image(src=os.path.abspath("assets/tempImageu3T1ZX1.png")),
-                    ft.Text(''),
-                    ft.Column(controls=[
-                        ft.Text('Tafsiri Hilol', size=25, color='black'),
-                        ft.Text('Шайҳ Муҳаммад Содиқ Муҳаммад Юсуф', size=18, color='black'),
-                        ft.Text(''),
-                        ft.Row(controls=[
-                            ft.Text('240 000 sum', size=20, color='black'),
-                            ft.Text(width=120),
-                            ft.OutlinedButton(
-                                content=ft.Text('Xarid qilish', color='white'),
-                                style=ft.ButtonStyle(
-                                    shape=ft.RoundedRectangleBorder(radius=22),
-                                    bgcolor=TC
-                                ),
-                                on_click=payment_page
-                            )
-                        ]),
-
-                    ],
-                        horizontal_alignment=ft.CrossAxisAlignment.STRETCH
-                    )
-                ]),
-            ],
-            horizontal_alignment=ft.CrossAxisAlignment.STRETCH
-        ),
-            height=200,
-            width=560,
-            style=ft.ButtonStyle(
-                color='white',
-                shape=ft.RoundedRectangleBorder(radius=15),
-                bgcolor='#FFFFFF'
-            ),
-
-        ),
-    ],
-    ))
-
     # ------Main page---------------------------------------------------------------------------------------------------
-
-    # def close_anchor(e):
-    #     text = f"Color {e.control.data}"
-    #     print(f"closing view from {text}")
-    #     anchor.close_view(text)
-    #
-    # def handle_change(e):
-    #     print(f"handle_change e.data: {e.data}")
-    #
-    # def handle_submit(e):
-    #     print(f"handle_submit e.data: {e.data}")
-    #
-    # def handle_tap(e):
-    #     print(f"handle_tap")
-    #     anchor.open_view()
-    #
-    # search = ft.SearchBar(
-    #     bar_bgcolor='white',
-    #     bar_border_side=ft.BorderSide(color=TC, width=1),
-    #     view_elevation=4,
-    #     divider_color=ft.colors.AMBER,
-    #     bar_leading=ft.Icon(ft.icons.SEARCH),
-    #     bar_hint_text="Nima o'qimoqchisiz?...",
-    #     view_hint_text="Choose a color from the suggestions...",
-    #     on_change=handle_change,
-    #     on_submit=handle_submit,
-    #     on_tap=handle_tap,
-    #     controls=[
-    #         ft.ListTile(title=ft.Text(f"Color {i}"), on_click=close_anchor, data=i)
-    #         for i in range(10)
-    #     ],
-    # )
 
     entrance_logo = ft.Container(
         adaptive=True,
@@ -178,8 +59,6 @@ def home(page):
         padding=50
 
     )
-
-    divider = ft.Divider(height=30)
 
     three_windows = ft.Container(
         margin=30,
