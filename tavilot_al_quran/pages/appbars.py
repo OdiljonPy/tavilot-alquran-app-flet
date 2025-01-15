@@ -190,12 +190,14 @@ def appbar_all(page):
             ),
             center_title=True,
             adaptive=True,
-            leading=ft.Image(
+            leading_width=100,
+            leading=ft.Container(
+                on_click=lambda e: home(page),
+                content=ft.Image(
                 expand=True,
                 color='#007577',
                 src=os.path.abspath("assets/tA'VILOT_Монтажная_область1.svg")
-            ),
-            # leading_width=,
+            )),
             actions=[
                 ft.Row(
                     adaptive=True,
