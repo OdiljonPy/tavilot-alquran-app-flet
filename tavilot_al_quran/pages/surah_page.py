@@ -1101,32 +1101,32 @@ def surah_page(page):
             ""
         return []
 
-    import threading
+    # import threading
 
     def scroll_to_item(item_id, chapter_id):
 
         # Perform the necessary actions (e.g., highlight or take some action with chapter_id)
         take_id(chapter_id, number=button_number)
 
-        # Find the target element
-        target_element = next((control for control in right_display.controls if control.key == item_id), None)
-
-        if target_element:
-            # Apply highlight style
-            original_bgcolor = target_element.controls[0].controls[0].bgcolor
-            target_element.controls[0].controls[0].bgcolor = "yellow"
-            target_element.update()
-
-            # Function to remove highlight after a delay
-            def remove_highlight():
-                # Sleep for 3 seconds
-                threading.Event().wait(3)
-                # Restore original background color
-                target_element.controls[0].controls[0].bgcolor = original_bgcolor
-                target_element.update()
-
-            # Start a new thread to remove the highlight after the delay
-            threading.Thread(target=remove_highlight).start()
+        # # Find the target element
+        # target_element = next((control for control in right_display.controls if control.key == item_id), None)
+        #
+        # if target_element:
+        #     # Apply highlight style
+        #     original_bgcolor = target_element.controls[0].controls[0].bgcolor
+        #     target_element.controls[0].controls[0].bgcolor = "yellow"
+        #     target_element.update()
+        #
+        #     # Function to remove highlight after a delay
+        #     def remove_highlight():
+        #         # Sleep for 3 seconds
+        #         threading.Event().wait(3)
+        #         # Restore original background color
+        #         target_element.controls[0].controls[0].bgcolor = original_bgcolor
+        #         target_element.update()
+        #
+        #     # Start a new thread to remove the highlight after the delay
+        #     threading.Thread(target=remove_highlight).start()
 
         # Scroll to the target element
         right_display.scroll_to(key=f"{item_id}", duration=700, curve=ft.AnimationCurve.BOUNCE_OUT)
@@ -1149,7 +1149,7 @@ def surah_page(page):
             item_id = search_detail.get('id')
             chapter_id = search_detail.get('chapter_id')
 
-            # Pass both item_id and chapter_id to the scroll_to_item function
+            # Pass both item_id and chapter_id as default arguments to the lambda function
             list_tile = ft.ListTile(
                 key=item_id,
                 on_click=lambda e, id=item_id, chapter_id=chapter_id: scroll_to_item(id, chapter_id),
