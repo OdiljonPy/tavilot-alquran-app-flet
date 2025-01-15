@@ -117,7 +117,6 @@ def surah_page(page):
                 )
                 right_display.controls.append(juz_n)
                 for juz_i_verse in juz_i.get('verses'):
-                    print(juz_i_verse)
                     if juz_i_verse.get('description'):
                         content = render_description(juz_i_verse.get('description'), page)
                     else:
@@ -195,8 +194,7 @@ def surah_page(page):
                                 font_family='Amiri', expand=True)
                     ])))
     else:
-        print('Error')
-
+        ""
     # --------------------------------------------------------------------------------------------------------------------
     button_number = 1
     right_display.controls.clear()
@@ -214,7 +212,6 @@ def surah_page(page):
     responses = requests.get(url=urls, headers=headers)
     if responses.status_code == 200:
         result_details = responses.json().get('result').get('verses')
-        print(result_details)
 
         def change_response(number=1):
             if number == text_arabic.data:
@@ -359,7 +356,6 @@ def surah_page(page):
                 )
                 right_display.controls.append(chapter_n)
                 for result_data in result_details:
-                    print(result_data)
                     if result_data.get('description'):
                         content = render_description(result_data.get('description'), page)
                         tafsir_data = ft.Column(
@@ -401,7 +397,7 @@ def surah_page(page):
                         right_display.controls.append(tafsir_data),
                         page.update()
                     else:
-                        print("Tafsir not found")
+                        ""
             page.update()  # Update the page to reflect changes
 
 
@@ -503,12 +499,11 @@ def surah_page(page):
             )
 
     else:
-        print("Error")
+        ""
     page.update()
     #------Default page-------------------------------------------------------------------------------------------------
 
     def take_id(ids, number=1):
-        print(number, "it's nummmmmmmmmmmmmmmmmmmmmm")
         right_display.controls.clear()
         urls = f"http://176.221.28.202:8008/api/v1/chapter/{ids}"
         headers = ""
@@ -524,10 +519,8 @@ def surah_page(page):
         responses = requests.get(url=urls, headers=headers)
         if responses.status_code == 200:
             result_details = responses.json().get('result').get('verses')
-            print(result_details)
 
             def change_response(number=number):
-                print(number, "number")
                 if number == text_arabic.data:
                     nonlocal button_number
                     button_number = 1
@@ -670,7 +663,6 @@ def surah_page(page):
                     )
                     right_display.controls.append(chapter_n)
                     for result_data in result_details:
-                        print(result_data)
                         if result_data.get('description'):
                             content = render_description(result_data.get('description'), page)
                             tafsir_data = ft.Column(
@@ -710,7 +702,7 @@ def surah_page(page):
                                 ])
                             right_display.controls.append(tafsir_data),
                         else:
-                            print("Tafsir not found")
+                            ""
                 page.update()  # Update the page to reflect changes
 
 
@@ -900,7 +892,6 @@ def surah_page(page):
                 )
                 right_display.controls.append(chapter_n)
                 for result_data in result_details:
-                    print(result_data)
                     if result_data.get('description'):
                         content = render_description(result_data.get('description'), page)
                         tafsir_data = ft.Column(
@@ -940,7 +931,7 @@ def surah_page(page):
                             ])
                         right_display.controls.append(tafsir_data),
         else:
-            print("Error")
+            ""
         page.update()
 
     # -----Close button logic---------------------------------------------------------------------------------------------
@@ -1105,16 +1096,14 @@ def surah_page(page):
             }
         response = requests.get(url=url, headers=headers)
         if response.status_code == 200:
-            print(response.json().get('result'))
             return response.json().get("result", [])
         else:
-            print(f"API Error: {response.status_code}")
+            ""
         return []
 
     import threading
 
     def scroll_to_item(item_id, chapter_id):
-        print(f"Scrolling to item {item_id} with chapter_id {chapter_id}")
 
         # Perform the necessary actions (e.g., highlight or take some action with chapter_id)
         take_id(chapter_id, number=button_number)
@@ -1123,7 +1112,6 @@ def surah_page(page):
         target_element = next((control for control in right_display.controls if control.key == item_id), None)
 
         if target_element:
-            print(target_element.controls[0].controls[0], "TARGET ELEMENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
             # Apply highlight style
             original_bgcolor = target_element.controls[0].controls[0].bgcolor
             target_element.controls[0].controls[0].bgcolor = "yellow"

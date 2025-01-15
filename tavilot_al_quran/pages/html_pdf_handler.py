@@ -1,9 +1,7 @@
 import re
 import binascii
-import os
 import pyhtml2md
 import flet as ft
-import base64
 
 
 def extract_base64_and_save_images(api_html_response):
@@ -27,14 +25,9 @@ def extract_base64_and_save_images(api_html_response):
 
         try:
             base64_string = base64_data.split(",")[1]
-            image_data = base64.b64decode(base64_string, validate=True)
-
-            image_filename = os.path.join(os.getcwd(), f"output_image_{index}.png")
-            with open(image_filename, "wb") as image_file:
-                image_file.write(image_data)
-
-            image_files.append(image_filename)
-            parts.append({"type": "image", "content": image_filename})
+            d = base64_string
+            image_files.append(d)
+            parts.append({"type": "image", "content": d})
         except binascii.Error:
             parts.append({"type": "text", "content": "[Invalid Image]"})
 
@@ -42,7 +35,8 @@ def extract_base64_and_save_images(api_html_response):
 
     if last_end < len(api_html_response):
         text_content = api_html_response[last_end:].strip()
-        parts.append({"type": "text", "content": text_content})
+        index_text = text_content.find('>')
+        parts.append({"type": "text", "content": text_content[index_text+1:]})
 
     return parts, ""
 
@@ -57,9 +51,6 @@ def extract_and_process_videos(api_html_response):
     video_files = []
     for video_url in video_matches:
         video_files.append(video_url)
-
-    print(video_files)  # For debugging, to check the extracted video URLs
-
     return video_files
 
 
@@ -115,9 +106,8 @@ def render_content(container, parts, video_files):
 
         elif part["type"] == "image":
             # Directly render base64 images using ft.Image(src_base64=)
-            with open(part["content"], "rb") as image_file:
-                base64_image = base64.b64encode(image_file.read()).decode("utf-8")
-                container.controls.append(ft.Image(src_base64=base64_image, width=800, height=600, expand=True))
+            base64_image = part["content"]
+            container.controls.append(ft.Image(src_base64=base64_image, width=800, height=600, expand=True))
 
     # Update the container to reflect changes
     container.update()

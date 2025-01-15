@@ -55,9 +55,7 @@ def take_content_id(page, ids):
     page.update()
     url = f"http://176.221.28.202:8008/api/v1/resources/{ids}/"
     response = requests.get(url=url)
-    print(response.json())
     response_data = response.json().get('result').get('description')
-    print(response_data)
 
     # Process HTML to handle base64 images and videos
     parts, result = extract_base64_and_save_images(response_data)

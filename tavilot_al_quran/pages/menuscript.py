@@ -61,7 +61,6 @@ def menuscript(page):
 
     url = "http://176.221.28.202:8008/api/v1/manuscript/"
     response = requests.get(url=url)
-    print(response.json())
     data_list = ft.Row(wrap=True, expand=True, scroll=ft.ScrollMode.ALWAYS, alignment=ft.MainAxisAlignment.START,
                        adaptive=True)
 

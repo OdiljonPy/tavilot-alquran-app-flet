@@ -100,7 +100,6 @@ def main(page: ft.Page):
                 'password': passw.value
             }
             response = requests.post(url, json=data, headers=headers)
-            print(response.json())
             if response.status_code == 201:
                 otp_key = response.json().get('result').get('otp_key')
                 go_to_otp_page(page, otp_key, phone_input)
@@ -116,7 +115,6 @@ def main(page: ft.Page):
             page.update()
 
         def on_password_change(p, phone):
-            print(p, phone)
             if p.value and phone.value:
                 continue_button_login.disabled = False
                 continue_button_registration.disabled = False
@@ -248,7 +246,6 @@ def main(page: ft.Page):
                 'password': passw.value
             }
             response = requests.post(url=url, json=data, headers=headers)
-            print(response.json())
             if response.status_code == 200:
                 page.clean()
                 loading = ft.ProgressRing()
@@ -368,7 +365,6 @@ def main(page: ft.Page):
         # Function to collect all numbers into one variable
         def collect_otp():
             otp = "".join(field.value for field in text_fields if field.value.isdigit())
-            print(f"Collected OTP: {otp}")
             return otp
 
         # Attach the on_change event to each text field
@@ -376,7 +372,6 @@ def main(page: ft.Page):
             text_field.on_change = on_change
         # Add text fields to a row to display them in a horizontal line
         row = ft.Row(adaptive=True, controls=text_fields)
-        print(row.controls)
 
         # -----OTP Countdown------------------------------------------------------------------------------------------------
         class Countdown(ft.Text):
@@ -432,14 +427,11 @@ def main(page: ft.Page):
             headers = {
                 "Content-Type": "application/json",
             }
-            print(collect_otp())
             data = {
                 'otp_code': collect_otp(),
                 'otp_key': key_otp
             }
-            print(data)
             response = requests.post(url=url, json=data, headers=headers)
-            print(response)
             if response.status_code == 200:
                 main(page)
             else:

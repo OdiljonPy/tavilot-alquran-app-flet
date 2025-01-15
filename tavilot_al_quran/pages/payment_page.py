@@ -140,7 +140,6 @@ def payment_page(page):
     )
 
     def redirect_to_pay(url):
-        print(url)
         webbrowser.open(url)
 
     pay_button = ft.Container(
