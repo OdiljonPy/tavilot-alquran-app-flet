@@ -1,5 +1,4 @@
 import flet as ft
-from .al_quran_oquvchilariga import al_quron_oquvchilariga
 from .menuscript import menuscript
 from .studies import studies
 from .refusal import refusal
@@ -24,6 +23,8 @@ current_language = "uz"
 
 
 def appbar_all(page):
+    from .al_quran_oquvchilariga import al_quron_oquvchilariga
+
     TC = '#E9BE5F'
     from .home_page import home
     from .surah_page import surah_page
@@ -147,7 +148,7 @@ def appbar_all(page):
             active_route = route
             update_appbar()  # Refresh the AppBar with updated colors
             if route in routes:
-                routes[route](page, back_button)  # Call the corresponding route function
+                routes[route](page)  # Call the corresponding route function
             else:
                 page.clean()
                 page.add(ft.Text("404 - Page Not Found", size=20))

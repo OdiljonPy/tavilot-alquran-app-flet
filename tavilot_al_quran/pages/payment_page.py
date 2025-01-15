@@ -5,9 +5,44 @@ import requests
 import base64
 
 
-def payment_page(page, back_button):
+
+translations = {
+    "uz": {
+        "back_button_text": "Orqaga qaytish",
+        "three_window_moturudiy": "\n   Abu Mansur Matrudiy",
+    },
+    "kr": {
+        "back_button_text": "Оркага кайтиш",
+        "three_window_moturudiy": "\n   Абу Мансур Мотрудий",
+    }
+}
+
+
+def payment_page(page):
+    from .appbars import current_language
+    from .home_page import home
     TC = '#E9BE5F'
     page.clean()
+
+    back_button_text = ft.Text(value=translations[current_language]["back_button_text"], color='black')
+
+    back_button = ft.OutlinedButton(
+        content=ft.Row(controls=[
+            ft.Icon(ft.icons.ARROW_BACK, color='black', size=20),
+            back_button_text
+        ]),
+        height=40,
+        width=170,
+        style=ft.ButtonStyle(
+            shape=ft.RoundedRectangleBorder(radius=10),
+            side=ft.BorderSide(color=TC, width=1),
+            bgcolor='white'
+
+        ),
+        adaptive=True,
+        on_click=lambda e: home(page),
+    )
+
 
     text_premium = ft.Row(
         adaptive=True,

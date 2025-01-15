@@ -123,7 +123,7 @@ def home(page):
                                 bgcolor='#E9BE5F',
                                 shape=ft.RoundedRectangleBorder(radius=20),
                             ),
-                            on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+                            on_click=lambda e: al_quron_oquvchilariga(page)
                         ),
                         ft.OutlinedButton(
                             expand=True,
@@ -191,7 +191,7 @@ def home(page):
                                 bgcolor='#E9BE5F',
                                 shape=ft.RoundedRectangleBorder(radius=20),
                             ),
-                            on_click=lambda e: menuscript(page, back_button)
+                            on_click=lambda e: menuscript(page)
                         ),
                     ]
                 ),
@@ -234,7 +234,7 @@ def home(page):
                                 bgcolor='#E9BE5F',
                                 shape=ft.RoundedRectangleBorder(radius=20),
                             ),
-                            on_click=lambda e: studies(page, back_button)
+                            on_click=lambda e: studies(page)
                         ),
                         ft.OutlinedButton(
                             expand=True,
@@ -269,7 +269,7 @@ def home(page):
                                 bgcolor='#E9BE5F',
                                 shape=ft.RoundedRectangleBorder(radius=20),
                             ),
-                            on_click=lambda e: resources(page, back_button)
+                            on_click=lambda e: resources(page)
                         ),
                         ft.OutlinedButton(
                             expand=True,
@@ -303,7 +303,7 @@ def home(page):
                                 bgcolor='#E9BE5F',
                                 shape=ft.RoundedRectangleBorder(radius=20),
                             ),
-                            on_click=lambda e: refusal(page, back_button)
+                            on_click=lambda e: refusal(page)
                         ),
                     ]
                 )

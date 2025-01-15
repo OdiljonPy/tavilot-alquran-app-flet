@@ -3,8 +3,24 @@ import os
 import requests
 from .studies_detail import take_content_id
 
-def studies(page, back_button):
+
+
+translations = {
+    "uz": {
+        "back_button_text": "Orqaga qaytish",
+        "three_window_moturudiy": "\n   Abu Mansur Matrudiy",
+    },
+    "kr": {
+        "back_button_text": "Оркага кайтиш",
+        "three_window_moturudiy": "\n   Абу Мансур Мотрудий",
+    }
+}
+
+def studies(page):
     from .appbars import appbar_all
+    from .home_page import home
+    from .appbars import current_language
+
     page.scroll = True
     page.clean()
     TC = '#E9BE5F'
@@ -15,6 +31,26 @@ def studies(page, back_button):
         content=loading,
         alignment=ft.alignment.center)
     )
+
+    back_button_text = ft.Text(value=translations[current_language]["back_button_text"], color='black')
+
+    back_button = ft.OutlinedButton(
+        content=ft.Row(controls=[
+            ft.Icon(ft.icons.ARROW_BACK, color='black', size=20),
+            back_button_text
+        ]),
+        height=40,
+        width=170,
+        style=ft.ButtonStyle(
+            shape=ft.RoundedRectangleBorder(radius=10),
+            side=ft.BorderSide(color=TC, width=1),
+            bgcolor='white'
+
+        ),
+        adaptive=True,
+        on_click=lambda e: home(page),
+    )
+
     page.update()
 
     url = "http://176.221.28.202:8008/api/v1/studies/"
@@ -30,7 +66,7 @@ def studies(page, back_button):
             motrudiy_data = ft.OutlinedButton(
                 adaptive=True,
                 data=date.get('id'),
-                on_click=lambda e: take_content_id(page, back_button, e.control.data),
+                on_click=lambda e: take_content_id(page, e.control.data),
                 content=ft.Column(
                     controls=[
                         ft.Column(controls=[

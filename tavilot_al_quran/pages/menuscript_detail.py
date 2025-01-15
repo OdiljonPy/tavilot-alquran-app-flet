@@ -4,7 +4,23 @@ import requests
 from .html_pdf_handler import extract_and_process_videos, extract_base64_and_save_images, render_content
 from .pdf_page import pdf_page
 
-def take_content_id(page, back_button, ids):
+
+
+translations = {
+    "uz": {
+        "back_button_text": "Orqaga qaytish",
+        "three_window_moturudiy": "\n   Abu Mansur Matrudiy",
+    },
+    "kr": {
+        "back_button_text": "Оркага кайтиш",
+        "three_window_moturudiy": "\n   Абу Мансур Мотрудий",
+    }
+}
+
+
+def take_content_id(page, ids):
+    from .appbars import current_language
+    from .menuscript import menuscript
     page.scroll = False
     page.clean()
     TC = '#E9BE5F'
@@ -15,6 +31,26 @@ def take_content_id(page, back_button, ids):
         adaptive=True,
         content=loading,
         alignment=ft.alignment.center)
+    )
+
+    back_button_text = ft.Text(value=translations[current_language]["back_button_text"], color='black')
+
+
+    back_button = ft.OutlinedButton(
+        content=ft.Row(controls=[
+            ft.Icon(ft.icons.ARROW_BACK, color='black', size=20),
+            back_button_text
+        ]),
+        height=40,
+        width=170,
+        style=ft.ButtonStyle(
+            shape=ft.RoundedRectangleBorder(radius=10),
+            side=ft.BorderSide(color=TC, width=1),
+            bgcolor='white'
+
+        ),
+        adaptive=True,
+        on_click=lambda e: menuscript(page),
     )
 
     page.update()

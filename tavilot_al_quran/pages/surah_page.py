@@ -14,7 +14,7 @@ from .payment_page import payment_page
 TC = '#E9BE5F'
 
 
-def surah_page(page, back_button):
+def surah_page(page):
     page.clean()
     from .home_page import home
     from tavilot_al_quran.main import main
@@ -419,7 +419,7 @@ def surah_page(page, back_button):
                 ),
                 data=3,
                 style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
-                on_click=lambda e: payment_page(page, back_button)
+                on_click=lambda e: payment_page(page)
             )
 
         else:
@@ -1197,7 +1197,7 @@ def surah_page(page, back_button):
             active_route = route
             update_appbar()  # Refresh the AppBar with updated colors
             if route in routes:
-                routes[route](page, back_button)  # Call the corresponding route function
+                routes[route](page)  # Call the corresponding route function
             else:
                 page.clean()
                 page.add(ft.Text("404 - Page Not Found", size=20))
