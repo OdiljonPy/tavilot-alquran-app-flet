@@ -4,7 +4,6 @@ from .html_pdf_handler import extract_and_process_videos, extract_base64_and_sav
 from .pdf_page import pdf_page
 import flet as ft
 import requests
-from .appbars import current_language
 
 
 translations = {
@@ -21,6 +20,7 @@ translations = {
 
 def take_content_id(page, ids):
     from .al_quran_oquvchilariga import al_quron_oquvchilariga
+    current_language = "uz"
 
     page.scroll = False
     page.clean()
@@ -114,7 +114,13 @@ def take_content_id(page, ids):
             pdf = ft.Container(
                 adaptive=True,
                 alignment=ft.alignment.center,
-                content=ft.Image(src=os.path.abspath("assets/pdf.png"), width=100, height=100, expand=True),
+                content=ft.Column(
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    controls=[
+                        ft.Image(src=os.path.abspath("assets/pdf.png"), width=120, height=100, expand=True),
+                        ft.Text(response.json().get('result').get('title'), text_align=ft.TextAlign.CENTER, size=20, color=TC)
+                        ]
+                ),
                 on_click=lambda e: pdf_page(page, response.json().get('result').get('file'), back_button)
             )
 

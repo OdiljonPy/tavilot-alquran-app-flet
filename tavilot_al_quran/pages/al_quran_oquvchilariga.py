@@ -2,7 +2,6 @@ import flet as ft
 import os
 import requests
 from .motrudiy_detail import take_content_id
-from .appbars import current_language
 
 
 translations = {
@@ -17,7 +16,8 @@ translations = {
 }
 
 def al_quron_oquvchilariga(page):
-    from .appbars import appbar_all
+    current_language = "uz"
+
     from .home_page import home
     page.scroll = False
     page.clean()
@@ -105,6 +105,5 @@ def al_quron_oquvchilariga(page):
     )
              )
 
-    appbar_all(page)
     page.update()
 

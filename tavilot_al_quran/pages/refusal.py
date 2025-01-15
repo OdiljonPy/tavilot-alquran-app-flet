@@ -17,9 +17,8 @@ translations = {
 }
 
 def refusal(page):
-    from .appbars import current_language
-    from .appbars import appbar_all
     from .home_page import home
+    current_language = "uz"
 
     page.scroll = True
     page.clean()
@@ -107,4 +106,3 @@ def refusal(page):
     )
              )
 
-    appbar_all(page)

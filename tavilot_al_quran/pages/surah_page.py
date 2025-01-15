@@ -16,6 +16,7 @@ TC = '#E9BE5F'
 
 def surah_page(page):
     page.clean()
+    page.scroll = False
     from .home_page import home
     from tavilot_al_quran.main import main
     loading = ft.ProgressRing(color=TC)
@@ -26,7 +27,6 @@ def surah_page(page):
         alignment=ft.alignment.center)
     )
 
-    page.update()
     divider = ft.Container(
         adaptive=True,
         bgcolor=TC,  # The line's color
@@ -117,7 +117,10 @@ def surah_page(page):
                 right_display.controls.append(juz_n)
                 for juz_i_verse in juz_i.get('verses'):
                     print(juz_i_verse)
-                    content = render_description(juz_i_verse.get('description'), page)
+                    if juz_i_verse.get('description'):
+                        content = render_description(juz_i_verse.get('description'), page)
+                    else:
+                        content = ft.Text()
                     right_display.controls.append(ft.Column(
                         adaptive=True,
                         expand=True,
@@ -135,6 +138,7 @@ def surah_page(page):
                                     content=ft.Text(value=f"{juz_i_verse.get('number')}")
                                 ),
                                 ft.Text(value=f"{juz_i_verse.get('text_arabic')}", size=20, text_align=ft.TextAlign.CENTER,
+                                        expand=True, width=page.window_width,
                                         font_family="Amiri"),
                                 ft.Text(width=10)
                             ]),
@@ -161,6 +165,7 @@ def surah_page(page):
     response = requests.get(url=url)
     if response.status_code == 200:
         page.clean()
+        page.scroll = False
         result_lists = response.json().get('result')
 
         for i in result_lists:
@@ -937,7 +942,7 @@ def surah_page(page):
 
     # -----Close button logic---------------------------------------------------------------------------------------------
     button3 = ft.TextButton(
-        text='<< Yopish',
+        text='< Yopish',
         data='button3',
         style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC),
         on_click=lambda e: toggle_widgets(e)
@@ -959,7 +964,7 @@ def surah_page(page):
     def toggle_widgets(e):
         nonlocal is_cleaned
         if is_cleaned:
-            button3.text = "Ochish >>"
+            button3.text = "Ochish >"
             button3.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC)
             side_bar.controls[0].controls = column_data
             side_bar.controls[0].width = 100
@@ -1260,7 +1265,6 @@ def surah_page(page):
             bgcolor='white',
             toolbar_height=80,
         )
-        page.update()
 
     update_appbar()
     page.add(side_bar)

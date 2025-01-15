@@ -16,9 +16,8 @@ translations = {
 }
 
 def menuscript(page):
-    from .appbars import appbar_all
     from .home_page import home
-    from .appbars import current_language
+    current_language = "uz"
 
     page.scroll = False
     page.clean()
@@ -107,4 +106,3 @@ def menuscript(page):
     )
              )
 
-    appbar_all(page)

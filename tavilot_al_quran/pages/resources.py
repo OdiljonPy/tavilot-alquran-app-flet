@@ -16,10 +16,9 @@ translations = {
 }
 
 def resources(page):
-    from .appbars import current_language
     from .resources_detail import take_content_id
-    from .appbars import appbar_all
     from .home_page import home
+    current_language = "uz"
 
     page.scroll = True
     page.clean()
@@ -106,5 +105,3 @@ def resources(page):
         )
     )
              )
-
-    appbar_all(page)

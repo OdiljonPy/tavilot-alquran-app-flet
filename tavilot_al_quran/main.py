@@ -21,7 +21,7 @@ def main(page: ft.Page):
 
 
     page.theme = ft.Theme(
-        font_family="Trajan"
+        font_family="Amiri"
     )
 
     if not os.path.exists(font_path):

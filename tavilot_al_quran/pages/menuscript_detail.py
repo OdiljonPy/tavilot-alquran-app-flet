@@ -19,8 +19,9 @@ translations = {
 
 
 def take_content_id(page, ids):
-    from .appbars import current_language
     from .menuscript import menuscript
+    current_language = "uz"
+
     page.scroll = False
     page.clean()
     TC = '#E9BE5F'
@@ -101,7 +102,13 @@ def take_content_id(page, ids):
             pdf = ft.Container(
                 adaptive=True,
                 alignment=ft.alignment.center,
-                content=ft.Image(src=os.path.abspath("assets/pdf.png"), width=100, height=100, expand=True),
+                content=ft.Column(
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    controls=[
+                        ft.Image(src=os.path.abspath("assets/pdf.png"), width=120, height=100, expand=True),
+                        ft.Text(response.json().get('result').get('title'), text_align=ft.TextAlign.CENTER, size=20, color=TC)
+                        ]
+                ),
                 on_click=lambda e: pdf_page(page, response.json().get('result').get('file'), back_button)
             )
 

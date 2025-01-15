@@ -19,8 +19,9 @@ translations = {
 
 
 def payment_page(page):
-    from .appbars import current_language
     from .home_page import home
+    current_language = "uz"
+
     TC = '#E9BE5F'
     page.clean()
 
