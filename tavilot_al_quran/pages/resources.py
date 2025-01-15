@@ -18,6 +18,13 @@ translations = {
 def resources(page):
     from .resources_detail import take_content_id
     from .home_page import home
+    from .about_us_page import about_us_page
+    from .resources import resources
+    from .refusal import refusal
+    from .surah_page import surah_page
+    from .menuscript import menuscript
+    from .al_quran_oquvchilariga import al_quron_oquvchilariga
+    from .studies import studies
     current_language = "uz"
 
     page.scroll = True
@@ -105,3 +112,159 @@ def resources(page):
         )
     )
              )
+
+    about_us_icon = ft.IconButton(
+        icon=ft.Icons.INFO,
+        icon_color=TC,
+        on_click=lambda e: about_us_page(page, back_button)
+    )
+
+    def handle_close(e):
+        page.close(dlg_modal)
+
+    def handle_out(page):
+        page.close(dlg_modal)
+        page.update()
+        from tavilot_al_quran.main import main
+        page.appbar = None
+        page.client_storage.clear()
+        main(page)
+
+    def handle_click(e):
+        page.open(dlg_modal)
+
+    dlg_modal = ft.AlertDialog(
+        actions_alignment=ft.MainAxisAlignment.CENTER,
+        adaptive=True,
+        modal=True,
+        content=ft.Text("Haqiqatdan ham hisobingizdan\nchiqmoqchimisiz?", text_align=ft.TextAlign.CENTER),
+        actions=[
+            ft.OutlinedButton(
+                text="Ha",
+                on_click=lambda e: handle_out(page),
+                # Link the button to validation
+                width=100,
+                height=50,
+                style=ft.ButtonStyle(
+                    color='white',
+                    bgcolor=TC,
+                    shape=ft.RoundedRectangleBorder(radius=8),
+                )
+            ),
+            ft.OutlinedButton(
+                text="Yo'q",
+                on_click=handle_close,
+                # Link the button to validation
+                width=100,
+                height=50,
+                style=ft.ButtonStyle(
+                    color=TC,
+                    bgcolor='white',
+                    shape=ft.RoundedRectangleBorder(radius=8),
+                )
+            ),
+        ],
+    )
+
+    logout_icon = ft.IconButton(
+        icon=ft.Icons.LOGOUT,
+        icon_color=TC,
+        on_click=lambda e: handle_click(e)
+    )
+
+    image = ft.Image(src=os.path.abspath("assets/Ўз.svg"))
+
+    # PopupMenuButton with language options
+    language_menu = ft.PopupMenuButton(
+        content=image,
+        items=[
+            ft.PopupMenuItem(text="Uzbekcha", data="uz", on_click=None),#language_selected),
+            ft.PopupMenuItem(text="Kirilcha", data="kr", on_click=None)#language_selected),
+        ]
+    )
+
+    routes = {
+        "Abu Mansur Motrudiy": al_quron_oquvchilariga,
+        "Tavilot al-Quron": surah_page,
+        "Qo'lyozma va sharhlar": menuscript,
+        "Zamonaviy tadqiqotlar": studies,
+        "Resurslar": resources,
+        "Mutaassib oqimlarga raddiyalar": refusal
+    }
+
+    active_route = None
+
+    def navigate(e, route):
+        nonlocal active_route
+        if route != active_route:
+            active_route = route
+            update_appbar()  # Refresh the AppBar with updated colors
+            if route in routes:
+                routes[route](page)  # Call the corresponding route function
+            else:
+                page.clean()
+                page.add(ft.Text("404 - Page Not Found", size=20))
+                page.update()
+
+    def generate_appbar_actions():
+        return [
+            ft.TextButton(
+                adaptive=True,
+                expand=True,
+                text=route_label,
+                style=ft.ButtonStyle(
+                    text_style=ft.TextStyle(size=15),
+                    color='#007577' if route == active_route else ft.colors.BLACK,
+                ),
+                on_click=lambda e, r=route: navigate(e, r)
+            )
+            for route, route_label in [
+                ("Abu Mansur Motrudiy", "Abu Mansur Motrudiy"),
+                ("Tavilot al-Quron", "Tavilot al-Quron"),
+                ("Qo'lyozma va sharhlar", "Qo'lyozma va sharhlar"),
+                ("Zamonaviy tadqiqotlar", "Zamonaviy tadqiqotlar"),
+                ("Resurslar", "Resurslar"),
+                ("Mutaassib oqimlarga raddiyalar", "Mutaassib oqimlarga raddiyalar")
+
+            ]
+        ]
+
+    def update_appbar():
+        page.appbar = ft.AppBar(
+            title=ft.Row(
+                alignment=ft.MainAxisAlignment.CENTER,
+                expand=True,
+                adaptive=True,
+                controls=[
+                    *generate_appbar_actions(),
+                ]
+            ),
+            center_title=True,
+            adaptive=True,
+            leading_width=100,
+            leading=ft.Container(
+                on_click=lambda e: home(page),
+                content=ft.Image(
+                    expand=True,
+                    color='#007577',
+                    src=os.path.abspath("assets/tA'VILOT_Монтажная_область1.svg")
+                )),
+            actions=[
+                ft.Row(
+                    adaptive=True,
+                    expand=True,
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    spacing=15,  # Reduced spacing to allow more room for items
+                    controls=[
+                        language_menu,
+                        logout_icon,
+                        about_us_icon,
+                    ],
+                ),
+            ],
+            bgcolor='white',
+            toolbar_height=80,
+        )
+
+    update_appbar()
+    page.update()

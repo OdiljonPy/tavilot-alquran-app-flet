@@ -54,6 +54,7 @@ def surah_page(page):
 
         for i in result_lists:
             list_display_juz.controls.append(ft.Container(
+                margin=20,
                 data=i.get('id'),
                 on_click=lambda e: take_juz_id(e.control.data),
                 expand=True,
@@ -67,7 +68,7 @@ def surah_page(page):
                             adaptive=True,
                             controls=[
                                 ft.Text(expand=True, value=f"{i.get('number')}-JUZ", size=20),
-                                ft.Text(f"{i.get('title')}", size=10, expand=True)
+                                ft.Text(f"{i.get('title')}", size=15.5, expand=True)
                             ])
                     ]
                 )
@@ -175,6 +176,7 @@ def surah_page(page):
                 i['type_choice'] = 'Madaniy'
 
             list_display.controls.append(ft.Container(
+                margin=20,
                 key=i.get('id'),
                 data=i.get('id'),
                 on_click=lambda e: take_id(e.control.data),
@@ -187,9 +189,9 @@ def surah_page(page):
                         ft.Column(
                             controls=[
                                 ft.Text(i.get('name'), size=20, expand=True),
-                                ft.Text(f"{i.get('type_choice')}, {i.get('verse_number')} oyat", size=10, expand=True)
+                                ft.Text(f"{i.get('type_choice')}, {i.get('verse_number')} oyat", size=15.5, expand=True)
                             ]),
-                        ft.Text(value=i.get('name_arabic'), size=15, text_align=ft.TextAlign.RIGHT, width=150,
+                        ft.Text(value=i.get('name_arabic'), size=18, text_align=ft.TextAlign.RIGHT, width=150,
                                 font_family='Amiri', expand=True)
                     ])))
     else:
@@ -397,6 +399,7 @@ def surah_page(page):
                                 ft.Divider(color=TC)
                             ])
                         right_display.controls.append(tafsir_data),
+                        page.update()
                     else:
                         print("Tafsir not found")
             page.update()  # Update the page to reflect changes

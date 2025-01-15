@@ -17,7 +17,7 @@ translations = {
         "al_quron_text": "\n   Ta'vilot Al-Quron",
         'menuscript_text': "\n   Qo'lyozma va sharhlar",
         "studies_text": "\n   Zamonaviy tadqiqotlar",
-        "resources_text": "\n   Resurslar: O'quv qo'llanmalari va \n   ilmiy manba'lar",
+        "resources_text": "\n   Resurslar: O'quv qo'llanmalari va ilmiy manba'lar",
         "refusal_text": "\n   Mutaassib oqimlarga raddiyalar",
         "abu_mansur_motrudiy": "Abu Mansur Motrudiy"
     },
@@ -80,7 +80,7 @@ def home(page):
             ],
             alignment=ft.MainAxisAlignment.CENTER
         ),
-        height=240,
+        height=220,
         alignment=ft.alignment.center,
         image_src=os.path.abspath("assets/searchbg.png"),
         width=page.adaptive,
@@ -93,7 +93,7 @@ def home(page):
     al_quron_text = ft.Text(value=translations[current_language]["al_quron_text"], size=20, color='white', expand=True)
     menuscript_text = ft.Text(value=translations[current_language]["refusal_text"], size=20, color='white', expand=True)
     studies_text = ft.Text(value=translations[current_language]["studies_text"], size=20, color='white', expand=True)
-    resources_text = ft.Text(value=translations[current_language]["resources_text"], size=20,
+    resources_text = ft.Text(value=translations[current_language]["resources_text"], size=17.5,
                                             color='white', expand=True)
     refusal_text = ft.Text(value=translations[current_language]["refusal_text"], size=20, color='white', expand=True)
     abu_mansur_motrudiy = ft.Text(value=translations[current_language]["abu_mansur_motrudiy"])
