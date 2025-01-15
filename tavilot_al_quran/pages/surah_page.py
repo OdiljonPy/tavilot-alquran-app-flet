@@ -1,7 +1,8 @@
 import flet as ft
 import requests
 import os
-from .html_pdf_handler import extract_base64_and_save_images, extract_and_process_videos, render_content
+from .html_pdf_handler import extract_base64_and_save_images, extract_and_process_videos, render_content, \
+    render_description
 from .al_quran_oquvchilariga import al_quron_oquvchilariga
 from .menuscript import menuscript
 from .studies import studies
@@ -9,7 +10,6 @@ from .refusal import refusal
 from .resources import resources
 from .about_us_page import about_us_page
 from .payment_page import payment_page
-
 
 TC = '#E9BE5F'
 
@@ -160,13 +160,310 @@ def surah_page(page, back_button):
 
     # --------------------------------------------------------------------------------------------------------------------
     button_number = 2
-    global parts, result, video_files, tafsir_data
+    right_display.controls.clear()
+    urls = f"http://176.221.28.202:8008/api/v1/chapter/{1}"
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {page.client_storage.get('access_token')}"
+
+    }
+    responses = requests.get(url=urls, headers=headers)
+    if responses.status_code == 200:
+        result_details = responses.json().get('result').get('verses')
+        print(result_details)
+
+        def change_response(e):
+            if e.control == text_arabic:
+                nonlocal button_number
+                button_number = 1
+                right_display.controls.clear()
+                right_display.controls.append(right_top_bar)
+                text_arabic.style.color = "white"
+                text_arabic.style.bgcolor = TC
+                text_translate.style.color = ft.colors.BLACK
+                text_translate.style.bgcolor = ft.colors.GREY_200
+                text_tafsir.style.color = ft.colors.BLACK
+                text_tafsir.style.bgcolor = ft.colors.GREY_200
+                chapter_result = responses.json().get('result')
+                if chapter_result == 1:
+                    chapter_result['type_choice'] = 'Makkada'
+                else:
+                    chapter_result['type_choice'] = 'Madinada'
+                chapter_n = ft.Column(
+                    adaptive=True,
+                    expand=True,
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    controls=[
+                        ft.Text(value=f"{chapter_result.get('name')} Surasi", size=25),
+                        ft.Text(
+                            value=f"{chapter_result.get('type_choice')} Nozil Bo'lga, {chapter_result.get('verse_number')} Oyatdan Iborat",
+                            size=20)
+                    ]
+                )
+                right_display.controls.append(chapter_n)
+                for result_detail in result_details:
+                    right_display.controls.append(ft.Column(
+                        key=result_detail.get('id'),
+                        controls=[ft.Row(
+                            expand=True,
+                            alignment=ft.MainAxisAlignment.CENTER,
+                            adaptive=True,
+                            controls=[
+                                ft.Container(
+                                    image_src=os.path.abspath("assets/Union.png"),
+                                    alignment=ft.alignment.center,
+                                    width=50,
+                                    height=50,
+                                    adaptive=True,
+                                    content=ft.Text(value=f"{result_detail.get('number')}")
+                                ),
+                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20,
+                                        text_align=ft.TextAlign.CENTER, font_family="Amiri"),
+                                ft.Text(width=10)
+                            ]),
+                            ft.Divider(color=TC)
+                        ])
+                    )
+            elif e.control == text_translate:
+                button_number = 2
+                right_display.controls.clear()
+                right_display.controls.append(right_top_bar)
+                text_translate.style.color = 'white'
+                text_translate.style.bgcolor = TC
+                text_arabic.style.color = ft.colors.BLACK
+                text_arabic.style.bgcolor = ft.colors.GREY_200
+                text_tafsir.style.color = ft.colors.BLACK
+                text_tafsir.style.bgcolor = ft.colors.GREY_200
+                chapter_result = responses.json().get('result')
+                if chapter_result == 1:
+                    chapter_result['type_choice'] = 'Makkada'
+                else:
+                    chapter_result['type_choice'] = 'Madinada'
+                chapter_n = ft.Column(
+                    adaptive=True,
+                    expand=True,
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    controls=[
+                        ft.Text(value=f"{chapter_result.get('name')} Surasi", size=25),
+                        ft.Text(
+                            value=f"{chapter_result.get('type_choice')} Nozil Bo'lga, {chapter_result.get('verse_number')} Oyatdan Iborat",
+                            size=20)
+                    ]
+                )
+                right_display.controls.append(chapter_n)
+                for result_detail in result_details:
+                    right_display.controls.append(ft.Column(
+                        key=result_detail.get('id'),
+                        controls=[
+                            ft.Row(
+                                expand=True,
+                                alignment=ft.MainAxisAlignment.CENTER,
+                                adaptive=True,
+                                controls=[
+                                    ft.Container(
+                                        image_src=os.path.abspath("assets/Union.png"),
+                                        alignment=ft.alignment.center,
+                                        width=50,
+                                        height=50,
+                                        adaptive=True,
+                                        content=ft.Text(value=f"{result_detail.get('number')}")
+                                    ),
+                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20,
+                                            text_align=ft.TextAlign.CENTER, font_family="Amiri"),
+                                    ft.Text(width=10)
+                                ]),
+                            ft.Row(
+                                controls=[
+                                    ft.Text(),
+                                    ft.Text(
+                                        value=f"  {result_detail.get('number')}. {result_detail.get('text')}",
+                                        size=20,
+                                        expand=True,
+                                        width=page.window_width, text_align=ft.TextAlign.LEFT
+                                    ),
+                                    ft.Text(width=10),
+                                ]
+                            ),
+                            ft.Divider(color=TC)
+                        ])
+                    )
+            elif e.control == text_tafsir:
+                button_number = 3
+                right_display.controls.clear()
+                right_display.controls.append(right_top_bar)
+                text_tafsir.style.color = "white"
+                text_tafsir.style.bgcolor = TC
+                text_arabic.style.color = ft.colors.BLACK
+                text_arabic.style.bgcolor = ft.colors.GREY_200
+                text_translate.style.color = ft.colors.BLACK
+                text_translate.style.bgcolor = ft.colors.GREY_200
+                chapter_result = responses.json().get('result')
+                if chapter_result == 1:
+                    chapter_result['type_choice'] = 'Makkada'
+                else:
+                    chapter_result['type_choice'] = 'Madinada'
+                chapter_n = ft.Column(
+                    adaptive=True,
+                    expand=True,
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    controls=[
+                        ft.Text(value=f"{chapter_result.get('name')} Surasi", size=25),
+                        ft.Text(
+                            value=f"{chapter_result.get('type_choice')} Nozil Bo'lga, {chapter_result.get('verse_number')} Oyatdan Iborat",
+                            size=20)
+                    ]
+                )
+                right_display.controls.append(chapter_n)
+                for result_data in result_details:
+                    print(result_data)
+                    if result_data.get('description'):
+                        content = render_description(result_data.get('description'))
+                        tafsir_data = ft.Column(
+                            key=result_data.get('id'),
+                            controls=[
+                                ft.Row(
+                                    expand=True,
+                                    alignment=ft.MainAxisAlignment.CENTER,
+                                    adaptive=True,
+                                    controls=[
+                                        ft.Container(
+                                            image_src=os.path.abspath("assets/Union.png"),
+                                            alignment=ft.alignment.center,
+                                            width=50,
+                                            height=50,
+                                            adaptive=True,
+                                            content=ft.Text(value=f"{result_data.get('number')}")
+                                        ),
+                                        ft.Text(value=f"{result_data.get('text_arabic')}", size=20,
+                                                text_align=ft.TextAlign.CENTER, font_family="Amiri"),
+                                        ft.Text(width=10)
+                                    ]),
+                                ft.Row(
+                                    alignment=ft.MainAxisAlignment.START,
+                                    controls=[
+                                        ft.Text(),
+                                        ft.Text(
+                                            value=f"  {result_data.get('number')}. {result_data.get('text')}",
+                                            size=20,
+                                            expand=True,
+                                            width=page.window_width, text_align=ft.TextAlign.LEFT
+                                        ),
+                                        ft.Text(width=10)
+                                    ]),
+                                content,
+                                ft.Divider(color=TC)
+                            ])
+                        right_display.controls.append(tafsir_data),
+                    else:
+                        print("Tafsir not found")
+            page.update()  # Update the page to reflect changes
+
+        text_arabic = ft.TextButton('Arabcha', data=1, style=ft.ButtonStyle(color='white', bgcolor=TC),
+                                    on_click=change_response)
+        text_translate = ft.TextButton('Tarjima', data=2,
+                                       style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
+                                       on_click=change_response)
+
+        text_tafsir = ''
+        if page.client_storage.get('access_token') and page.client_storage.get('user_rate') == 2:
+            text_tafsir = ft.TextButton('Tafsir', data=3,
+                                        style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
+                                        on_click=change_response)
+
+        elif page.client_storage.get('access_token') and page.client_storage.get('user_rate') == 1:
+            text_tafsir = ft.TextButton(
+                content=ft.Row(controls=[
+                    ft.Text('Tafsir'),
+                    ft.Image(src=os.path.abspath("assets/lock.png"))
+                ]
+                ),
+                data=3,
+                style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
+                on_click=lambda e: payment_page(page, back_button)
+            )
+
+        else:
+            text_tafsir = ft.TextButton(
+                content=ft.Row(controls=[
+                    ft.Text('Tafsir'),
+                    ft.Image(src=os.path.abspath("assets/lock.png"))
+                ]
+                ),
+                data=3,
+                style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
+                on_click=lambda e: main(page)
+            )
+
+        right_top_bar = ft.Container(
+            expand=True,
+            alignment=ft.alignment.center,
+            border_radius=20,
+            height=30,
+            width=275,
+            bgcolor=ft.colors.GREY_200,
+            adaptive=True,
+            content=ft.Row(
+                alignment=ft.MainAxisAlignment.CENTER,
+                adaptive=True,
+                controls=[
+                    text_arabic,
+                    text_translate,
+                    text_tafsir
+                ]
+            )
+        )
+        right_display.controls.append(right_top_bar)
+        chapter_result = responses.json().get('result')
+        if chapter_result == 1:
+            chapter_result['type_choice'] = 'Makkada'
+        else:
+            chapter_result['type_choice'] = 'Madinada'
+        chapter_n = ft.Column(
+            adaptive=True,
+            expand=True,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            controls=[
+                ft.Text(value=f"{chapter_result.get('name')} Surasi", size=25),
+                ft.Text(
+                    value=f"{chapter_result.get('type_choice')} Nozil Bo'lga, {chapter_result.get('verse_number')} Oyatdan Iborat",
+                    size=20)
+            ]
+        )
+        right_display.controls.append(chapter_n)
+        for result_detail in result_details:
+            right_display.controls.append(ft.Column(
+                key=result_detail.get('id'),
+                controls=[ft.Row(
+                    expand=True,
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    adaptive=True,
+                    controls=[
+                        ft.Container(
+                            image_src=os.path.abspath("assets/Union.png"),
+                            alignment=ft.alignment.center,
+                            width=50,
+                            height=50,
+                            adaptive=True,
+                            content=ft.Text(value=f"{result_detail.get('number')}")
+                        ),
+                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20,
+                                text_align=ft.TextAlign.CENTER, font_family="Amiri"),
+                        ft.Text(width=10)
+                    ]),
+                    ft.Divider(color=TC)
+                ])
+            )
+    else:
+        print("Error")
+    page.update()
 
     def take_id(ids):
         right_display.controls.clear()
         urls = f"http://176.221.28.202:8008/api/v1/chapter/{ids}"
         headers = {
             "Content-Type": "application/json",
+            "Authorization": f"Bearer {page.client_storage.get('access_token')}"
+
         }
         responses = requests.get(url=urls, headers=headers)
         if responses.status_code == 200:
@@ -206,23 +503,24 @@ def surah_page(page, back_button):
                         right_display.controls.append(ft.Column(
                             key=result_detail.get('id'),
                             controls=[ft.Row(
-                            adaptive=True,
-                            controls=[
-                                ft.Container(
-                                    image_src=os.path.abspath("assets/Union.png"),
-                                    alignment=ft.alignment.center,
-                                    width=50,
-                                    height=50,
-                                    adaptive=True,
-                                    content=ft.Text(value=f"{result_detail.get('number')}")
-                                ),
-                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                        width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True,
-                                        font_family="Amiri"),
-                                ft.Text(width=10)
-                            ]),
-                            ft.Divider(color=TC)
-                        ])
+                                expand=True,
+                                alignment=ft.MainAxisAlignment.CENTER,
+                                adaptive=True,
+                                controls=[
+                                    ft.Container(
+                                        image_src=os.path.abspath("assets/Union.png"),
+                                        alignment=ft.alignment.center,
+                                        width=50,
+                                        height=50,
+                                        adaptive=True,
+                                        content=ft.Text(value=f"{result_detail.get('number')}")
+                                    ),
+                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20,
+                                            text_align=ft.TextAlign.CENTER, font_family="Amiri"),
+                                    ft.Text(width=10)
+                                ]),
+                                ft.Divider(color=TC)
+                            ])
                         )
                 elif e.control == text_translate:
                     button_number = 2
@@ -256,6 +554,8 @@ def surah_page(page, back_button):
                             key=result_detail.get('id'),
                             controls=[
                                 ft.Row(
+                                    expand=True,
+                                    alignment=ft.MainAxisAlignment.CENTER,
                                     adaptive=True,
                                     controls=[
                                         ft.Container(
@@ -266,18 +566,18 @@ def surah_page(page, back_button):
                                             adaptive=True,
                                             content=ft.Text(value=f"{result_detail.get('number')}")
                                         ),
-                                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                                width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True,
-                                                font_family="Amiri"),
+                                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20,
+                                                text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                         ft.Text(width=10)
                                     ]),
                                 ft.Row(
                                     controls=[
+                                        ft.Text(),
                                         ft.Text(
-                                            value=f"{result_detail.get('number')}.{result_detail.get('text')}",
+                                            value=f"  {result_detail.get('number')}. {result_detail.get('text')}",
                                             size=20,
                                             expand=True,
-                                            width=page.window_width, text_align=ft.TextAlign.RIGHT
+                                            width=page.window_width, text_align=ft.TextAlign.LEFT
                                         ),
                                         ft.Text(width=10),
                                     ]
@@ -312,49 +612,45 @@ def surah_page(page, back_button):
                         ]
                     )
                     right_display.controls.append(chapter_n)
-                    for result_detail in result_details:
-                        if result_detail.get('description'):
-
-                            parts, result = extract_base64_and_save_images(result_detail.get('description'))
-                            video_files = extract_and_process_videos(result_detail.get('description'))
+                    for result_data in result_details:
+                        print(result_data)
+                        if result_data.get('description'):
+                            content = render_description(result_data.get('description'))
                             tafsir_data = ft.Column(
-                                key=result_detail.get('id'),
-                                controls=[ft.Row(
-                                adaptive=True,
+                                key=result_data.get('id'),
                                 controls=[
-                                    ft.Container(
-                                        image_src=os.path.abspath("assets/Union.png"),
-                                        alignment=ft.alignment.center,
-                                        width=50,
-                                        height=50,
+                                    ft.Row(
+                                        expand=True,
+                                        alignment=ft.MainAxisAlignment.CENTER,
                                         adaptive=True,
-                                        content=ft.Text(value=f"{result_detail.get('number')}")
-                                    ),
-                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                            width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True,
-                                            font_family="Amiri"),
-                                    ft.Text(width=10)
-                                ]),
-                                ft.Row(controls=[ft.Text(
-                                    value=f"{result_detail.get('number')}.{result_detail.get('text')}",
-                                    size=20,
-                                    expand=True,
-                                    width=page.window_width, text_align=ft.TextAlign.RIGHT
-                                ),
-                                    ft.Text(width=10)
-                                ]),
-
-                                ft.Row(controls=[ft.Text(
-                                    value=f"{result}",
-                                    size=20,
-                                    expand=True,
-                                    width=page.window_width,
-                                    text_align=ft.TextAlign.RIGHT
-                                ),
-                                    ft.Text(width=10)
-                                ]),
-                                ft.Divider(color=TC)
-                            ])
+                                        controls=[
+                                            ft.Container(
+                                                image_src=os.path.abspath("assets/Union.png"),
+                                                alignment=ft.alignment.center,
+                                                width=50,
+                                                height=50,
+                                                adaptive=True,
+                                                content=ft.Text(value=f"{result_data.get('number')}")
+                                            ),
+                                            ft.Text(value=f"{result_data.get('text_arabic')}", size=20,
+                                                    text_align=ft.TextAlign.CENTER, font_family="Amiri"),
+                                            ft.Text(width=10)
+                                        ]),
+                                    ft.Row(
+                                        alignment=ft.MainAxisAlignment.START,
+                                        controls=[
+                                            ft.Text(),
+                                            ft.Text(
+                                                value=f"  {result_data.get('number')}. {result_data.get('text')}",
+                                                size=20,
+                                                expand=True,
+                                                width=page.window_width, text_align=ft.TextAlign.LEFT
+                                            ),
+                                            ft.Text(width=10)
+                                        ]),
+                                    content,
+                                    ft.Divider(color=TC)
+                                ])
                             right_display.controls.append(tafsir_data),
                         else:
                             print("Tafsir not found")
@@ -436,23 +732,24 @@ def surah_page(page, back_button):
                 right_display.controls.append(ft.Column(
                     key=result_detail.get('id'),
                     controls=[ft.Row(
-                    adaptive=True,
-                    controls=[
-                        ft.Container(
-                            image_src=os.path.abspath("assets/Union.png"),
-                            alignment=ft.alignment.center,
-                            width=50,
-                            height=50,
-                            adaptive=True,
-                            content=ft.Text(value=f"{result_detail.get('number')}")
-                        ),
-                        ft.Text(),
-                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                width=page.window_width, text_align=ft.TextAlign.RIGHT, rtl=True, font_family="Amiri"),
-                        ft.Text(width=10)
-                    ]),
-                    ft.Divider(color=TC)
-                ])
+                        expand=True,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        adaptive=True,
+                        controls=[
+                            ft.Container(
+                                image_src=os.path.abspath("assets/Union.png"),
+                                alignment=ft.alignment.center,
+                                width=50,
+                                height=50,
+                                adaptive=True,
+                                content=ft.Text(value=f"{result_detail.get('number')}")
+                            ),
+                            ft.Text(value=f"{result_detail.get('text_arabic')}", size=20,
+                                    text_align=ft.TextAlign.CENTER, font_family="Amiri"),
+                            ft.Text(width=10)
+                        ]),
+                        ft.Divider(color=TC)
+                    ])
                 )
         else:
             print("Error")
@@ -460,9 +757,9 @@ def surah_page(page, back_button):
 
     # -----Close button logic---------------------------------------------------------------------------------------------
     button3 = ft.TextButton(
-        text='< Yopish',
+        text='<< Yopish',
         data='button3',
-        style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=ft.colors.BLACK),
+        style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC),
         on_click=lambda e: toggle_widgets(e)
     )
 
@@ -482,13 +779,13 @@ def surah_page(page, back_button):
     def toggle_widgets(e):
         nonlocal is_cleaned
         if is_cleaned:
-            button3.text = "Ochish >"
+            button3.text = "Ochish >>"
             button3.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC)
             side_bar.controls[0].controls = column_data
             side_bar.controls[0].width = 100
         else:
-            button3.text = "< Yopish"
-            button3.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=ft.colors.BLACK)
+            button3.text = "<< Yopish"
+            button3.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC)
             side_bar.controls[0].width = 350
             side_bar.controls[0].controls = [ft.Row(
                 spacing=20,
@@ -618,11 +915,34 @@ def surah_page(page, back_button):
     # Dictionary to store created elements by their keys
     # elements_by_key = {}
 
+    import threading
+
     def scroll_to_item(item_id, chapter_id):
         print(f"Scrolling to item {item_id} with chapter_id {chapter_id}")
 
         # Perform the necessary actions (e.g., highlight or take some action with chapter_id)
         take_id(chapter_id)
+
+        # Find the target element
+        target_element = next((control for control in right_display.controls if control.key == item_id), None)
+
+        if target_element:
+            print(target_element.controls[0].controls[0], "TARGET ELEMENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+            # Apply highlight style
+            original_bgcolor = target_element.controls[0].controls[0].bgcolor
+            target_element.controls[0].controls[0].bgcolor = "blue"
+            target_element.update()
+
+            # Function to remove highlight after a delay
+            def remove_highlight():
+                # Sleep for 3 seconds
+                threading.Event().wait(3)
+                # Restore original background color
+                target_element.controls[0].controls[0].bgcolor = original_bgcolor
+                target_element.update()
+
+            # Start a new thread to remove the highlight after the delay
+            threading.Thread(target=remove_highlight).start()
 
         # Scroll to the target element
         right_display.scroll_to(key=f"{item_id}", duration=700, curve=ft.AnimationCurve.BOUNCE_OUT)
@@ -753,6 +1073,4 @@ def surah_page(page, back_button):
 
     update_appbar()
     page.add(side_bar)
-    # Render the extracted parts (text, images, videos)
-    render_content(tafsir_data, parts, video_files)
     page.update()

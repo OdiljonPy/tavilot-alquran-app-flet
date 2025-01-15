@@ -16,9 +16,9 @@ def main(page: ft.Page):
     page.update()
     page.scroll = False
     page.padding = 0
-    # Ensure the font file path is correct relative to your script
     font_path = os.path.join(os.path.dirname(__file__), "fonts", "Amiri-Regular.ttf")
     font_page_trajan = os.path.join(os.path.dirname(__file__), "fonts", "Trajan.ttf")
+
 
     page.theme = ft.Theme(
         font_family="Trajan"
