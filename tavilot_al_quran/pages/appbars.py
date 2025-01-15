@@ -220,8 +220,3 @@ def appbar_all(page):
     update_appbar()
 
 
-def appbar_search(page):
-    TC = '#E9BE5F'
-    from .home_page import home
-    from .surah_page import surah_page
-

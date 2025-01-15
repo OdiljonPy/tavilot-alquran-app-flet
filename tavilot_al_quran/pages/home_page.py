@@ -59,13 +59,13 @@ def home(page):
                     color='#007577',
                     src=os.path.abspath("assets/tA'VILOT_Монтажная_область1.png"),
                     fit=ft.ImageFit.COVER,
-                    width=200,
-                    height=100,
+                    width=320,
+                    height=200,
                 )
             ],
             alignment=ft.MainAxisAlignment.CENTER
         ),
-        height=180,
+        height=240,
         alignment=ft.alignment.center,
         image_src=os.path.abspath("assets/searchbg.png"),
         width=page.adaptive,
@@ -157,7 +157,7 @@ def home(page):
                                 bgcolor='#E9BE5F',
                                 shape=ft.RoundedRectangleBorder(radius=20),
                             ),
-                            on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+                            on_click=lambda e: surah_page(page, back_button)
                         ),
                         ft.OutlinedButton(
                             expand=True,
@@ -191,7 +191,7 @@ def home(page):
                                 bgcolor='#E9BE5F',
                                 shape=ft.RoundedRectangleBorder(radius=20),
                             ),
-                            on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+                            on_click=lambda e: menuscript(page, back_button)
                         ),
                     ]
                 ),
@@ -234,7 +234,7 @@ def home(page):
                                 bgcolor='#E9BE5F',
                                 shape=ft.RoundedRectangleBorder(radius=20),
                             ),
-                            on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+                            on_click=lambda e: studies(page, back_button)
                         ),
                         ft.OutlinedButton(
                             expand=True,
@@ -269,7 +269,7 @@ def home(page):
                                 bgcolor='#E9BE5F',
                                 shape=ft.RoundedRectangleBorder(radius=20),
                             ),
-                            on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+                            on_click=lambda e: resources(page, back_button)
                         ),
                         ft.OutlinedButton(
                             expand=True,
@@ -303,7 +303,7 @@ def home(page):
                                 bgcolor='#E9BE5F',
                                 shape=ft.RoundedRectangleBorder(radius=20),
                             ),
-                            on_click=lambda e: al_quron_oquvchilariga(page, back_button)
+                            on_click=lambda e: refusal(page, back_button)
                         ),
                     ]
                 )

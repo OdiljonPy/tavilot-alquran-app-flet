@@ -1238,11 +1238,14 @@ def surah_page(page, back_button):
             ),
             center_title=True,
             adaptive=True,
-            leading=ft.Image(
+            leading_width=100,
+            leading=ft.Container(
+                on_click=lambda e: home(page),
+                content=ft.Image(
                 expand=True,
                 color='#007577',
                 src=os.path.abspath("assets/tA'VILOT_Монтажная_область1.svg")
-            ),
+            )),
             actions=[
                 ft.Row(
                     adaptive=True,
