@@ -411,7 +411,14 @@ def main(page: ft.Page):
         otp_result = ft.Text(value='\nParolni kiriting', color=TC, size=20, text_align=ft.TextAlign.LEFT,
                              width=400)
 
+        # def otp_resend(e):
+        #     url = "http://176.221.28.202:8008/api/v1/auth/password/reset/"
+        #     headers = {
+        #         "Content-Type": "application/json",
+        #     }
+
         resend_button = ft.OutlinedButton(
+            on_click=lambda e: None,
             disabled=True,
             content=ft.Text('Qaytadan yuborish!', color="grey"),
             style=ft.ButtonStyle(

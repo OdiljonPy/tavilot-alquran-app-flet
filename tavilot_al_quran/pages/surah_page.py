@@ -76,10 +76,16 @@ def surah_page(page, back_button):
     def take_juz_id(ids):
         right_display.controls.clear()
         urls = f"http://176.221.28.202:8008/api/v1/juz/{ids}/"
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {page.client_storage.get('access_token')}"
-        }
+        headers = ""
+        if page.client_storage.get('access_token'):
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {page.client_storage.get('access_token')}"
+            }
+        else:
+            headers = {
+                "Content-Type": "application/json",
+            }
         juz_response = requests.get(url=urls, headers=headers)
         if juz_response.status_code == 200:
             juz_result_list = juz_response.json().get('result').get('chapters')
@@ -111,7 +117,7 @@ def surah_page(page, back_button):
                 right_display.controls.append(juz_n)
                 for juz_i_verse in juz_i.get('verses'):
                     print(juz_i_verse)
-                    content = render_description(juz_i_verse.get('description'))
+                    content = render_description(juz_i_verse.get('description'), page)
                     right_display.controls.append(ft.Column(
                         adaptive=True,
                         expand=True,
@@ -188,11 +194,16 @@ def surah_page(page, back_button):
     button_number = 1
     right_display.controls.clear()
     urls = f"http://176.221.28.202:8008/api/v1/chapter/{1}"
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {page.client_storage.get('access_token')}"
-
-    }
+    headers = ""
+    if page.client_storage.get('access_token'):
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {page.client_storage.get('access_token')}"
+        }
+    else:
+        headers = {
+            "Content-Type": "application/json",
+        }
     responses = requests.get(url=urls, headers=headers)
     if responses.status_code == 200:
         result_details = responses.json().get('result').get('verses')
@@ -243,7 +254,7 @@ def surah_page(page, back_button):
                                     adaptive=True,
                                     content=ft.Text(value=f"{result_detail.get('number')}")
                                 ),
-                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20,
+                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True, width=page.window_width,
                                         text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                 ft.Text(width=10)
                             ]),
@@ -294,7 +305,7 @@ def surah_page(page, back_button):
                                         adaptive=True,
                                         content=ft.Text(value=f"{result_detail.get('number')}")
                                     ),
-                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20,
+                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True, width=page.window_width,
                                             text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                     ft.Text(width=10)
                                 ]),
@@ -343,12 +354,12 @@ def surah_page(page, back_button):
                 for result_data in result_details:
                     print(result_data)
                     if result_data.get('description'):
-                        content = render_description(result_data.get('description'))
+                        content = render_description(result_data.get('description'), page)
                         tafsir_data = ft.Column(
+                            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                             key=result_data.get('id'),
                             controls=[
                                 ft.Row(
-                                    expand=True,
                                     alignment=ft.MainAxisAlignment.CENTER,
                                     adaptive=True,
                                     controls=[
@@ -360,7 +371,8 @@ def surah_page(page, back_button):
                                             adaptive=True,
                                             content=ft.Text(value=f"{result_data.get('number')}")
                                         ),
-                                        ft.Text(value=f"{result_data.get('text_arabic')}", size=20,
+                                        ft.Text(value=f"{result_data.get('text_arabic')}", size=20, width=page.window_width,
+                                                expand=True,
                                                 text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                         ft.Text(width=10)
                                     ]),
@@ -474,7 +486,7 @@ def surah_page(page, back_button):
                             adaptive=True,
                             content=ft.Text(value=f"{result_detail.get('number')}")
                         ),
-                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20,
+                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True, width=page.window_width,
                                 text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                         ft.Text(width=10)
                     ]),
@@ -491,11 +503,16 @@ def surah_page(page, back_button):
         print(number, "it's nummmmmmmmmmmmmmmmmmmmmm")
         right_display.controls.clear()
         urls = f"http://176.221.28.202:8008/api/v1/chapter/{ids}"
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {page.client_storage.get('access_token')}"
-
-        }
+        headers = ""
+        if page.client_storage.get('access_token'):
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {page.client_storage.get('access_token')}"
+            }
+        else:
+            headers = {
+                "Content-Type": "application/json",
+            }
         responses = requests.get(url=urls, headers=headers)
         if responses.status_code == 200:
             result_details = responses.json().get('result').get('verses')
@@ -547,7 +564,7 @@ def surah_page(page, back_button):
                                         adaptive=True,
                                         content=ft.Text(value=f"{result_detail.get('number')}")
                                     ),
-                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20,
+                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True, width=page.window_width,
                                             text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                     ft.Text(width=10)
                                 ]),
@@ -598,7 +615,7 @@ def surah_page(page, back_button):
                                             adaptive=True,
                                             content=ft.Text(value=f"{result_detail.get('number')}")
                                         ),
-                                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20,
+                                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True, width=page.window_width,
                                                 text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                         ft.Text(width=10)
                                     ]),
@@ -647,7 +664,7 @@ def surah_page(page, back_button):
                     for result_data in result_details:
                         print(result_data)
                         if result_data.get('description'):
-                            content = render_description(result_data.get('description'))
+                            content = render_description(result_data.get('description'), page)
                             tafsir_data = ft.Column(
                                 key=result_data.get('id'),
                                 controls=[
@@ -664,7 +681,7 @@ def surah_page(page, back_button):
                                                 adaptive=True,
                                                 content=ft.Text(value=f"{result_data.get('number')}")
                                             ),
-                                            ft.Text(value=f"{result_data.get('text_arabic')}", size=20,
+                                            ft.Text(value=f"{result_data.get('text_arabic')}", size=20, expand=True, width=page.window_width,
                                                     text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                             ft.Text(width=10)
                                         ]),
@@ -779,7 +796,7 @@ def surah_page(page, back_button):
                                     adaptive=True,
                                     content=ft.Text(value=f"{result_detail.get('number')}")
                                 ),
-                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20,
+                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True, width=page.window_width,
                                         text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                 ft.Text(width=10)
                             ]),
@@ -829,7 +846,7 @@ def surah_page(page, back_button):
                                         adaptive=True,
                                         content=ft.Text(value=f"{result_detail.get('number')}")
                                     ),
-                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20,
+                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True, width=page.window_width,
                                             text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                     ft.Text(width=10)
                                 ]),
@@ -877,7 +894,7 @@ def surah_page(page, back_button):
                 for result_data in result_details:
                     print(result_data)
                     if result_data.get('description'):
-                        content = render_description(result_data.get('description'))
+                        content = render_description(result_data.get('description'), page)
                         tafsir_data = ft.Column(
                             key=result_data.get('id'),
                             controls=[
@@ -894,7 +911,7 @@ def surah_page(page, back_button):
                                             adaptive=True,
                                             content=ft.Text(value=f"{result_data.get('number')}")
                                         ),
-                                        ft.Text(value=f"{result_data.get('text_arabic')}", size=20,
+                                        ft.Text(value=f"{result_data.get('text_arabic')}", size=20, expand=True, width=page.window_width,
                                                 text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                         ft.Text(width=10)
                                     ]),
@@ -1067,12 +1084,17 @@ def surah_page(page, back_button):
     )
 
     def fetch_data(query):
-        print(button_number, "SEARCHEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEee")
         url = f"http://176.221.28.202:8008/api/v1/search/?q={query}&search_type={button_number}"
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {page.client_storage.get('access_token')}"
-        }
+        headers = ""
+        if page.client_storage.get('access_token'):
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {page.client_storage.get('access_token')}"
+            }
+        else:
+            headers = {
+                "Content-Type": "application/json",
+            }
         response = requests.get(url=url, headers=headers)
         if response.status_code == 200:
             print(response.json().get('result'))
@@ -1096,7 +1118,7 @@ def surah_page(page, back_button):
             print(target_element.controls[0].controls[0], "TARGET ELEMENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
             # Apply highlight style
             original_bgcolor = target_element.controls[0].controls[0].bgcolor
-            target_element.controls[0].controls[0].bgcolor = "blue"
+            target_element.controls[0].controls[0].bgcolor = "yellow"
             target_element.update()
 
             # Function to remove highlight after a delay

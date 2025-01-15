@@ -123,7 +123,7 @@ def render_content(container, parts, video_files):
     container.update()
 
 
-def render_description(data):
+def render_description(data, page):
     arabic_pattern = r'[\u0600-\u06FF]+'
     markdown_content = pyhtml2md.convert(data)
     data_list = []
@@ -135,12 +135,14 @@ def render_description(data):
         if re.search(arabic_pattern, line):
             # Render Arabic text with a custom font using ft.Text
             data_list.append(
-                ft.Text(line, style=ft.TextStyle(font_family='Amiri'), text_align=ft.TextAlign.CENTER, size=20)
+                ft.Text(line, style=ft.TextStyle(font_family='Amiri'), text_align=ft.TextAlign.CENTER, size=20,
+                        expand=True,
+                        width=page.window_width)
             )
         else:
             # Render non-Arabic content as Markdown
             if line.strip():
-                data_list.append(ft.Markdown(f"# {line}"))
-    container = ft.Row(controls=data_list, alignment=ft.MainAxisAlignment.CENTER)
+                data_list.append(ft.Markdown(f"## {line}"))
+    container = ft.Container(margin=30, content=ft.Column(controls=data_list, horizontal_alignment=ft.CrossAxisAlignment.CENTER), alignment=ft.alignment.center, adaptive=True, width=page.window_width)
     return container
 
