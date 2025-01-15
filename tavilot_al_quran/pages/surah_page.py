@@ -1,15 +1,7 @@
 import flet as ft
 import requests
 import os
-from .html_pdf_handler import extract_base64_and_save_images, extract_and_process_videos, render_content, \
-    render_description
-from .al_quran_oquvchilariga import al_quron_oquvchilariga
-from .menuscript import menuscript
-from .studies import studies
-from .refusal import refusal
-from .resources import resources
-from .about_us_page import about_us_page
-from .payment_page import payment_page
+
 
 TC = '#E9BE5F'
 
@@ -19,6 +11,13 @@ def surah_page(page):
     page.scroll = False
     from .home_page import home
     from tavilot_al_quran.main import main
+    from .html_pdf_handler import render_description
+    from .al_quran_oquvchilariga import al_quron_oquvchilariga
+    from .menuscript import menuscript
+    from .studies import studies
+    from .refusal import refusal
+    from .resources import resources
+    from .payment_page import payment_page
     loading = ft.ProgressRing(color=TC)
     page.add(ft.Container(
         expand=True,
@@ -164,7 +163,6 @@ def surah_page(page):
     url = "http://176.221.28.202:8008/api/v1/chapters/"
     response = requests.get(url=url)
     if response.status_code == 200:
-        page.clean()
         page.scroll = False
         result_lists = response.json().get('result')
 
@@ -194,7 +192,7 @@ def surah_page(page):
                                 font_family='Amiri', expand=True)
                     ])))
     else:
-        ""
+        print("Error")
     # --------------------------------------------------------------------------------------------------------------------
     button_number = 1
     right_display.controls.clear()
@@ -397,7 +395,7 @@ def surah_page(page):
                         right_display.controls.append(tafsir_data),
                         page.update()
                     else:
-                        ""
+                        print("Error")
             page.update()  # Update the page to reflect changes
 
 
@@ -499,7 +497,7 @@ def surah_page(page):
             )
 
     else:
-        ""
+        print("Error")
     page.update()
     #------Default page-------------------------------------------------------------------------------------------------
 
@@ -702,7 +700,7 @@ def surah_page(page):
                                 ])
                             right_display.controls.append(tafsir_data),
                         else:
-                            ""
+                            print("ERROR")
                 page.update()  # Update the page to reflect changes
 
 
@@ -728,7 +726,7 @@ def surah_page(page):
                     ),
                     data=3,
                     style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
-                    on_click=lambda e: payment_page(page, back_button)
+                    on_click=lambda e: payment_page(page)
                 )
 
             else:
@@ -931,7 +929,7 @@ def surah_page(page):
                             ])
                         right_display.controls.append(tafsir_data),
         else:
-            ""
+            print("ERROR")
         page.update()
 
     # -----Close button logic---------------------------------------------------------------------------------------------
@@ -941,6 +939,7 @@ def surah_page(page):
         style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC),
         on_click=lambda e: toggle_widgets(e)
     )
+    page.clean()
 
     is_cleaned = True
 
@@ -1098,13 +1097,12 @@ def surah_page(page):
         if response.status_code == 200:
             return response.json().get("result", [])
         else:
-            ""
+            print("ERROR")
         return []
 
     import threading
 
     def scroll_to_item(item_id, chapter_id):
-        print(chapter_id, "CHapter id is hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 
         # Perform the necessary actions (e.g., highlight or take some action with chapter_id)
         take_id(chapter_id, number=button_number)
@@ -1199,7 +1197,6 @@ def surah_page(page):
             if route in routes:
                 routes[route](page)  # Call the corresponding route function
             else:
-                page.clean()
                 page.add(ft.Text("404 - Page Not Found", size=20))
                 page.update()
 
@@ -1263,4 +1260,4 @@ def surah_page(page):
 
     update_appbar()
     page.add(side_bar)
-    page.update()
+    # page.update()

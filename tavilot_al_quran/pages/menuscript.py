@@ -21,7 +21,6 @@ def menuscript(page):
     from .resources import resources
     from .refusal import refusal
     from .surah_page import surah_page
-    from .menuscript import menuscript
     from .al_quran_oquvchilariga import al_quron_oquvchilariga
     from .studies import studies
     current_language = "uz"

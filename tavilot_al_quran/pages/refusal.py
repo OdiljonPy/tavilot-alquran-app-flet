@@ -27,7 +27,7 @@ def refusal(page):
     from .studies import studies
     current_language = "uz"
 
-    page.scroll = True
+    page.scroll = False
     page.clean()
     TC = '#E9BE5F'
     loading = ft.ProgressRing(color=TC)
@@ -67,6 +67,7 @@ def refusal(page):
 
     if response.status_code == 200:
         page.clean()
+        page.scroll = True
         datas = response.json().get('result')
         for date in datas:
             motrudiy_data = ft.OutlinedButton(
