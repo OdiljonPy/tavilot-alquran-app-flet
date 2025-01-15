@@ -46,7 +46,7 @@ def take_content_id(page, back_button, ids):
                 scale=ft.Scale(scale_x=0.9),
                 bgcolor='white',
                 content=ft.Column(
-                    scale=ft.Scale(scale_x=0.9),
+                    scale=ft.Scale(scale_x=0.95),
                     adaptive=True,
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
