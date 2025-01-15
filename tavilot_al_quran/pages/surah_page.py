@@ -17,6 +17,7 @@ TC = '#E9BE5F'
 def surah_page(page, back_button):
     page.clean()
     from .home_page import home
+    from tavilot_al_quran.main import main
     loading = ft.ProgressRing(color=TC)
     page.add(ft.Container(
         expand=True,
@@ -370,7 +371,8 @@ def surah_page(page, back_button):
                 text_tafsir = ft.TextButton('Tafsir', data=3,
                                             style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
                                             on_click=change_response)
-            else:
+
+            elif page.client_storage.get('access_token') and page.client_storage.get('user_rate') == 1:
                 text_tafsir = ft.TextButton(
                     content=ft.Row(controls=[
                         ft.Text('Tafsir'),
@@ -380,6 +382,18 @@ def surah_page(page, back_button):
                     data=3,
                     style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
                     on_click=lambda e: payment_page(page, back_button)
+                )
+
+            else:
+                text_tafsir = ft.TextButton(
+                    content=ft.Row(controls=[
+                        ft.Text('Tafsir'),
+                        ft.Image(src=os.path.abspath("assets/lock.png"))
+                    ]
+                    ),
+                    data=3,
+                    style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
+                    on_click=lambda e: main(page)
                 )
 
             right_top_bar = ft.Container(
@@ -593,7 +607,6 @@ def surah_page(page, back_button):
     )
 
     def fetch_data(query):
-        print(button_number, 'BUTTON NUMBER IS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE')
         url = f"http://176.221.28.202:8008/api/v1/search/?q={query}&search_type={button_number}"
         response = requests.get(url)
         if response.status_code == 200:
@@ -602,7 +615,6 @@ def surah_page(page, back_button):
             print(f"API Error: {response.status_code}")
         return []
 
-    # Dictionary to store created elements by their keys
     # Dictionary to store created elements by their keys
     # elements_by_key = {}
 

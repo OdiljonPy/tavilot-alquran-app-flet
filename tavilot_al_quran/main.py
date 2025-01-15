@@ -12,6 +12,7 @@ from pages.home_page import home
 
 
 def main(page: ft.Page):
+    page.appbar = None
     page.update()
     page.scroll = False
     page.padding = 0
