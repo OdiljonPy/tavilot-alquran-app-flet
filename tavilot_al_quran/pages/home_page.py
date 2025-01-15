@@ -179,7 +179,7 @@ def home(page):
                                 bgcolor='#E9BE5F',
                                 shape=ft.RoundedRectangleBorder(radius=20),
                             ),
-                            on_click=lambda e: surah_page(page, back_button)
+                            on_click=lambda e: surah_page(page)
                         ),
                         ft.OutlinedButton(
                             expand=True,
