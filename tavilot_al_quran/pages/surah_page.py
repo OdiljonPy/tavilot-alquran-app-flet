@@ -962,7 +962,7 @@ def surah_page(page):
             side_bar.controls[0].controls = column_data
             side_bar.controls[0].width = 100
         else:
-            button3.text = "<< Yopish"
+            button3.text = "< Yopish"
             button3.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC)
             side_bar.controls[0].width = 350
             side_bar.controls[0].controls = [ft.Row(
