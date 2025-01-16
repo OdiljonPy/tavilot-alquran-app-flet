@@ -87,8 +87,8 @@ def render_content(container, parts, video_files):
                                 muted=False,
                                 show_controls=True,
                                 expand=True,
-                                width=600,
-                                height=400
+                                width=800,
+                                height=600
                             ))
                             video_index += 1
 

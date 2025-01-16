@@ -1056,7 +1056,7 @@ def surah_page(page):
                     width=page.window_width,
                     adaptive=True,
                     controls=[
-                        ft.Text(height=50),
+                        # ft.Text(height=50),
                         right_display
                     ]
                 )
