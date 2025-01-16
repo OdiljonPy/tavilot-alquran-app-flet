@@ -405,7 +405,6 @@ def main(page: ft.Page):
 
         otp_result = ft.Text(value='\nParolni kiriting', color=TC, size=20, text_align=ft.TextAlign.LEFT,
                              width=400)
-
         resend_button = ft.OutlinedButton(
             on_click=lambda e: None,
             disabled=True,

@@ -89,14 +89,17 @@ def home(page):
 
     )
 
-    three_window_moturudiy = ft.Text(value=translations[current_language]["three_window_moturudiy"], size=20, color='white', expand=True)
-    al_quron_text = ft.Text(value=translations[current_language]["al_quron_text"], size=20, color='white', expand=True)
-    menuscript_text = ft.Text(value=translations[current_language]["refusal_text"], size=20, color='white', expand=True)
-    studies_text = ft.Text(value=translations[current_language]["studies_text"], size=20, color='white', expand=True)
-    resources_text = ft.Text(value=translations[current_language]["resources_text"], size=17.5,
+    three_window_moturudiy = ft.Text(value=translations[current_language]["three_window_moturudiy"], size=page.window_width * 0.017, color='white', expand=True)
+    al_quron_text = ft.Text(value=translations[current_language]["al_quron_text"], size=page.window_width * 0.017, color='white', expand=True)
+    menuscript_text = ft.Text(value=translations[current_language]["refusal_text"], size=page.window_width * 0.017, color='white', expand=True)
+    studies_text = ft.Text(value=translations[current_language]["studies_text"], size=page.window_width * 0.017, color='white', expand=True)
+    resources_text = ft.Text(value=translations[current_language]["resources_text"], size=page.window_width * 0.014,
                                             color='white', expand=True)
-    refusal_text = ft.Text(value=translations[current_language]["refusal_text"], size=20, color='white', expand=True)
+    refusal_text = ft.Text(value=translations[current_language]["refusal_text"], size=page.window_width * 0.017, color='white', expand=True)
     abu_mansur_motrudiy = ft.Text(value=translations[current_language]["abu_mansur_motrudiy"])
+
+
+
 
     three_windows = ft.Container(
         margin=30,
@@ -470,7 +473,6 @@ def home(page):
     def generate_appbar_actions():
         return [
             ft.TextButton(
-                # scale=ft.Scale(scale=0.5),
                 adaptive=True,
                 expand=True,
                 text=route_label,
@@ -528,6 +530,21 @@ def home(page):
             bgcolor='white',
             toolbar_height=80,
         )
+
+    def on_resize(e):
+        # Update text size based on window width
+        three_window_moturudiy.size = page.window_width * 0.017
+        al_quron_text.size = page.window_width * 0.017
+        menuscript_text.size = page.window_width * 0.017
+        studies_text.size = page.window_width * 0.017
+        resources_text.size = page.window_width * 0.014
+        refusal_text.size = page.window_width * 0.017
+        abu_mansur_motrudiy.size = page.window_width * 0.017
+
+        page.update()
+
+    # Attach event listener
+    page.on_resize = on_resize
 
     update_appbar()
     page.add(entrance_logo, three_windows)
