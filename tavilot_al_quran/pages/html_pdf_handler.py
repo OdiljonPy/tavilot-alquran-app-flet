@@ -77,7 +77,7 @@ def render_content(container, parts, video_files):
                             container.controls.append(ft.Video(
                                 playlist=[
                                     ft.VideoMedia(
-                                        resource="https://www.youtube.com/watch?v=CCAccGVby7E"  #video_files[video_index]
+                                        resource=video_files[video_index]
                                     )
                                 ],
                                 playlist_mode=ft.PlaylistMode.LOOP,
@@ -91,6 +91,7 @@ def render_content(container, parts, video_files):
                                 height=400
                             ))
                             video_index += 1
+
                 else:
                     # Render non-video content as text
                     if re.search(arabic_pattern, line):
