@@ -74,7 +74,9 @@ def menuscript(page):
                 on_click=lambda e: take_content_id(page, e.control.data),
                 content=ft.Column(
                     controls=[
-                        ft.Column(controls=[
+                        ft.Column(
+                            scale=ft.Scale(scale_x=0.9, scale_y=0.9),
+                            controls=[
                             ft.Text(),
                             ft.Image(src=os.path.abspath("assets/book_1.svg"), color="white"),
                             ft.Text(f"\n{date.get('title')}", size=20, color='white'),

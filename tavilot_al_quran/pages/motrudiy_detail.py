@@ -68,9 +68,9 @@ def take_content_id(page, ids):
         page.scroll = True
         # Container to hold the rendered content
         content_container = ft.Container(
+            scale=ft.Scale(scale_x=0.96),
             height=page.window.height,
             adaptive=True,
-            margin=30,
             image_src=os.path.abspath("assets/searchbg.png"),
             image_fit="cover",
             alignment=ft.alignment.center,
@@ -80,18 +80,13 @@ def take_content_id(page, ids):
                 scale=ft.Scale(scale_x=0.9),
                 bgcolor='white',
                 content=ft.Column(
+                    height=page.window.height,
                     scale=ft.Scale(scale_x=0.96),
                     adaptive=True,
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
                         ft.Row(controls=[back_button], alignment=ft.MainAxisAlignment.START),
-                        ft.Row(
-                            adaptive=True,
-                            wrap=True,
-                            controls=[
-                                ft.Text(result, size=10),
-                            ]
-                        )
+                        ft.Text(result, size=20, expand=True)
                     ]
                 )
             )
