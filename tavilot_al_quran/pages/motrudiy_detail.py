@@ -80,7 +80,7 @@ def take_content_id(page, ids):
                 scale=ft.Scale(scale_x=0.9),
                 bgcolor='white',
                 content=ft.Column(
-                    scale=ft.Scale(scale_x=0.95),
+                    scale=ft.Scale(scale_x=0.96),
                     adaptive=True,
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
@@ -115,7 +115,7 @@ def take_content_id(page, ids):
                 content=ft.Column(
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
-                        ft.Image(src=os.path.abspath("assets/pdf.png"), width=120, height=100, expand=True),
+                        ft.Image(src=os.path.abspath("assets/pdf.png"), width=240, height=160, expand=True),
                         ft.Text(response.json().get('result').get('title'), text_align=ft.TextAlign.CENTER, size=20, color=TC)
                         ]
                 ),
