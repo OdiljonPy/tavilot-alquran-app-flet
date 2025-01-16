@@ -470,10 +470,12 @@ def home(page):
     def generate_appbar_actions():
         return [
             ft.TextButton(
+                # scale=ft.Scale(scale=0.5),
                 adaptive=True,
                 expand=True,
                 text=route_label,
                 style=ft.ButtonStyle(
+                    padding=0,
                     text_style=ft.TextStyle(size=15),
                     color='#007577' if route == active_route else ft.colors.BLACK,
                 ),

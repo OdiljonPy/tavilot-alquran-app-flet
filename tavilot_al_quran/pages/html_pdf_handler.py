@@ -77,17 +77,17 @@ def render_content(container, parts, video_files):
                             container.controls.append(ft.Video(
                                 playlist=[
                                     ft.VideoMedia(
-                                        resource=video_files[video_index]
+                                        resource="https://www.youtube.com/watch?v=CCAccGVby7E"  #video_files[video_index]
                                     )
                                 ],
                                 playlist_mode=ft.PlaylistMode.LOOP,
-                                fill_color=ft.colors.LIGHT_BLUE,
+                                fill_color=ft.colors.BLACK,
                                 volume=100,
                                 autoplay=False,
                                 muted=False,
                                 show_controls=True,
                                 expand=True,
-                                width=400,
+                                width=600,
                                 height=400
                             ))
                             video_index += 1

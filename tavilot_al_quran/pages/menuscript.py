@@ -46,6 +46,7 @@ def menuscript(page):
         height=40,
         width=170,
         style=ft.ButtonStyle(
+            padding=0,
             shape=ft.RoundedRectangleBorder(radius=10),
             side=ft.BorderSide(color=TC, width=1),
             bgcolor='white'
