@@ -1,7 +1,7 @@
+import time
 import flet as ft
 import requests
 import os
-
 
 TC = '#E9BE5F'
 
@@ -136,7 +136,8 @@ def surah_page(page):
                                     adaptive=True,
                                     content=ft.Text(value=f"{juz_i_verse.get('number')}")
                                 ),
-                                ft.Text(value=f"{juz_i_verse.get('text_arabic')}", size=20, text_align=ft.TextAlign.CENTER,
+                                ft.Text(value=f"{juz_i_verse.get('text_arabic')}", size=20,
+                                        text_align=ft.TextAlign.CENTER,
                                         expand=True, width=page.window_width,
                                         font_family="Amiri"),
                                 ft.Text(width=10)
@@ -145,7 +146,7 @@ def surah_page(page):
                                 controls=[
                                     ft.Text(),
                                     ft.Text(
-                                        value=f"{  juz_i_verse.get('number')}. {juz_i_verse.get('text')}",
+                                        value=f"{juz_i_verse.get('number')}. {juz_i_verse.get('text')}",
                                         size=20,
                                         expand=True,
                                         width=page.window_width, text_align=ft.TextAlign.LEFT
@@ -256,7 +257,8 @@ def surah_page(page):
                                     adaptive=True,
                                     content=ft.Text(value=f"{result_detail.get('number')}")
                                 ),
-                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True, width=page.window_width,
+                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
+                                        width=page.window_width,
                                         text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                 ft.Text(width=10)
                             ]),
@@ -307,7 +309,8 @@ def surah_page(page):
                                         adaptive=True,
                                         content=ft.Text(value=f"{result_detail.get('number')}")
                                     ),
-                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True, width=page.window_width,
+                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
+                                            width=page.window_width,
                                             text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                     ft.Text(width=10)
                                 ]),
@@ -372,7 +375,8 @@ def surah_page(page):
                                             adaptive=True,
                                             content=ft.Text(value=f"{result_data.get('number')}")
                                         ),
-                                        ft.Text(value=f"{result_data.get('text_arabic')}", size=20, width=page.window_width,
+                                        ft.Text(value=f"{result_data.get('text_arabic')}", size=20,
+                                                width=page.window_width,
                                                 expand=True,
                                                 text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                         ft.Text(width=10)
@@ -397,8 +401,6 @@ def surah_page(page):
                     else:
                         print("Error")
             page.update()  # Update the page to reflect changes
-
-
 
         text_arabic = ft.TextButton('Arabcha', data=1, style=ft.ButtonStyle(color='white', bgcolor=TC),
                                     on_click=lambda e: change_response(1))
@@ -488,7 +490,8 @@ def surah_page(page):
                             adaptive=True,
                             content=ft.Text(value=f"{result_detail.get('number')}")
                         ),
-                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True, width=page.window_width,
+                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
+                                width=page.window_width,
                                 text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                         ft.Text(width=10)
                     ]),
@@ -499,7 +502,8 @@ def surah_page(page):
     else:
         print("Error")
     page.update()
-    #------Default page-------------------------------------------------------------------------------------------------
+
+    # ------Default page-------------------------------------------------------------------------------------------------
 
     def take_id(ids, number=1):
         right_display.controls.clear()
@@ -563,7 +567,8 @@ def surah_page(page):
                                         adaptive=True,
                                         content=ft.Text(value=f"{result_detail.get('number')}")
                                     ),
-                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True, width=page.window_width,
+                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
+                                            width=page.window_width,
                                             text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                     ft.Text(width=10)
                                 ]),
@@ -614,7 +619,8 @@ def surah_page(page):
                                             adaptive=True,
                                             content=ft.Text(value=f"{result_detail.get('number')}")
                                         ),
-                                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True, width=page.window_width,
+                                        ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
+                                                width=page.window_width,
                                                 text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                         ft.Text(width=10)
                                     ]),
@@ -679,7 +685,8 @@ def surah_page(page):
                                                 adaptive=True,
                                                 content=ft.Text(value=f"{result_data.get('number')}")
                                             ),
-                                            ft.Text(value=f"{result_data.get('text_arabic')}", size=20, expand=True, width=page.window_width,
+                                            ft.Text(value=f"{result_data.get('text_arabic')}", size=20, expand=True,
+                                                    width=page.window_width,
                                                     text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                             ft.Text(width=10)
                                         ]),
@@ -702,8 +709,6 @@ def surah_page(page):
                         else:
                             print("ERROR")
                 page.update()  # Update the page to reflect changes
-
-
 
             text_arabic = ft.TextButton('Arabcha', data=1, style=ft.ButtonStyle(color='white', bgcolor=TC),
                                         on_click=lambda e: change_response(1))
@@ -795,7 +800,8 @@ def surah_page(page):
                                     adaptive=True,
                                     content=ft.Text(value=f"{result_detail.get('number')}")
                                 ),
-                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True, width=page.window_width,
+                                ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
+                                        width=page.window_width,
                                         text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                 ft.Text(width=10)
                             ]),
@@ -845,7 +851,8 @@ def surah_page(page):
                                         adaptive=True,
                                         content=ft.Text(value=f"{result_detail.get('number')}")
                                     ),
-                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True, width=page.window_width,
+                                    ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
+                                            width=page.window_width,
                                             text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                     ft.Text(width=10)
                                 ]),
@@ -909,7 +916,8 @@ def surah_page(page):
                                             adaptive=True,
                                             content=ft.Text(value=f"{result_data.get('number')}")
                                         ),
-                                        ft.Text(value=f"{result_data.get('text_arabic')}", size=20, expand=True, width=page.window_width,
+                                        ft.Text(value=f"{result_data.get('text_arabic')}", size=20, expand=True,
+                                                width=page.window_width,
                                                 text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                         ft.Text(width=10)
                                     ]),
@@ -1101,7 +1109,6 @@ def surah_page(page):
             print("ERROR")
         return []
 
-    import threading
 
     def scroll_to_item(item_id, chapter_id):
 
@@ -1120,16 +1127,14 @@ def surah_page(page):
             # Function to remove highlight after a delay
             def remove_highlight():
                 # Sleep for 3 seconds
-                threading.Event().wait(3)
+                time.sleep(3)
                 # Restore original background color
                 target_element.controls[0].controls[0].bgcolor = original_bgcolor
                 target_element.update()
 
-            # Start a new thread to remove the highlight after the delay
-            threading.Thread(target=remove_highlight).start()
-
         # Scroll to the target element
         right_display.scroll_to(key=f"{item_id}", duration=700, curve=ft.AnimationCurve.BOUNCE_OUT)
+        remove_highlight()
         page.update()
 
     def handle_submit(e):
@@ -1241,10 +1246,10 @@ def surah_page(page):
             leading=ft.Container(
                 on_click=lambda e: home(page),
                 content=ft.Image(
-                expand=True,
-                color='#007577',
-                src=os.path.abspath("assets/tA'VILOT_Монтажная_область1.svg")
-            )),
+                    expand=True,
+                    color='#007577',
+                    src=os.path.abspath("assets/tA'VILOT_Монтажная_область1.svg")
+                )),
             actions=[
                 ft.Row(
                     adaptive=True,
