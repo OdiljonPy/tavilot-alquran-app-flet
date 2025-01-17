@@ -12,6 +12,8 @@ from pages.home_page import home
 
 
 def main(page: ft.Page):
+    page.window.min_width = 1280
+    page.window.min_height = 850
     page.appbar = None
     page.update()
     page.scroll = False
