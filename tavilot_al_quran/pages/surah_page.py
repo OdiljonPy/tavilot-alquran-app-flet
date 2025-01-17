@@ -17,7 +17,7 @@ def surah_page(page):
     from .studies import studies
     from .refusal import refusal
     from .resources import resources
-    from .payment_page import payment_page
+    # from .payment_page import payment_page
     loading = ft.ProgressRing(color=TC)
     page.add(ft.Container(
         expand=True,
@@ -423,7 +423,7 @@ def surah_page(page):
                 ),
                 data=3,
                 style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
-                on_click=lambda e: payment_page(page)
+                on_click=lambda e: None, #payment_page(page)
             )
 
         else:
@@ -731,7 +731,7 @@ def surah_page(page):
                     ),
                     data=3,
                     style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
-                    on_click=lambda e: payment_page(page)
+                    on_click=lambda e: None, #payment_page(page)
                 )
 
             else:
