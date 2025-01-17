@@ -760,6 +760,7 @@ def surah_page(page):
                 )
             )
             if button_number == 1:
+                right_display.controls.clear()
                 right_display.controls.append(right_top_bar)
                 chapter_result = responses.json().get('result')
                 if chapter_result == 1:
