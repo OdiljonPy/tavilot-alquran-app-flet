@@ -8,62 +8,59 @@ import os
 
 def surah_page_test(page):
     page.clean()
-    page.add(ft.Text('Abbosbek', size=100))
-    # page.clean()
-    # page.scroll = False
-    # # from tavilot_al_quran.main import main
-    # from .html_pdf_handler import render_description
-    # # from .pages_utils.appbar_search import update_appbar
-    # loading = ft.ProgressRing(color=TC)
-    # page.add(ft.Container(
-    #     expand=True,
-    #     adaptive=True,
-    #     content=loading,
-    #     alignment=ft.alignment.center)
-    # )
-    # page.clean()
+    page.scroll = False
     # from tavilot_al_quran.main import main
-    # list_display = ft.ListView(adaptive=True, spacing=10, padding=20)
+    # # from .pages_utils.appbar_search import update_appbar
+    loading = ft.ProgressRing(color=TC)
+    page.add(ft.Container(
+        expand=True,
+        adaptive=True,
+        content=loading,
+        alignment=ft.alignment.center)
+    )
+    page.clean()
+    # from tavilot_al_quran.main import main
+    list_display = ft.ListView(adaptive=True, spacing=10, padding=20)
     # list_display_juz = ft.ListView(adaptive=True, spacing=10, padding=20)
-    # right_display = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
-    #                           horizontal_alignment=ft.CrossAxisAlignment.CENTER)
+    right_display = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
+                              horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     #
     # juz_button(list_display_juz)
     #
     # # ------Back connection----------------------------------------------------------------------------------------------
-    # url = "http://176.221.28.202:8008/api/v1/chapters/"
-    # response = requests.get(url=url)
-    # if response.status_code == 200:
-    #     page.scroll = False
-    #     result_lists = response.json().get('result')
-    #
-    #     for i in result_lists:
-    #         if i.get('type_choice') == 1:
-    #             i['type_choice'] = 'Makkiy'
-    #         else:
-    #             i['type_choice'] = 'Madaniy'
-    #
-    #         list_display.controls.append(ft.Container(
-    #             margin=20,
-    #             key=i.get('id'),
-    #             data=i.get('id'),
-    #             on_click=lambda e: take_id(e.control.data),
-    #             content=ft.Row(
-    #                 adaptive=True,
-    #                 controls=[
-    #                     ft.Container(adaptive=True, content=ft.Text(i.get('id'), color='black'),
-    #                                  shape=ft.BoxShape.CIRCLE, width=60,
-    #                                  height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)),
-    #                     ft.Column(
-    #                         controls=[
-    #                             ft.Text(i.get('name'), size=20, expand=True),
-    #                             ft.Text(f"{i.get('type_choice')}, {i.get('verse_number')} oyat", size=15.5, expand=True)
-    #                         ]),
-    #                     ft.Text(value=i.get('name_arabic'), size=18, text_align=ft.TextAlign.RIGHT, width=150,
-    #                             font_family='Amiri', expand=True)
-    #                 ])))
-    # else:
-    #     print("Error")
+    url = "http://176.221.28.202:8008/api/v1/chapters/"
+    response = requests.get(url=url)
+    if response.status_code == 200:
+        page.scroll = False
+        result_lists = response.json().get('result')
+
+        for i in result_lists:
+            if i.get('type_choice') == 1:
+                i['type_choice'] = 'Makkiy'
+            else:
+                i['type_choice'] = 'Madaniy'
+
+            list_display.controls.append(ft.Container(
+                margin=20,
+                key=i.get('id'),
+                data=i.get('id'),
+                on_click=lambda e: take_id(e.control.data),
+                content=ft.Row(
+                    adaptive=True,
+                    controls=[
+                        ft.Container(adaptive=True, content=ft.Text(i.get('id'), color='black'),
+                                     shape=ft.BoxShape.CIRCLE, width=60,
+                                     height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)),
+                        ft.Column(
+                            controls=[
+                                ft.Text(i.get('name'), size=20, expand=True),
+                                ft.Text(f"{i.get('type_choice')}, {i.get('verse_number')} oyat", size=15.5, expand=True)
+                            ]),
+                        ft.Text(value=i.get('name_arabic'), size=18, text_align=ft.TextAlign.RIGHT, width=150,
+                                font_family='Amiri', expand=True)
+                    ])))
+    else:
+        print("Error")
     # # --------------------------------------------------------------------------------------------------------------------
     # button_number = 1
     # # right_display.controls.clear()
@@ -811,91 +808,91 @@ def surah_page_test(page):
     #         print("ERROR")
     #     page.update()
     #
-    # # Initialize default colors
-    # button1_color = TC
-    # button2_color = ft.colors.BLACK
-    #
-    # # Define ListView
-    # list_view = ft.ListView(expand=1, spacing=10)
-    # list_view.controls = list_display.controls
-    #
-    # # Button click handler
-    # def button_click(e):
-    #     nonlocal button1_color, button2_color
-    #
-    #     # Update text colors and ListView content based on which button was clicked
-    #     if e.control.data == "button1":
-    #         button1_color = TC
-    #         button2_color = ft.colors.BLACK
-    #         list_view.controls = list_display.controls
-    #     elif e.control.data == "button2":
-    #         button1_color = ft.colors.BLACK
-    #         button2_color = TC
-    #         # juz_button(e)
-    #         list_view.controls = list_display_juz.controls
-    #
-    #     # Refresh UI
-    #     button1.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button1_color)
-    #     button2.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button2_color)
-    #     page.update()
-    #
-    # # Define TextButtons
-    # button1 = ft.TextButton(
-    #     "Surah",
-    #     data="button1",
-    #     style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button1_color),
-    #     on_click=lambda e: button_click(e),
-    #
-    # )
-    #
-    # button2 = ft.TextButton(
-    #     "Juz",
-    #     data="button2",
-    #     style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button2_color),
-    #     on_click=lambda e: button_click(e),
-    #
-    # )
-    #
-    # side_bar = ft.Row(
-    #     vertical_alignment=ft.CrossAxisAlignment.START,
-    #     expand=True,
-    #     controls=[
-    #         ft.Column(
-    #             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-    #             adaptive=True,
-    #             width=350,
-    #             controls=[
-    #                 ft.Row(
-    #                     spacing=20,
-    #                     adaptive=True,
-    #                     alignment=ft.MainAxisAlignment.CENTER,
-    #                     controls=[
-    #                         button1,
-    #                         button2,
-    #                         # button3
-    #                     ]
-    #                 ),
-    #                 list_view
-    #             ],
-    #         ),
-    #         # divider,
-    #         ft.Container(
-    #             bgcolor='white',
-    #             expand=True,
-    #             width=page.window_width,
-    #             content=ft.Column(
-    #                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-    #                 width=page.window_width,
-    #                 adaptive=True,
-    #                 controls=[
-    #                     # ft.Text(height=50),
-    #                     right_display
-    #                 ]
-    #             )
-    #         )
-    #     ],
-    #     spacing=0
-    # )
-    #
-    # page.add(side_bar)
-    # page.update()
+    # Initialize default colors
+    button1_color = TC
+    button2_color = ft.colors.BLACK
+
+    # Define ListView
+    list_view = ft.ListView(expand=1, spacing=10)
+    list_view.controls = list_display.controls
+
+    # Button click handler
+    def button_click(e):
+        nonlocal button1_color, button2_color
+
+        # Update text colors and ListView content based on which button was clicked
+        if e.control.data == "button1":
+            button1_color = TC
+            button2_color = ft.colors.BLACK
+            list_view.controls = list_display.controls
+        # elif e.control.data == "button2":
+        #     button1_color = ft.colors.BLACK
+        #     button2_color = TC
+        #     # juz_button(e)
+        #     list_view.controls = list_display_juz.controls
+
+        # Refresh UI
+        button1.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button1_color)
+        button2.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button2_color)
+        page.update()
+
+    # Define TextButtons
+    button1 = ft.TextButton(
+        "Surah",
+        data="button1",
+        style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button1_color),
+        on_click=lambda e: button_click(e),
+
+    )
+
+    button2 = ft.TextButton(
+        "Juz",
+        data="button2",
+        style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button2_color),
+        on_click=lambda e: button_click(e),
+
+    )
+
+    side_bar = ft.Row(
+        vertical_alignment=ft.CrossAxisAlignment.START,
+        expand=True,
+        controls=[
+            ft.Column(
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                adaptive=True,
+                width=350,
+                controls=[
+                    ft.Row(
+                        spacing=20,
+                        adaptive=True,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[
+                            button1,
+                            button2,
+                            # button3
+                        ]
+                    ),
+                    list_view
+                ],
+            ),
+            # divider,
+            ft.Container(
+                bgcolor='white',
+                expand=True,
+                width=page.window_width,
+                content=ft.Column(
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    width=page.window_width,
+                    adaptive=True,
+                    controls=[
+                        # ft.Text(height=50),
+                        right_display
+                    ]
+                )
+            )
+        ],
+        spacing=0
+    )
+
+    page.add(side_bar)
+    page.update()
