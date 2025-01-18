@@ -20,19 +20,19 @@ def surah_page(page):
         alignment=ft.alignment.center)
     )
 
-    divider = ft.Container(
-        adaptive=True,
-        bgcolor=TC,  # The line's color
-        width=5,  # Thickness of the line
-        height=page.window_width,  # Match the height of the containers
-    )
-
-    def on_resize(event):
-        divider.height = page.window_width
-        page.update()
-
-    # Attach resize event handler
-    page.on_resize = on_resize
+    # divider = ft.Container(
+    #     adaptive=True,
+    #     bgcolor=TC,  # The line's color
+    #     width=5,  # Thickness of the line
+    #     height=page.window_width,  # Match the height of the containers
+    # )
+    #
+    # def on_resize(event):
+    #     divider.height = page.window_width
+    #     page.update()
+    #
+    # # Attach resize event handler
+    # page.on_resize = on_resize
 
     list_display = ft.ListView(adaptive=True, spacing=10, padding=20)
     list_display_juz = ft.ListView(adaptive=True, spacing=10, padding=20)
@@ -1050,7 +1050,7 @@ def surah_page(page):
                     list_view
                 ],
             ),
-            divider,
+            # divider,
             ft.Container(
                 bgcolor='white',
                 expand=True,
