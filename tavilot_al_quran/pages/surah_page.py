@@ -3,6 +3,7 @@ import flet as ft
 import requests
 import os
 
+TC = '#E9BE5F'
 
 
 def surah_page(page):
@@ -1086,3 +1087,81 @@ def surah_page(page):
     #     else:
     #         print("ERROR")
     #     return []
+    #
+    #
+    # def scroll_to_item(item_id, chapter_id):
+    #
+    #     # Perform the necessary actions (e.g., highlight or take some action with chapter_id)
+    #     take_id(chapter_id, number=button_number)
+    #
+    #     # Find the target element
+    #     target_element = next((control for control in right_display.controls if control.key == item_id), None)
+    #
+    #     if target_element:
+    #         # Apply highlight style
+    #         original_bgcolor = target_element.controls[0].controls[0].bgcolor
+    #         target_element.controls[0].controls[0].bgcolor = "yellow"
+    #         target_element.update()
+    #
+    #         # Function to remove highlight after a delay
+    #         def remove_highlight():
+    #             # Sleep for 3 seconds
+    #             time.sleep(3)
+    #             # Restore original background color
+    #             target_element.controls[0].controls[0].bgcolor = original_bgcolor
+    #             target_element.update()
+    #
+    #     # Scroll to the target element
+    #     right_display.scroll_to(key=f"{item_id}", duration=700, curve=ft.AnimationCurve.BOUNCE_OUT)
+    #     remove_highlight()
+    #     page.update()
+    #
+    # def handle_submit(e):
+    #     search.close_view(e.data)
+    #     query = e.data.strip()
+    #
+    #     if not query:
+    #         search.controls.clear()
+    #         search.update()
+    #         return
+    #
+    #     search_data = fetch_data(query)
+    #
+    #     search.controls.clear()
+    #
+    #     def create_on_click_handler(item_id, chapter_id):
+    #         return lambda e: scroll_to_item(item_id, chapter_id)
+    #
+    #     for search_detail in search_data:
+    #         item_id = search_detail.get('id')
+    #         chapter_id = search_detail.get('chapter_id')
+    #
+    #         # Pass both item_id and chapter_id as default arguments to the lambda function
+    #         list_tile = ft.ListTile(
+    #             key=item_id,
+    #             on_click=create_on_click_handler(item_id, chapter_id),
+    #             title=ft.Text(
+    #                 f"{search_detail.get('chapter_name')}, {search_detail.get('number')} - oyat"
+    #             )
+    #         )
+    #         search.controls.append(list_tile)
+    #
+    #     search.open_view()
+    #     search.update()  # Refresh the UI with the new data
+    #
+    # search = ft.SearchBar(
+    #     width=180,
+    #     height=50,
+    #     expand=True,
+    #     bar_bgcolor="white",
+    #     bar_border_side=ft.BorderSide(color=ft.colors.BLUE, width=1),
+    #     divider_color=ft.colors.AMBER,
+    #     bar_leading=ft.Icon(ft.icons.SEARCH),
+    #     bar_hint_text="Nima o'qimoqchisiz?...",
+    #     view_hint_text="Searching...",
+    #     on_submit=handle_submit,  # Trigger search when user submits the query
+    #     controls=[],  # Start with an empty control list
+    # )
+    update_appbar(page)
+    page.add(side_bar)
+    page.update()
