@@ -7,7 +7,7 @@ from .menuscript import menuscript
 from .studies import studies
 from .resources import resources
 from .refusal import refusal
-from .surah_page_test import surah_page_test
+from .surah_page import surah_page
 
 
 
@@ -183,7 +183,7 @@ def home(page):
                                 bgcolor='#E9BE5F',
                                 shape=ft.RoundedRectangleBorder(radius=20),
                             ),
-                            on_click=lambda e: surah_page_test(page)
+                            on_click=lambda e: surah_page(page)
                         ),
                         ft.OutlinedButton(
                             expand=True,
@@ -448,7 +448,7 @@ def home(page):
 
     routes = {
         "Abu Mansur Motrudiy": al_quron_oquvchilariga,
-        "Tavilot al-Quron": surah_page_test,
+        "Tavilot al-Quron": surah_page,
         "Qo'lyozma va sharhlar": menuscript,
         "Zamonaviy tadqiqotlar": studies,
         "Resurslar": resources,

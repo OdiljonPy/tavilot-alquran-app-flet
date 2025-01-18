@@ -936,52 +936,52 @@ def surah_page(page):
         page.update()
 
     # -----Close button logic---------------------------------------------------------------------------------------------
-    # button3 = ft.TextButton(
-    #     text='< Yopish',
-    #     data='button3',
-    #     style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC),
-    #     on_click=lambda e: toggle_widgets(e)
-    # )
-    # page.clean()
-    #
-    # is_cleaned = True
-    #
-    # column_data = [button3]
-    # response_data = response
-    # if response_data.status_code == 200:
-    #     response_list = response_data.json().get('result')
-    #     for response_detail in response_list:
-    #         column_data.append(ft.Container(adaptive=True, content=ft.Text(response_detail.get('id'), color='black'),
-    #                                         shape=ft.BoxShape.CIRCLE, width=60,
-    #                                         height=60, alignment=ft.alignment.center,
-    #                                         border=ft.border.all(2, color=TC)))
-    #
-    # # Function to toggle widgets
-    # def toggle_widgets(e):
-    #     nonlocal is_cleaned
-    #     if is_cleaned:
-    #         button3.text = "Ochish >"
-    #         button3.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC)
-    #         side_bar.controls[0].controls = column_data
-    #         side_bar.controls[0].width = 100
-    #     else:
-    #         button3.text = "< Yopish"
-    #         button3.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC)
-    #         side_bar.controls[0].width = 350
-    #         side_bar.controls[0].controls = [ft.Row(
-    #             spacing=20,
-    #             adaptive=True,
-    #             alignment=ft.MainAxisAlignment.CENTER,
-    #             controls=[
-    #                 button1,
-    #                 button2,
-    #                 button3
-    #             ]
-    #         ),
-    #             list_view
-    #         ]
-    #     is_cleaned = not is_cleaned  # Toggle the state
-    #     page.update()
+    button3 = ft.TextButton(
+        text='< Yopish',
+        data='button3',
+        style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC),
+        on_click=lambda e: toggle_widgets(e)
+    )
+    page.clean()
+
+    is_cleaned = True
+
+    column_data = [button3]
+    response_data = response
+    if response_data.status_code == 200:
+        response_list = response_data.json().get('result')
+        for response_detail in response_list:
+            column_data.append(ft.Container(adaptive=True, content=ft.Text(response_detail.get('id'), color='black'),
+                                            shape=ft.BoxShape.CIRCLE, width=60,
+                                            height=60, alignment=ft.alignment.center,
+                                            border=ft.border.all(2, color=TC)))
+
+    # Function to toggle widgets
+    def toggle_widgets(e):
+        nonlocal is_cleaned
+        if is_cleaned:
+            button3.text = "Ochish >"
+            button3.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC)
+            side_bar.controls[0].controls = column_data
+            side_bar.controls[0].width = 100
+        else:
+            button3.text = "< Yopish"
+            button3.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC)
+            side_bar.controls[0].width = 350
+            side_bar.controls[0].controls = [ft.Row(
+                spacing=20,
+                adaptive=True,
+                alignment=ft.MainAxisAlignment.CENTER,
+                controls=[
+                    button1,
+                    button2,
+                    button3
+                ]
+            ),
+                list_view
+            ]
+        is_cleaned = not is_cleaned  # Toggle the state
+        page.update()
 
     # Initialize default colors
     button1_color = TC
@@ -1000,11 +1000,11 @@ def surah_page(page):
             button1_color = TC
             button2_color = ft.colors.BLACK
             list_view.controls = list_display.controls
-        # elif e.control.data == "button2":
-        #     button1_color = ft.colors.BLACK
-        #     button2_color = TC
-        #     juz_button(e)
-        #     list_view.controls = list_display_juz.controls
+        elif e.control.data == "button2":
+            button1_color = ft.colors.BLACK
+            button2_color = TC
+            juz_button(e)
+            list_view.controls = list_display_juz.controls
 
         # Refresh UI
         button1.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button1_color)
@@ -1044,7 +1044,7 @@ def surah_page(page):
                         controls=[
                             button1,
                             button2,
-                            # button3
+                            button3
                         ]
                     ),
                     list_view
