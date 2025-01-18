@@ -39,33 +39,33 @@ def surah_page(page):
     right_display = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
                               horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     # -------Back connection juz----------------------------------------------------------------------------------------
+    def juz_button(e):
+        url = "http://176.221.28.202:8008/api/v1/juz/"
+        responses = requests.get(url=url)
+        if responses.status_code == 200:
+            result_lists = responses.json().get('result')
 
-    url = "http://176.221.28.202:8008/api/v1/juz/"
-    responses = requests.get(url=url)
-    if responses.status_code == 200:
-        result_lists = responses.json().get('result')
-
-        for i in result_lists:
-            list_display_juz.controls.append(ft.Container(
-                margin=20,
-                data=i.get('id'),
-                on_click=lambda e: take_juz_id(e.control.data),
-                expand=True,
-                content=ft.Row(
-                    controls=[
-                        ft.Container(adaptive=True, content=ft.Text(i.get('number'), color='black'),
-                                     shape=ft.BoxShape.CIRCLE,
-                                     width=60,
-                                     height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)),
-                        ft.Column(
-                            adaptive=True,
-                            controls=[
-                                ft.Text(expand=True, value=f"{i.get('number')}-JUZ", size=20),
-                                ft.Text(f"{i.get('title')}", size=15.5, expand=True)
-                            ])
-                    ]
-                )
-            ))
+            for i in result_lists:
+                list_display_juz.controls.append(ft.Container(
+                    margin=20,
+                    data=i.get('id'),
+                    on_click=lambda e: take_juz_id(e.control.data),
+                    expand=True,
+                    content=ft.Row(
+                        controls=[
+                            ft.Container(adaptive=True, content=ft.Text(i.get('number'), color='black'),
+                                         shape=ft.BoxShape.CIRCLE,
+                                         width=60,
+                                         height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)),
+                            ft.Column(
+                                adaptive=True,
+                                controls=[
+                                    ft.Text(expand=True, value=f"{i.get('number')}-JUZ", size=20),
+                                    ft.Text(f"{i.get('title')}", size=15.5, expand=True)
+                                ])
+                        ]
+                    )
+                ))
 
     def take_juz_id(ids):
         right_display.controls.clear()
@@ -1003,6 +1003,7 @@ def surah_page(page):
         elif e.control.data == "button2":
             button1_color = ft.colors.BLACK
             button2_color = TC
+            juz_button(e)
             list_view.controls = list_display_juz.controls
 
         # Refresh UI
@@ -1163,3 +1164,4 @@ def surah_page(page):
     # )
     update_appbar(page)
     page.add(side_bar)
+    page.update()
