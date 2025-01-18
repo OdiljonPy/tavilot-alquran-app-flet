@@ -33,7 +33,7 @@ def main(page: ft.Page):
         "Amiri": font_path,
         "Trajan": font_page_trajan
     }
-
+    page.client_storage.clear()
     if page.client_storage.get('access_token'):
         home(page)
 
