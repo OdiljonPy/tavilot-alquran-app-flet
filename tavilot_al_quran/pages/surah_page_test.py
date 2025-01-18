@@ -9,7 +9,7 @@ import os
 def surah_page_test(page):
     page.clean()
     page.scroll = False
-    # from tavilot_al_quran.main import main
+    from tavilot_al_quran.main import main
     # # from .pages_utils.appbar_search import update_appbar
     loading = ft.ProgressRing(color=TC)
     page.add(ft.Container(
@@ -853,6 +853,13 @@ def surah_page_test(page):
 
     )
 
+    divider = ft.Container(
+        adaptive=True,
+        bgcolor=TC,  # The line's color
+        width=5,  # Thickness of the line
+        height=page.window_width,  # Match the height of the containers
+    )
+
     side_bar = ft.Row(
         vertical_alignment=ft.CrossAxisAlignment.START,
         expand=True,
@@ -875,7 +882,7 @@ def surah_page_test(page):
                     list_view
                 ],
             ),
-            # divider,
+            divider,
             ft.Container(
                 bgcolor='white',
                 expand=True,
