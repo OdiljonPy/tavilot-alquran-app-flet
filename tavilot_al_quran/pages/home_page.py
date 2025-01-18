@@ -1,12 +1,13 @@
 import flet as ft
 import os
-from .surah_page import surah_page
+# from .surah_page import surah_page
 from .al_quran_oquvchilariga import al_quron_oquvchilariga
 from .about_us_page import about_us_page
 from .menuscript import menuscript
 from .studies import studies
 from .resources import resources
 from .refusal import refusal
+from .surah_page_test import surah_page_test
 
 
 
@@ -182,7 +183,7 @@ def home(page):
                                 bgcolor='#E9BE5F',
                                 shape=ft.RoundedRectangleBorder(radius=20),
                             ),
-                            on_click=lambda e: surah_page(page)
+                            on_click=lambda e: surah_page_test(page)
                         ),
                         ft.OutlinedButton(
                             expand=True,
@@ -447,7 +448,7 @@ def home(page):
 
     routes = {
         "Abu Mansur Motrudiy": al_quron_oquvchilariga,
-        "Tavilot al-Quron": surah_page,
+        "Tavilot al-Quron": surah_page_test,
         "Qo'lyozma va sharhlar": menuscript,
         "Zamonaviy tadqiqotlar": studies,
         "Resurslar": resources,
