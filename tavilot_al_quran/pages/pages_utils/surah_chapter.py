@@ -8,6 +8,7 @@ def surah_chapter(page, list_display, right_display, button_number):
     url = "http://176.221.28.202:8008/api/v1/chapters/"
     response = requests.get(url=url)
     if response.status_code == 200:
+        page.clean()
         page.scroll = False
         result_lists = response.json().get('result')
 
