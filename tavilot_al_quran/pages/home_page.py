@@ -6,7 +6,7 @@ from .menuscript import menuscript
 from .studies import studies
 from .resources import resources
 from .refusal import refusal
-from tavilot_al_quran.pages.surah_page import surah_page
+from .surah_page import surah_page
 
 
 

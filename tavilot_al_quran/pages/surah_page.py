@@ -10,7 +10,7 @@ from .pages_utils.surah_chapter import surah_chapter
 def surah_page(page):
     page.clean()
     page.scroll = False
-    from tavilot_al_quran.main import main
+    # from tavilot_al_quran.main import main
     from .pages_utils.appbar_search import update_appbar
     loading = ft.ProgressRing(color=TC)
     page.add(ft.Container(
@@ -66,16 +66,17 @@ def surah_page(page):
         )
 
     else:
-        text_tafsir = ft.TextButton(
-            content=ft.Row(controls=[
-                ft.Text('Tafsir'),
-                ft.Image(src=os.path.abspath("assets/lock.png"))
-            ]
-            ),
-            data=3,
-            style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
-            on_click=lambda e: main(page)
-        )
+        pass
+        # text_tafsir = ft.TextButton(
+        #     content=ft.Row(controls=[
+        #         ft.Text('Tafsir'),
+        #         ft.Image(src=os.path.abspath("assets/lock.png"))
+        #     ]
+        #     ),
+        #     data=3,
+        #     style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
+        #     on_click=lambda e: main(page)
+        # )
 
     #-------------------------------------------------------------------------------------------------------------------
     surah_chapter(page, list_display, right_display, button_number)
