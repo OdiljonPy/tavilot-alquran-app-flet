@@ -1,13 +1,12 @@
 import flet as ft
 import os
-# from .surah_page import surah_page
 from .al_quran_oquvchilariga import al_quron_oquvchilariga
 from .about_us_page import about_us_page
 from .menuscript import menuscript
 from .studies import studies
 from .resources import resources
 from .refusal import refusal
-from .surah_page import surah_page
+from tavilot_al_quran.pages.surah_page import surah_page
 
 
 
