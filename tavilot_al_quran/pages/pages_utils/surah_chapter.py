@@ -40,7 +40,7 @@ def surah_chapter(page, list_display, right_display, button_number):
 
 
 def take_id(ids, right_display, page, button_number, number=1):
-    from tavilot_al_quran.main import main
+    from ..main_page import main_page
     right_display.controls.clear()
     urls = f"http://176.221.28.202:8008/api/v1/chapter/{ids}"
     headers = ""
@@ -278,7 +278,7 @@ def take_id(ids, right_display, page, button_number, number=1):
                 ),
                 data=3,
                 style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
-                on_click=lambda e: main(page)
+                on_click=lambda e: main_page(page)
             )
 
         right_top_bar = ft.Container(

@@ -387,10 +387,10 @@ def home(page):
     def handle_out(page):
         page.close(dlg_modal)
         page.update()
-        from tavilot_al_quran.main import main
+        from .main_page import main_page
         page.appbar = None
         page.client_storage.clear()
-        main(page)
+        main_page(page)
 
     def handle_click(e):
         page.open(dlg_modal)
