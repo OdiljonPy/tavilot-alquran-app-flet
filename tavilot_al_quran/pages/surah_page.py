@@ -2,7 +2,7 @@ import time
 import flet as ft
 import requests
 import os
-from .pages_utils.surah_juz import juz_button
+from .pages_utils.surah_juz import juz_button, take_juz_id
 TC = '#E9BE5F'
 from .pages_utils.surah_chapter import surah_chapter, take_id
 from .html_pdf_handler import render_description
@@ -352,6 +352,8 @@ def surah_page(page):
 
 
     # -----Close button logic---------------------------------------------------------------------------------------------
+    list_button_number = 1
+
     button3 = ft.TextButton(
         text='< Yopish',
         data='button3',
@@ -361,24 +363,51 @@ def surah_page(page):
     page.clean()
 
     is_cleaned = True
+    column_data = ft.Column(controls=[button3], adaptive=True, spacing=10, scroll=ft.ScrollMode.ALWAYS, expand=True, height=page.adaptive)
+    def close_open_button():
+        if list_button_number == 1:
+            url = "http://176.221.28.202:8008/api/v1/chapters/"
+            response_data = requests.get(url=url)
+            if response_data.status_code == 200:
+                response_list = response_data.json().get('result')
+                column_data.controls.clear()
+                column_data.controls.append(button3)
+                for response_detail in response_list:
+                    column_data.controls.append(
+                        ft.Container(
+                            data=response_detail.get('id'),
+                            on_click=lambda e: take_id(e.control.data, right_display, page, button_number),
+                            adaptive=True, content=ft.Text(response_detail.get('id'), color='black'),
+                                     shape=ft.BoxShape.CIRCLE, width=60,
+                                     height=60, alignment=ft.alignment.center,
+                                     border=ft.border.all(2, color=TC)))
 
-    # column_data = [button3]
-    # # response_data = response
-    # if response_data.status_code == 200:
-    #     response_list = response_data.json().get('result')
-    #     for response_detail in response_list:
-    #         column_data.append(ft.Container(adaptive=True, content=ft.Text(response_detail.get('id'), color='black'),
-    #                                         shape=ft.BoxShape.CIRCLE, width=60,
-    #                                         height=60, alignment=ft.alignment.center,
-    #                                         border=ft.border.all(2, color=TC)))
+        elif list_button_number == 2:
+            url = "http://176.221.28.202:8008/api/v1/juz/"
+            response_data = requests.get(url=url)
+            if response_data.status_code == 200:
+                result_lists = response_data.json().get('result')
+                column_data.controls.clear()
+                column_data.controls.append(button3)
+                for response_detail in result_lists:
+                    column_data.controls.append(ft.Container(
+                        data=response_detail.get('id'),
+                        on_click=lambda e: take_juz_id(e.control.data, right_display, page, text_arabic, text_translate, text_tafsir),
+                        adaptive=True, content=ft.Text(response_detail.get('number'), color='black'),
+                                 shape=ft.BoxShape.CIRCLE,
+                                 width=60,
+                                 height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)))
+        page.update()
+
 
     # Function to toggle widgets
     def toggle_widgets(e):
         nonlocal is_cleaned
         if is_cleaned:
+            close_open_button()
             button3.text = "Ochish >"
             button3.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC)
-            side_bar.controls[0].controls = column_data
+            side_bar.controls[0].controls = column_data.controls
             side_bar.controls[0].width = 100
         else:
             button3.text = "< Yopish"
@@ -409,14 +438,16 @@ def surah_page(page):
 
     # Button click handler
     def button_click(e):
-        nonlocal button1_color, button2_color
+        nonlocal button1_color, button2_color, list_button_number
 
         # Update text colors and ListView content based on which button was clicked
         if e.control.data == "button1":
+            list_button_number = 1
             button1_color = TC
             button2_color = ft.colors.BLACK
             list_view.controls = list_display.controls
         elif e.control.data == "button2":
+            list_button_number = 2
             button1_color = ft.colors.BLACK
             button2_color = TC
             juz_button(list_display_juz, right_display, page, text_arabic, text_translate, text_tafsir)
@@ -476,7 +507,6 @@ def surah_page(page):
                     width=page.window_width,
                     adaptive=True,
                     controls=[
-                        # ft.Text(height=50),
                         right_display
                     ]
                 )
@@ -508,7 +538,7 @@ def surah_page(page):
     def scroll_to_item(item_id, chapter_id):
 
         # Perform the necessary actions (e.g., highlight or take some action with chapter_id)
-        take_id(chapter_id, number=button_number)
+        take_id(chapter_id, number=button_number, right_display=right_display, page=page, button_number=button_number)
 
         # Find the target element
         target_element = next((control for control in right_display.controls if control.key == item_id), None)
