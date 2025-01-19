@@ -9,11 +9,8 @@ from .pages_utils.surah_chapter import surah_chapter
 
 def surah_page(page):
     page.clean()
-    page.add(ft.Text('Abbosbek', size=100))
-    page.clean()
     page.scroll = False
     from tavilot_al_quran.main import main
-    from .html_pdf_handler import render_description
     from .pages_utils.appbar_search import update_appbar
     loading = ft.ProgressRing(color=TC)
     page.add(ft.Container(
@@ -425,7 +422,7 @@ def surah_page(page):
 
         # Refresh UI
         button1.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button1_color)
-        button2.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button2_color)
+        # button2.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button2_color)
         page.update()
 
     # Define TextButtons
@@ -437,13 +434,13 @@ def surah_page(page):
 
     )
 
-    button2 = ft.TextButton(
-        "Juz",
-        data="button2",
-        style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button2_color),
-        on_click=lambda e: button_click(e),
+    # button2 = ft.TextButton(
+    #     "Juz",
+    #     data="button2",
+    #     style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button2_color),
+    #     on_click=lambda e: button_click(e),
 
-    )
+    # )
 
     side_bar = ft.Row(
         vertical_alignment=ft.CrossAxisAlignment.START,
@@ -460,7 +457,7 @@ def surah_page(page):
                         alignment=ft.MainAxisAlignment.CENTER,
                         controls=[
                             button1,
-                            button2,
+                            # button2,
                             # button3
                         ]
                     ),
