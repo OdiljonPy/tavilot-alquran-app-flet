@@ -68,25 +68,21 @@ def take_content_id(page, ids):
         page.scroll = True
         # Container to hold the rendered content
         content_container = ft.Container(
-            scale=ft.Scale(scale_x=0.96),
             height=page.window.height,
-            adaptive=True,
+            margin=30,
             image_src=os.path.abspath("assets/searchbg.png"),
             image_fit="cover",
             alignment=ft.alignment.center,
             content=ft.Container(
-                adaptive=True,
                 alignment=ft.alignment.center,
                 scale=ft.Scale(scale_x=0.9),
                 bgcolor='white',
                 content=ft.Column(
-                    height=page.window.height,
                     scale=ft.Scale(scale_x=0.96),
-                    adaptive=True,
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
                         ft.Row(controls=[back_button], alignment=ft.MainAxisAlignment.START),
-                        ft.Text(result, size=20, expand=True)
+                        ft.Text(result, text_align=ft.TextAlign.CENTER, size=30)
                     ]
                 )
             )
@@ -95,14 +91,11 @@ def take_content_id(page, ids):
         def on_resize(event):
             content_container.height = page.window.height
             page.update()
-
         page.on_resize = on_resize
 
         page.add(content_container)
-
         # Render the extracted parts (text, images, videos)
         render_content(content_container.content.content, parts, video_files)
-
         if response.json().get('result').get('file'):
             pdf = ft.Container(
                 adaptive=True,

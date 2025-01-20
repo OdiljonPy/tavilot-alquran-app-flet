@@ -8,7 +8,7 @@ import asyncio
 
 def main_page(page):
     page.window.min_width = 1300
-    page.window.min_height = 840
+    page.window.min_height = 800
     page.appbar = None
     page.update()
     page.scroll = False
