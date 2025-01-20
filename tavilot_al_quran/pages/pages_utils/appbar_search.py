@@ -57,7 +57,7 @@ def generate_appbar_actions(page):
         ]
     ]
 
-def update_appbar(page):
+def update_appbar(page, search):
     page.appbar = ft.AppBar(
         title=ft.Row(
             alignment=ft.MainAxisAlignment.CENTER,
@@ -84,7 +84,7 @@ def update_appbar(page):
                 alignment=ft.MainAxisAlignment.CENTER,
                 spacing=15,  # Reduced spacing to allow more room for items
                 controls=[
-                    # search
+                    search
                 ],
             ),
         ],

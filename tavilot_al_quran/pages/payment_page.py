@@ -4,8 +4,6 @@ import webbrowser
 import requests
 import base64
 
-
-
 translations = {
     "uz": {
         "back_button_text": "Orqaga qaytish",

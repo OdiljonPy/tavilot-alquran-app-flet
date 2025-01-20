@@ -6,6 +6,7 @@ from .pages_utils.surah_juz import juz_button, take_juz_id
 TC = '#E9BE5F'
 from .pages_utils.surah_chapter import surah_chapter, take_id
 from .html_pdf_handler import render_description
+from .payment_page import payment_page
 
 
 def surah_page(page):
@@ -44,15 +45,15 @@ def surah_page(page):
     #------Buttons------------------------------------------------------------------------------------------------------
 
     text_arabic = ft.TextButton('Arabcha', data=1, style=ft.ButtonStyle(color='white', bgcolor=TC),
-                                on_click=lambda e:None)# change_response(1))
+                                on_click=lambda e: change_response(1))
     text_translate = ft.TextButton('Tarjima', data=2,
                                    style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
-                                   on_click=lambda e:None)# change_response(2))
+                                   on_click=lambda e: change_response(2))
 
     if page.client_storage.get('access_token') and page.client_storage.get('user_rate') == 2:
         text_tafsir = ft.TextButton('Tafsir', data=3,
                                     style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
-                                    on_click=lambda e:None)# change_response(3))
+                                    on_click=lambda e: change_response(3))
 
     elif page.client_storage.get('access_token') and page.client_storage.get('user_rate') == 1:
         text_tafsir = ft.TextButton(
@@ -63,7 +64,7 @@ def surah_page(page):
             ),
             data=3,
             style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
-            on_click=lambda e: None,  # payment_page(page)
+            on_click=lambda e: payment_page(page)
         )
 
     else:
@@ -517,7 +518,6 @@ def surah_page(page):
 
     def fetch_data(query):
         url = f"http://176.221.28.202:8008/api/v1/search/?q={query}&search_type={button_number}"
-        headers = ""
         if page.client_storage.get('access_token'):
             headers = {
                 "Content-Type": "application/json",
@@ -608,6 +608,6 @@ def surah_page(page):
         on_submit=handle_submit,  # Trigger search when user submits the query
         controls=[],  # Start with an empty control list
     )
-    update_appbar(page)
+    update_appbar(page, search)
     page.add(side_bar)
     page.update()
