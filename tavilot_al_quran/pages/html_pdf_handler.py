@@ -1,6 +1,5 @@
 import re
 import binascii
-import pyhtml2md
 import flet as ft
 from markdownify import markdownify as md
 
@@ -22,7 +21,8 @@ def extract_base64_and_save_images(api_html_response):
         # Extract text before the image
         if start > last_end:
             text_content = api_html_response[last_end:start].strip()
-            parts.append({"type": "text", "content": text_content})
+            result = text_content.rfind("<p")
+            parts.append({"type": "text", "content": text_content[:result]})
 
         try:
             base64_string = base64_data.split(",")[1]
@@ -64,7 +64,7 @@ def render_content(container, parts, video_files, page):
     for part in parts:
         if part["type"] == "text":
             # Convert HTML content to Markdown
-            markdown_content = pyhtml2md.convert(part["content"])
+            markdown_content = md(part["content"])
 
             # Split the content into lines to detect and process Arabic text line by line
             lines = markdown_content.splitlines()
@@ -135,7 +135,7 @@ def render_content(container, parts, video_files, page):
 
 def render_description(data, page):
     arabic_pattern = r'[\u0600-\u06FF]+'
-    markdown_content = pyhtml2md.convert(data)
+    markdown_content = md(data)
     data_list = []
 
     # Split the content into lines to detect and process Arabic text line by line
