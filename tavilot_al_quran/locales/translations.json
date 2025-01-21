@@ -1,0 +1,32 @@
+{
+  "uz": {
+    "back_button_text": "Orqaga qaytish",
+    "three_window_moturudiy": "\n   Abu Mansur Matrudiy",
+    "al_quron_text": "\n   Ta'vilot Al-Quron",
+    "menuscript_text": "\n   Qo'lyozma va sharhlar",
+    "studies_text": "\n   Zamonaviy tadqiqotlar",
+    "resources_text": "\n   Resurslar: O'quv qo'llanmalari va ilmiy manba'lar",
+    "refusal_text": "\n   Mutaassib oqimlarga raddiyalar",
+    "abu_mansur_motrudiy": "Abu Mansur Motrudiy",
+    "appbar_tavilot": "Tavilot al-Quron",
+    "appbar_menuscript": "Qo'lyozma va sharhlar",
+    "appbar_studies": "Zamonaviy tadqiqotlar",
+    "appbar_resources": "Resurslar",
+    "appbar_refusal": "Mutaassib oqimlarga raddiyalar"
+  },
+  "kr": {
+    "back_button_text": "Оркага кайтиш",
+    "three_window_moturudiy": "\n   Абу Мансур Мотрудий",
+    "al_quron_text": "\n   Тавилот Ал-Курон",
+    "menuscript_text": "\n   Колйозма ва шархлар",
+    "studies_text": "\n   Замонавий тадкикотлар",
+    "resources_text": "\n   Ресурслар: Окув колланмалари ва \n   илмий манбалар",
+    "refusal_text": "\n   Муттаасиб окимларга раддийалар",
+    "abu_mansur_motrudiy": "Абу Мансур Мотрудий",
+    "appbar_tavilot": "Тавиот ал-Курон",
+    "appbar_menuscript": "Колйозма ва шархлар",
+    "appbar_studies": "Замонавий тадкикотлар",
+    "appbar_resources": "Русурслар",
+    "appbar_refusal": "Мутаассиб окимларга раддиялар"
+  }
+}
