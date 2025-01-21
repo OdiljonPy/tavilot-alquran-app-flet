@@ -108,7 +108,7 @@ def render_content(container, parts, video_files):
         elif part["type"] == "image":
             # Directly render base64 images using ft.Image(src_base64=)
             base64_image = part["content"]
-            container.controls.append(ft.Image(src_base64=base64_image, width=800, height=600, expand=True))
+            container.controls.append(ft.Image(src_base64=base64_image, width=900, height=400, expand=True))
 
     # Update the container to reflect changes
     container.update()

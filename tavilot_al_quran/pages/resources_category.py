@@ -15,8 +15,9 @@ translations = {
     }
 }
 
-def resources(page):
-    from .resources_category import resources_category
+def resources_category(page, ids):
+    from .resources import resources
+    from .resources_detail import take_content_id
     from .home_page import home
     from .about_us_page import about_us_page
     from .refusal import refusal
@@ -58,21 +59,21 @@ def resources(page):
 
 
     page.update()
-
-    url = "http://176.221.28.202:8008/api/v1/resources/category/"
+    url = f"http://176.221.28.202:8008/api/v1/resources/category/{ids}/"
     response = requests.get(url=url)
     data_list = ft.Row(wrap=True, expand=True, scroll=ft.ScrollMode.ALWAYS, alignment=ft.MainAxisAlignment.START,
                        adaptive=True)
-    print(response.json())
+
     if response.status_code == 200:
         page.clean()
         page.scroll = True
         datas = response.json().get('result')
+        print(datas)
         for date in datas:
             motrudiy_data = ft.OutlinedButton(
                 adaptive=True,
                 data=date.get('id'),
-                on_click=lambda e: resources_category(page, e.control.data),
+                on_click=lambda e: take_content_id(page, e.control.data),
                 content=ft.Column(
                     controls=[
                         ft.Column(
@@ -80,7 +81,7 @@ def resources(page):
                             controls=[
                             ft.Text(),
                             ft.Image(src=os.path.abspath("assets/book_1.svg"), color="white"),
-                            ft.Text(f"\n{date.get('name')}", size=20, color='white'),
+                            ft.Text(f"\n{date.get('title')}", size=20, color='white'),
                         ])
                     ],
                     horizontal_alignment=ft.CrossAxisAlignment.STRETCH

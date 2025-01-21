@@ -104,7 +104,7 @@ def take_content_id(page, ids):
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
                         ft.Image(src=os.path.abspath("assets/pdf.png"), width=240, height=160, expand=True),
-                        ft.Text(response.json().get('result').get('title'), text_align=ft.TextAlign.CENTER, size=20, color=TC)
+                        ft.Text(response.json().get('result').get('file_name'), text_align=ft.TextAlign.CENTER, size=30, color=TC)
                         ]
                 ),
                 on_click=lambda e: pdf_page(page, response.json().get('result').get('file'), back_button)

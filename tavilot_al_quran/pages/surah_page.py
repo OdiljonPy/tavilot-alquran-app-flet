@@ -97,7 +97,6 @@ def surah_page(page):
         }
     responses = requests.get(url=urls, headers=headers)
     if responses.status_code == 200:
-        page.clean()
         result_details = responses.json().get('result').get('verses')
 
         def change_response(number=1):
@@ -361,7 +360,6 @@ def surah_page(page):
         style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC),
         on_click=lambda e: toggle_widgets(e)
     )
-    page.clean()
 
     is_cleaned = True
     column_data = ft.Column(controls=[button3], adaptive=True, spacing=10, scroll=ft.ScrollMode.ALWAYS, expand=True, height=page.adaptive)
@@ -515,6 +513,8 @@ def surah_page(page):
         ],
         spacing=0
     )
+    page.clean()
+
 
     def fetch_data(query):
         url = f"http://176.221.28.202:8008/api/v1/search/?q={query}&search_type={button_number}"
