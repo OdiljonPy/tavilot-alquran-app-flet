@@ -2,6 +2,7 @@ import re
 import binascii
 import pyhtml2md
 import flet as ft
+from markdownify import markdownify as md
 
 
 def extract_base64_and_save_images(api_html_response):
@@ -44,7 +45,7 @@ def extract_base64_and_save_images(api_html_response):
 def extract_and_process_videos(api_html_response):
     """Extract video content from HTML response."""
     # Regular expression to match any .mp4 URL
-    video_expression = r'https?://[^"]+\.mp4'
+    video_expression = r'https?://(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/)[\w-]+'
 
     video_matches = re.findall(video_expression, api_html_response)
 
@@ -54,7 +55,7 @@ def extract_and_process_videos(api_html_response):
     return video_files
 
 
-def render_content(container, parts, video_files):
+def render_content(container, parts, video_files, page):
     """Render text, images, and videos alternately based on extracted parts."""
     arabic_pattern = r'[\u0600-\u06FF]+'
 
@@ -69,27 +70,45 @@ def render_content(container, parts, video_files):
             lines = markdown_content.splitlines()
             for line in lines:
                 # Check if the line contains a video URL
-                video_urls = re.findall(r'https?://[^"]+\.mp4', line)
+                video_urls = re.findall(r'https?://(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/)[\w-]+', line)
                 if video_urls:
                     # Render video for each video URL found
                     for video_url in video_urls:
                         if video_index < len(video_files):
-                            container.controls.append(ft.Video(
-                                playlist=[
-                                    ft.VideoMedia(
-                                        resource=video_files[video_index]
-                                    )
-                                ],
-                                playlist_mode=ft.PlaylistMode.LOOP,
-                                fill_color=ft.colors.BLACK,
-                                volume=100,
-                                autoplay=False,
-                                muted=False,
-                                show_controls=True,
-                                expand=True,
-                                width=800,
-                                height=600
-                            ))
+                            video_url = video_files[video_index]
+                            id_index = video_url.find("=")
+                            video_id = video_url[id_index+1:]
+                            thumbnail_url = f"https://img.youtube.com/vi/{video_id}/sddefault.jpg"
+
+                            # Function to redirect to YouTube
+                            def redirect_to_youtube(e):
+                                page.launch_url(video_url)
+
+                            container.controls.append(
+                                ft.Stack(
+                                    [
+                                        ft.Container(
+                                            image_src=thumbnail_url,
+                                            image_fit=ft.ImageFit.COVER,
+                                            width=900,
+                                            height=500,
+                                            on_click=redirect_to_youtube,
+                                            expand=True
+                                        ),
+                                        ft.Container(
+                                            content=ft.Icon(name=ft.icons.PLAY_ARROW, color="white", size=50),
+                                            alignment=ft.alignment.center,
+                                            bgcolor=ft.colors.BLACK45,
+                                            border_radius=ft.border_radius.all(100),
+                                            width=100,
+                                            height=80,
+                                            on_click=redirect_to_youtube
+                                        ),
+                                    ],
+                                    alignment=ft.alignment.center,
+                                    # on_click=redirect_to_youtube,  # Redirect on click
+                                )
+                            )
                             video_index += 1
 
                 else:

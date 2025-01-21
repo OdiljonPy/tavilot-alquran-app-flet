@@ -7,62 +7,16 @@ from .studies import studies
 from .resources import resources
 from .refusal import refusal
 from .surah_page import surah_page
+from .pages_utils.text_translations import language_selected, initialize_texts
 
-
-
-translations = {
-    "uz": {
-        "back_button_text": "Orqaga qaytish",
-        "three_window_moturudiy": "\n   Abu Mansur Matrudiy",
-        "al_quron_text": "\n   Ta'vilot Al-Quron",
-        'menuscript_text': "\n   Qo'lyozma va sharhlar",
-        "studies_text": "\n   Zamonaviy tadqiqotlar",
-        "resources_text": "\n   Resurslar: O'quv qo'llanmalari va ilmiy manba'lar",
-        "refusal_text": "\n   Mutaassib oqimlarga raddiyalar",
-        "abu_mansur_motrudiy": "Abu Mansur Motrudiy"
-    },
-    "kr": {
-        "back_button_text": "Оркага кайтиш",
-        "three_window_moturudiy": "\n   Абу Мансур Мотрудий",
-        "al_quron_text": "\n   Тавилот Ал-Курон",
-        'menuscript_text': "\n   Колйозма ва шархлар",
-        "studies_text": "\n   Замонавий тадкикотлар",
-        "resources_text": "\n   Ресурслар: Окув колланмалари ва \n   илмий манбалар",
-        "refusal_text": "\n   Муттаасиб окимларга раддийалар",
-        "abu_mansur_motrudiy": "Абу Мансур Мотрудий"
-    }
-}
 
 def home(page):
-    current_language = "uz"
-
     page.scroll = False
     page.clean()
     page.adaptive = True
     page.theme_mode = ft.ThemeMode.LIGHT
     page.bgcolor = ft.colors.WHITE
     TC = '#E9BE5F'
-
-    # ----back button--------------------------------------------------------------------------------------------------------
-    back_button_text = ft.Text(value=translations[current_language]["back_button_text"], color='black')
-
-    back_button = ft.OutlinedButton(
-        content=ft.Row(controls=[
-            ft.Icon(ft.icons.ARROW_BACK, color='black', size=20),
-            back_button_text
-        ]),
-        height=40,
-        width=170,
-        style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(radius=10),
-            side=ft.BorderSide(color=TC, width=1),
-            bgcolor='white'
-
-        ),
-        adaptive=True,
-        on_click=lambda e: home(page),
-    )
-    page.update()
 
     # ------Main page---------------------------------------------------------------------------------------------------
 
@@ -88,18 +42,6 @@ def home(page):
         padding=50
 
     )
-
-    three_window_moturudiy = ft.Text(value=translations[current_language]["three_window_moturudiy"], size=page.window_width * 0.017, color='white', expand=True)
-    al_quron_text = ft.Text(value=translations[current_language]["al_quron_text"], size=page.window_width * 0.017, color='white', expand=True)
-    menuscript_text = ft.Text(value=translations[current_language]["refusal_text"], size=page.window_width * 0.017, color='white', expand=True)
-    studies_text = ft.Text(value=translations[current_language]["studies_text"], size=page.window_width * 0.017, color='white', expand=True)
-    resources_text = ft.Text(value=translations[current_language]["resources_text"], size=page.window_width * 0.014,
-                                            color='white', expand=True)
-    refusal_text = ft.Text(value=translations[current_language]["refusal_text"], size=page.window_width * 0.017, color='white', expand=True)
-    abu_mansur_motrudiy = ft.Text(value=translations[current_language]["abu_mansur_motrudiy"])
-
-
-
 
     three_windows = ft.Container(
         margin=30,
@@ -137,7 +79,7 @@ def home(page):
                                                 height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    three_window_moturudiy
+                                    initialize_texts(page).get("three_window_moturudiy")
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -171,7 +113,7 @@ def home(page):
                                                 height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    al_quron_text
+                                    initialize_texts(page).get("al_quron_text")
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -205,7 +147,7 @@ def home(page):
                                                 height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    menuscript_text
+                                    initialize_texts(page).get("refusal_text")
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -248,7 +190,7 @@ def home(page):
                                                 height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    studies_text
+                                    initialize_texts(page).get("studies_text")
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -282,7 +224,7 @@ def home(page):
                                                 height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    resources_text
+                                    initialize_texts(page).get("resources_text")
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -316,7 +258,7 @@ def home(page):
                                                 height=100, color=ft.Colors.WHITE, offset=ft.Offset(0, 0.2))
                                         ]
                                     ),
-                                    refusal_text
+                                    initialize_texts(page).get("refusal_text")
                                 ],
                                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH
                             ),
@@ -337,31 +279,10 @@ def home(page):
     )
 
 
-    # Function to update the UI text
-    def update_ui(language):
-        back_button.value = translations[language]["back_button_text"]
-        three_window_moturudiy.value = translations[language]['three_window_moturudiy']
-        al_quron_text.value = translations[language]['al_quron_text']
-        refusal_text.value = translations[language]['refusal_text']
-        studies_text.value = translations[language]['studies_text']
-        resources_text.value = translations[language]['resources_text']
-        refusal_text.value = translations[language]['refusal_text']
-        abu_mansur_motrudiy.value = translations[current_language]['abu_mansur_motrudiy']
-        update_appbar()
-        page.update()
-
-    # Popup menu button selection
-    def language_selected(e):
-        global current_language
-        current_language = e.control.data
-        update_ui(current_language)
-
-    back_button_text = ft.Text(value=translations[current_language]["back_button_text"], color='black')
-
     back_button = ft.OutlinedButton(
         content=ft.Row(controls=[
             ft.Icon(ft.icons.ARROW_BACK, color='black', size=20),
-            back_button_text
+            initialize_texts(page).get("back_button_text")
         ]),
         height=40,
         width=170,
@@ -436,14 +357,25 @@ def home(page):
 
     image = ft.Image(src=os.path.abspath("assets/Ўз.svg"))
 
-    # PopupMenuButton with language options
+    texts_dict = initialize_texts(page)
+
+    def language_select(e):
+        language_selected(e, page, texts_dict)
+        print("I AM HERERERERERERERERER")
+        page.update()
+
+
+    # Create language menu
     language_menu = ft.PopupMenuButton(
         content=image,
         items=[
-            ft.PopupMenuItem(text="Uzbekcha", data="uz", on_click=language_selected),
-            ft.PopupMenuItem(text="Kirilcha", data="kr", on_click=language_selected),
+            ft.PopupMenuItem(text="Uzbekcha", data="uz",
+                             on_click=lambda e: language_select(e.control.data)),
+            ft.PopupMenuItem(text="Kirilcha", data="kr",
+                             on_click=lambda e: language_select(e.control.data)),
         ]
     )
+
 
     routes = {
         "Abu Mansur Motrudiy": al_quron_oquvchilariga,
@@ -468,8 +400,6 @@ def home(page):
                 page.add(ft.Text("404 - Page Not Found", size=20))
                 page.update()
 
-
-
     def generate_appbar_actions():
         return [
             ft.TextButton(
@@ -484,7 +414,7 @@ def home(page):
                 on_click=lambda e, r=route: navigate(e, r)
             )
             for route, route_label in [
-                ("Abu Mansur Motrudiy", abu_mansur_motrudiy.value),
+                ("Abu Mansur Motrudiy", initialize_texts(page).get("abu_mansur_motrudiy").value),
                 ("Tavilot al-Quron", "Tavilot al-Quron"),
                 ("Qo'lyozma va sharhlar", "Qo'lyozma va sharhlar"),
                 ("Zamonaviy tadqiqotlar", "Zamonaviy tadqiqotlar"),
@@ -533,13 +463,13 @@ def home(page):
 
     def on_resize(e):
         # Update text size based on window width
-        three_window_moturudiy.size = page.window_width * 0.017
-        al_quron_text.size = page.window_width * 0.017
-        menuscript_text.size = page.window_width * 0.017
-        studies_text.size = page.window_width * 0.017
-        resources_text.size = page.window_width * 0.014
-        refusal_text.size = page.window_width * 0.017
-        abu_mansur_motrudiy.size = page.window_width * 0.017
+        initialize_texts(page).get("three_window_moturudiy").size = page.window_width * 0.017
+        initialize_texts(page).get("al_quron_text").size = page.window_width * 0.017
+        initialize_texts(page).get("refusal_text").size = page.window_width * 0.017
+        initialize_texts(page).get("studies_text").size = page.window_width * 0.017
+        initialize_texts(page).get("resources_text").size = page.window_width * 0.014
+        initialize_texts(page).get("refusal_text").size = page.window_width * 0.017
+        initialize_texts(page).get("abu_mansur_motrudiy").size = page.window_width * 0.017
 
         page.update()
 

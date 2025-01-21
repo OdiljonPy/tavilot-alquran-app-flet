@@ -92,7 +92,7 @@ def take_content_id(page, ids):
 
         page.add(content_container)
         # Render the extracted parts (text, images, videos)
-        render_content(content_container.content.content, parts, video_files)
+        render_content(content_container.content.content, parts, video_files, page)
         if response.json().get('result').get('file'):
             pdf = ft.Container(
                 adaptive=True,

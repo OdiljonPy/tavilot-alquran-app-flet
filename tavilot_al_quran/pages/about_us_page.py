@@ -67,7 +67,7 @@ def about_us_page(page, back_button):
                  )
 
         # Render the extracted parts (text, images, videos)
-        render_content(content_container.content, parts, video_files)
+        render_content(content_container.content, parts, video_files, page)
 
     else:
         # Show an error message if the API call fails
