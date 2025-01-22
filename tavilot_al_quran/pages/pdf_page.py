@@ -47,8 +47,14 @@ def pdf_page(page, pdf_file, back_button):
         nonlocal current_page_index
         if pdf_document:
             try:
+                # Define a higher resolution scale (e.g., 2.0 for 200%, 3.0 for 300%)
+                zoom_x = 2.0  # Horizontal scaling factor
+                zoom_y = 2.0  # Vertical scaling factor
+                matrix = pymupdf.Matrix(zoom_x, zoom_y)
+
+                # Render the page with the specified scaling
                 page_obj = pdf_document.load_page(current_page_index)
-                pixmap = page_obj.get_pixmap()
+                pixmap = page_obj.get_pixmap(matrix=matrix)
                 image = Image.frombytes("RGB", [pixmap.width, pixmap.height], pixmap.samples)
 
                 buffer = BytesIO()
