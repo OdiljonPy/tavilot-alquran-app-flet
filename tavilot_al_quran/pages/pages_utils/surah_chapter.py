@@ -1,5 +1,3 @@
-import time
-
 import requests
 import flet as ft
 TC = '#E9BE5F'
