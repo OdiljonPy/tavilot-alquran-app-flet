@@ -65,21 +65,29 @@ def take_content_id(page, ids):
         page.clean()
         # Container to hold the rendered content
         content_container = ft.Container(
+            adaptive=True,
+            expand=True,
             height=page.window.height,
             scale=ft.Scale(scale_x=0.96),
             image_src=os.path.abspath("assets/searchbg.png"),
             image_fit="cover",
             alignment=ft.alignment.center,
             content=ft.Container(
-                alignment=ft.alignment.center,
+                adaptive=True,
+                expand=True,
+                alignment=ft.alignment.top_center,
                 scale=ft.Scale(scale_x=0.9),
                 bgcolor='white',
                 content=ft.Column(
+                    scroll=ft.ScrollMode.HIDDEN,
+                    expand=True,
+                    adaptive=True,
                     scale=ft.Scale(scale_x=0.96),
+                    alignment=ft.MainAxisAlignment.START,
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
                         ft.Row(controls=[back_button], alignment=ft.MainAxisAlignment.START),
-                        ft.Text(result, text_align=ft.TextAlign.CENTER, size=30)
+                        ft.Text(result, text_align=ft.TextAlign.CENTER, size=30, expand=True)
                     ]
                 )
             )
