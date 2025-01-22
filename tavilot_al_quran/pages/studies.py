@@ -74,7 +74,7 @@ def studies(page):
 
     page.update()
 
-    url = "http://176.221.28.202:8008/api/v1/studies/"
+    url = "http://alquran.zerodev.uz/api/v2/studies/"
     response = requests.get(url=url)
     data_list = ft.Row(wrap=True, expand=True, scroll=ft.ScrollMode.ALWAYS, alignment=ft.MainAxisAlignment.START,
                        adaptive=True)

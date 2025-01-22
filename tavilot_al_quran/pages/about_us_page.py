@@ -17,7 +17,7 @@ def about_us_page(page, back_button):
     page.update()
 
     # API call to fetch the "about" page data
-    url = "http://176.221.28.202:8008/api/v1/about/"
+    url = "http://alquran.zerodev.uz/api/v2/about/"
     response = requests.get(url=url)
 
     if response.status_code == 200:

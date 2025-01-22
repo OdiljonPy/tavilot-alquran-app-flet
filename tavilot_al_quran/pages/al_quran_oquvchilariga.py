@@ -74,7 +74,7 @@ def al_quron_oquvchilariga(page):
 
     page.update()
 
-    url = "http://176.221.28.202:8008/api/v1/moturudiy/"
+    url = "http://alquran.zerodev.uz/api/v2/moturudiy/"
     response = requests.get(url=url)
     data_list = ft.Row(wrap=True, expand=True, scroll=ft.ScrollMode.ALWAYS, alignment=ft.MainAxisAlignment.START,
                        adaptive=True)

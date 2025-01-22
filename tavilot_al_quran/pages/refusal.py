@@ -3,7 +3,7 @@ import os
 import requests
 
 def refusal(page):
-    from .resources_category import resources_category
+    from .refusal_detail import take_content_id
     from .home_page import home
     from .about_us_page import about_us_page
     from .resources import resources
@@ -75,7 +75,7 @@ def refusal(page):
 
     page.update()
 
-    url = "http://176.221.28.202:8008/api/v1/refusal/"
+    url = "http://alquran.zerodev.uz/api/v2/refusal/"
     response = requests.get(url=url)
     data_list = ft.Row(wrap=True, expand=True, scroll=ft.ScrollMode.ALWAYS, alignment=ft.MainAxisAlignment.START,
                        adaptive=True)
@@ -88,7 +88,7 @@ def refusal(page):
             motrudiy_data = ft.OutlinedButton(
                 adaptive=True,
                 data=date.get('id'),
-                on_click=lambda e: resources_category(page, e.control.data),
+                on_click=lambda e: take_content_id(page, e.control.data),
                 content=ft.Column(
                     controls=[
                         ft.Column(
@@ -96,7 +96,7 @@ def refusal(page):
                             controls=[
                             ft.Text(),
                             ft.Image(src=os.path.abspath("assets/book_1.svg"), color="white"),
-                            ft.Text(f"\n{date.get('name')}", size=20, color='white'),
+                            ft.Text(f"\n{date.get('title')}", size=20, color='white'),
                         ])
                     ],
                     horizontal_alignment=ft.CrossAxisAlignment.STRETCH

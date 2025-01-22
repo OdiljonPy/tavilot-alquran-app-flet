@@ -73,7 +73,7 @@ def main_page(page):
         register_result = ft.Text(color='red', size=15)
 
         def registration_response(phone, passw):
-            url = "http://176.221.28.202:8008/api/v1/auth/register/"
+            url = "http://alquran.zerodev.uz/api/v1/auth/register/"
             headers = {
                 "Content-Type": "application/json",
             }
@@ -219,7 +219,7 @@ def main_page(page):
         )
 
         def login_response(phone, passw):
-            url = "http://176.221.28.202:8008/api/v1/auth/login/"
+            url = "http://alquran.zerodev.uz/api/v1/auth/login/"
             headers = {
                 "Content-Type": "application/json",
             }
@@ -400,7 +400,7 @@ def main_page(page):
         )
 
         def otp_verify(key_otp):
-            url = "http://176.221.28.202:8008/api/v1/auth/verify/"
+            url = "http://alquran.zerodev.uz/api/v1/auth/verify/"
             headers = {
                 "Content-Type": "application/json",
             }

@@ -1,8 +1,9 @@
-import flet as ft
 import os
-import requests
+
 from .html_pdf_handler import extract_and_process_videos, extract_base64_and_save_images, render_content
 from .pdf_page import pdf_page
+import flet as ft
+import requests
 
 
 translations = {
@@ -18,10 +19,10 @@ translations = {
 
 
 def take_content_id(page, ids):
-    from .refusal import refusal
+    from .al_quran_oquvchilariga import al_quron_oquvchilariga
     current_language = "uz"
 
-    page.scroll = True
+    page.scroll = False
     page.clean()
     TC = '#E9BE5F'
 
@@ -50,19 +51,21 @@ def take_content_id(page, ids):
 
         ),
         adaptive=True,
-        on_click=lambda e: refusal(page),
+        on_click=lambda e: al_quron_oquvchilariga(page),
     )
 
     page.update()
-    url = f"http://176.221.28.202:8008/api/v1/refusal/{ids}/"
+    url = f"http://alquran.zerodev.uz/api/v2/refusal/{ids}/"
     response = requests.get(url=url)
     response_data = response.json().get('result').get('description')
+
     # Process HTML to handle base64 images and videos
     parts, result = extract_base64_and_save_images(response_data)
     video_files = extract_and_process_videos(response_data)
 
     if response.status_code == 200:
         page.clean()
+        page.scroll = True
         # Container to hold the rendered content
         content_container = ft.Container(
             height=page.window.height,
@@ -108,6 +111,5 @@ def take_content_id(page, ids):
             )
 
             content_container.content.content.controls.append(pdf)
-
 
         page.update()

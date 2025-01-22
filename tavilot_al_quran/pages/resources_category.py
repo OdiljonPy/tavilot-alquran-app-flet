@@ -59,7 +59,7 @@ def resources_category(page, ids):
 
 
     page.update()
-    url = f"http://176.221.28.202:8008/api/v1/resources/category/{ids}/"
+    url = f"http://alquran.zerodev.uz/api/v2/resources/category/{ids}/"
     response = requests.get(url=url)
     data_list = ft.Row(wrap=True, expand=True, scroll=ft.ScrollMode.ALWAYS, alignment=ft.MainAxisAlignment.START,
                        adaptive=True)

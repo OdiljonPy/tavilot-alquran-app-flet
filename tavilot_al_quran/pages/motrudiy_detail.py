@@ -55,7 +55,7 @@ def take_content_id(page, ids):
     )
 
     page.update()
-    url = f"http://176.221.28.202:8008/api/v1/moturudiy/{ids}/"
+    url = f"http://alquran.zerodev.uz/api/v2/moturudiy/{ids}/"
     response = requests.get(url=url)
     response_data = response.json().get('result').get('description')
 

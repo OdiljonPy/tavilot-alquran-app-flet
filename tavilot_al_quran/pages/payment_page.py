@@ -89,7 +89,7 @@ def payment_page(page):
 
         page.update()
 
-    payment_url = 'http://176.221.28.202:8008/api/v1/auth/check/subscription/'
+    payment_url = 'http://alquran.zerodev.uz/api/v1/auth/check/subscription/'
 
     headers = {
         "Content-Type": "application/json",

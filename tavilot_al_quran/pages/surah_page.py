@@ -85,7 +85,7 @@ def surah_page(page):
 
 
     right_display.controls.clear()
-    urls = f"http://176.221.28.202:8008/api/v1/chapter/{1}"
+    urls = f"http://alquran.zerodev.uz/api/v2/chapter/{1}"
     if page.client_storage.get('access_token'):
         headers = {
             "Content-Type": "application/json",
@@ -364,7 +364,7 @@ def surah_page(page):
     column_data = ft.Column(controls=[button3], adaptive=True, spacing=10, scroll=ft.ScrollMode.ALWAYS, expand=True, height=page.adaptive)
     def close_open_button():
         if list_button_number == 1:
-            url = "http://176.221.28.202:8008/api/v1/chapters/"
+            url = "http://alquran.zerodev.uz/api/v2/chapters/"
             response_data = requests.get(url=url)
             if response_data.status_code == 200:
                 response_list = response_data.json().get('result')
@@ -381,7 +381,7 @@ def surah_page(page):
                                      border=ft.border.all(2, color=TC)))
 
         elif list_button_number == 2:
-            url = "http://176.221.28.202:8008/api/v1/juz/"
+            url = "http://alquran.zerodev.uz/api/v2/juz/"
             response_data = requests.get(url=url)
             if response_data.status_code == 200:
                 result_lists = response_data.json().get('result')
@@ -515,7 +515,7 @@ def surah_page(page):
 
 
     def fetch_data(query):
-        url = f"http://176.221.28.202:8008/api/v1/search/?q={query}&search_type={page.session.get("button_number")}"
+        url = f"http://alquran.zerodev.uz/api/v2/search/?q={query}&search_type={page.session.get("button_number")}"
         if page.client_storage.get('access_token'):
             headers = {
                 "Content-Type": "application/json",

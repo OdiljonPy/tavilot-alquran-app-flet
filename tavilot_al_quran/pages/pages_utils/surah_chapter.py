@@ -1,3 +1,5 @@
+import time
+
 import requests
 import flet as ft
 TC = '#E9BE5F'
@@ -5,7 +7,7 @@ import os
 from ..html_pdf_handler import render_description
 
 def surah_chapter(page, list_display, right_display):
-    url = "http://176.221.28.202:8008/api/v1/chapters/"
+    url = "http://alquran.zerodev.uz/api/v2/chapters/"
     response = requests.get(url=url)
     if response.status_code == 200:
         page.clean()
@@ -42,8 +44,7 @@ def surah_chapter(page, list_display, right_display):
 def take_id(ids, right_display, page, number=1):
     from ..main_page import main_page
     right_display.controls.clear()
-    urls = f"http://176.221.28.202:8008/api/v1/chapter/{ids}"
-    headers = ""
+    urls = f"http://alquran.zerodev.uz/api/v2/chapter/{ids}"
     if page.client_storage.get('access_token'):
         headers = {
             "Content-Type": "application/json",
