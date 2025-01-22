@@ -41,7 +41,7 @@ def surah_page(page):
     right_display = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
                               horizontal_alignment=ft.CrossAxisAlignment.CENTER)
 
-    button_number = 1
+    page.session.set("button_number", 1)
     #------Buttons------------------------------------------------------------------------------------------------------
 
     text_arabic = ft.TextButton('Arabcha', data=1, style=ft.ButtonStyle(color='white', bgcolor=TC),
@@ -81,7 +81,7 @@ def surah_page(page):
         )
 
     #-------------------------------------------------------------------------------------------------------------------
-    surah_chapter(page, list_display, right_display, button_number)
+    surah_chapter(page, list_display, right_display)
 
 
     right_display.controls.clear()
@@ -101,8 +101,7 @@ def surah_page(page):
 
         def change_response(number=1):
             if number == text_arabic.data:
-                nonlocal button_number
-                button_number = 1
+                page.session.set("button_number", 1)
                 right_display.controls.clear()
                 right_display.controls.append(right_top_bar)
                 text_arabic.style.color = "white"
@@ -153,7 +152,7 @@ def surah_page(page):
                         ])
                     )
             elif number == text_translate.data:
-                button_number = 2
+                page.session.set("button_number", 2)
                 right_display.controls.clear()
                 right_display.controls.append(right_top_bar)
                 text_translate.style.color = 'white'
@@ -217,7 +216,7 @@ def surah_page(page):
                         ])
                     )
             elif number == text_tafsir.data:
-                button_number = 3
+                page.session.set("button_number", 3)
                 right_display.controls.clear()
                 right_display.controls.append(right_top_bar)
                 text_tafsir.style.color = "white"
@@ -375,7 +374,7 @@ def surah_page(page):
                     column_data.controls.append(
                         ft.Container(
                             data=response_detail.get('id'),
-                            on_click=lambda e: take_id(e.control.data, right_display, page, button_number),
+                            on_click=lambda e: take_id(e.control.data, right_display, page),
                             adaptive=True, content=ft.Text(response_detail.get('id'), color='black'),
                                      shape=ft.BoxShape.CIRCLE, width=60,
                                      height=60, alignment=ft.alignment.center,
@@ -516,7 +515,7 @@ def surah_page(page):
 
 
     def fetch_data(query):
-        url = f"http://176.221.28.202:8008/api/v1/search/?q={query}&search_type={button_number}"
+        url = f"http://176.221.28.202:8008/api/v1/search/?q={query}&search_type={page.session.get("button_number")}"
         if page.client_storage.get('access_token'):
             headers = {
                 "Content-Type": "application/json",
@@ -537,7 +536,7 @@ def surah_page(page):
     def scroll_to_item(item_id, chapter_id):
 
         # Perform the necessary actions (e.g., highlight or take some action with chapter_id)
-        take_id(chapter_id, number=button_number, right_display=right_display, page=page, button_number=button_number)
+        take_id(chapter_id, number=page.session.get("button_number"), right_display=right_display, page=page)
 
         # Find the target element
         target_element = next((control for control in right_display.controls if control.key == item_id), None)

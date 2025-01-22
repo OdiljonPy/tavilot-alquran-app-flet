@@ -4,7 +4,7 @@ TC = '#E9BE5F'
 import os
 from ..html_pdf_handler import render_description
 
-def surah_chapter(page, list_display, right_display, button_number):
+def surah_chapter(page, list_display, right_display):
     url = "http://176.221.28.202:8008/api/v1/chapters/"
     response = requests.get(url=url)
     if response.status_code == 200:
@@ -22,7 +22,7 @@ def surah_chapter(page, list_display, right_display, button_number):
                 margin=20,
                 key=i.get('id'),
                 data=i.get('id'),
-                on_click=lambda e: take_id(e.control.data, right_display, page, button_number),
+                on_click=lambda e: take_id(e.control.data, right_display, page),
                 content=ft.Row(
                     adaptive=True,
                     controls=[
@@ -39,7 +39,7 @@ def surah_chapter(page, list_display, right_display, button_number):
                     ])))
 
 
-def take_id(ids, right_display, page, button_number, number=1):
+def take_id(ids, right_display, page, number=1):
     from ..main_page import main_page
     right_display.controls.clear()
     urls = f"http://176.221.28.202:8008/api/v1/chapter/{ids}"
@@ -59,8 +59,7 @@ def take_id(ids, right_display, page, button_number, number=1):
 
         def change_response(number=number):
             if number == text_arabic.data:
-                nonlocal button_number
-                button_number = 1
+                page.session.set("button_number", 1)
                 right_display.controls.clear()
                 right_display.controls.append(right_top_bar)
                 text_arabic.style.color = "white"
@@ -111,7 +110,7 @@ def take_id(ids, right_display, page, button_number, number=1):
                         ])
                     )
             elif number == text_translate.data:
-                button_number = 2
+                page.session.set("button_number", 2)
                 right_display.controls.clear()
                 right_display.controls.append(right_top_bar)
                 text_translate.style.color = 'white'
@@ -175,7 +174,7 @@ def take_id(ids, right_display, page, button_number, number=1):
                         ])
                     )
             elif number == text_tafsir.data:
-                button_number = 3
+                page.session.set("button_number", 3)
                 right_display.controls.clear()
                 right_display.controls.append(right_top_bar)
                 text_tafsir.style.color = "white"
@@ -299,7 +298,7 @@ def take_id(ids, right_display, page, button_number, number=1):
                 ]
             )
         )
-        if button_number == 1:
+        if page.session.get("button_number") == 1:
             right_display.controls.clear()
             right_display.controls.append(right_top_bar)
             chapter_result = responses.json().get('result')
@@ -343,7 +342,7 @@ def take_id(ids, right_display, page, button_number, number=1):
                         ft.Divider(color=TC)
                     ])
                 )
-        elif button_number == 2:
+        elif page.session.get("button_number") == 2:
             right_display.controls.clear()
             right_display.controls.append(right_top_bar)
             text_translate.style.color = 'white'
@@ -406,7 +405,7 @@ def take_id(ids, right_display, page, button_number, number=1):
                         ft.Divider(color=TC)
                     ])
                 )
-        elif button_number == 3:
+        elif page.session.get("button_number") == 3:
             right_display.controls.clear()
             right_display.controls.append(right_top_bar)
             text_tafsir.style.color = "white"
