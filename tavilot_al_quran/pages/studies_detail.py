@@ -20,7 +20,7 @@ def take_content_id(page, ids):
     from .studies import studies
     current_language = "uz"
 
-    page.scroll = True
+    page.scroll = False
     page.clean()
     TC = '#E9BE5F'
 
@@ -63,6 +63,7 @@ def take_content_id(page, ids):
 
     if response.status_code == 200:
         page.clean()
+        page.scroll = True
         # Container to hold the rendered content
         content_container = ft.Container(
             height=page.window.height,
