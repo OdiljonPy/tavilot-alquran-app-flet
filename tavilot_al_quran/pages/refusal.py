@@ -1,31 +1,16 @@
 import flet as ft
 import os
 import requests
-from .refusal_detail import take_content_id
-
-
-
-translations = {
-    "uz": {
-        "back_button_text": "Orqaga qaytish",
-        "three_window_moturudiy": "\n   Abu Mansur Matrudiy",
-    },
-    "kr": {
-        "back_button_text": "Оркага кайтиш",
-        "three_window_moturudiy": "\n   Абу Мансур Мотрудий",
-    }
-}
 
 def refusal(page):
+    from .resources_category import resources_category
     from .home_page import home
     from .about_us_page import about_us_page
     from .resources import resources
-    from .refusal import refusal
     from .surah_page import surah_page
     from .menuscript import menuscript
     from .al_quran_oquvchilariga import al_quron_oquvchilariga
     from .studies import studies
-    current_language = "uz"
 
     page.scroll = False
     page.clean()
@@ -38,8 +23,38 @@ def refusal(page):
         alignment=ft.alignment.center)
     )
 
-    back_button_text = ft.Text(value=translations[current_language]["back_button_text"], color='black')
+    # -------Translation of the page-------------------------------------------------------------------------------------
+    import json
+    # Function to load JSON translation files
+    def load_translation(lang):
+        with open(f"locales/translations.json", "r", encoding="utf-8") as f:
+            return json.load(f).get(lang)
 
+    def change_language(e):
+        page.client_storage.set('language', e)
+        new_translation = load_translation(e)
+        back_button_text.value = new_translation.get('back_button_text')
+        abu_mansur_motrudiy.value = new_translation.get('abu_mansur_motrudiy')
+        appbar_tavilot.value = new_translation.get('appbar_tavilot')
+        appbar_menuscript.value = new_translation.get('appbar_menuscript')
+        appbar_studies.value = new_translation.get('appbar_studies')
+        appbar_resources.value = new_translation.get('appbar_resources')
+        appbar_refusal.value = new_translation.get('appbar_refusal')
+        update_appbar()
+        page.update()
+
+    if page.client_storage.get('language'):
+        current_translation = load_translation(page.client_storage.get('language'))
+    else:
+        current_translation = load_translation("uz")
+
+    back_button_text = ft.Text(current_translation.get('back_button_text'), color='black')
+    abu_mansur_motrudiy = ft.Text(current_translation.get('abu_mansur_motrudiy'))
+    appbar_tavilot = ft.Text(current_translation.get('appbar_tavilot'))
+    appbar_menuscript = ft.Text(current_translation.get('appbar_menuscript'))
+    appbar_studies = ft.Text(current_translation.get('appbar_studies'))
+    appbar_resources = ft.Text(current_translation.get('appbar_resources'))
+    appbar_refusal = ft.Text(current_translation.get('appbar_refusal'))
     back_button = ft.OutlinedButton(
         content=ft.Row(controls=[
             ft.Icon(ft.icons.ARROW_BACK, color='black', size=20),
@@ -64,7 +79,7 @@ def refusal(page):
     response = requests.get(url=url)
     data_list = ft.Row(wrap=True, expand=True, scroll=ft.ScrollMode.ALWAYS, alignment=ft.MainAxisAlignment.START,
                        adaptive=True)
-
+    print(response.json())
     if response.status_code == 200:
         page.clean()
         page.scroll = True
@@ -73,7 +88,7 @@ def refusal(page):
             motrudiy_data = ft.OutlinedButton(
                 adaptive=True,
                 data=date.get('id'),
-                on_click=lambda e: take_content_id(page, e.control.data),
+                on_click=lambda e: resources_category(page, e.control.data),
                 content=ft.Column(
                     controls=[
                         ft.Column(
@@ -81,7 +96,7 @@ def refusal(page):
                             controls=[
                             ft.Text(),
                             ft.Image(src=os.path.abspath("assets/book_1.svg"), color="white"),
-                            ft.Text(f"\n{date.get('title')}", size=20, color='white'),
+                            ft.Text(f"\n{date.get('name')}", size=20, color='white'),
                         ])
                     ],
                     horizontal_alignment=ft.CrossAxisAlignment.STRETCH
@@ -180,8 +195,10 @@ def refusal(page):
     language_menu = ft.PopupMenuButton(
         content=image,
         items=[
-            ft.PopupMenuItem(text="Uzbekcha", data="uz", on_click=None),#language_selected),
-            ft.PopupMenuItem(text="Kirilcha", data="kr", on_click=None)#language_selected),
+            ft.PopupMenuItem(text="Uzbekcha", data="uz",
+                             on_click=lambda e: change_language(e.control.data)),
+            ft.PopupMenuItem(text="Kirilcha", data="kr",
+                             on_click=lambda e: change_language(e.control.data)),
         ]
     )
 
@@ -222,12 +239,12 @@ def refusal(page):
                 on_click=lambda e, r=route: navigate(e, r)
             )
             for route, route_label in [
-                ("Abu Mansur Motrudiy", "Abu Mansur Motrudiy"),
-                ("Tavilot al-Quron", "Tavilot al-Quron"),
-                ("Qo'lyozma va sharhlar", "Qo'lyozma va sharhlar"),
-                ("Zamonaviy tadqiqotlar", "Zamonaviy tadqiqotlar"),
-                ("Resurslar", "Resurslar"),
-                ("Mutaassib oqimlarga raddiyalar", "Mutaassib oqimlarga raddiyalar")
+                ("Abu Mansur Motrudiy", abu_mansur_motrudiy.value),
+                ("Tavilot al-Quron", appbar_tavilot.value),
+                ("Qo'lyozma va sharhlar", appbar_menuscript.value),
+                ("Zamonaviy tadqiqotlar", appbar_studies.value),
+                ("Resurslar", appbar_resources.value),
+                ("Mutaassib oqimlarga raddiyalar", appbar_refusal.value)
 
             ]
         ]
@@ -271,4 +288,3 @@ def refusal(page):
 
     update_appbar()
     page.update()
-

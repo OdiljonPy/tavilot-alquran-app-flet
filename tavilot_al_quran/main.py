@@ -15,6 +15,7 @@ def main(page: ft.Page):
         "Trajan": font_page_trajan
     }
 
+
     main_page(page)
 
 

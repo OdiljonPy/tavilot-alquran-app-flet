@@ -3,20 +3,7 @@ import os
 import requests
 from .motrudiy_detail import take_content_id
 
-
-translations = {
-    "uz": {
-        "back_button_text": "Orqaga qaytish",
-        "three_window_moturudiy": "\n   Abu Mansur Matrudiy",
-    },
-    "kr": {
-        "back_button_text": "Оркага кайтиш",
-        "three_window_moturudiy": "\n   Абу Мансур Мотрудий",
-    }
-}
-
 def al_quron_oquvchilariga(page):
-    current_language = "uz"
     from .menuscript import menuscript
     from .refusal import refusal
     from .resources import resources
@@ -34,8 +21,39 @@ def al_quron_oquvchilariga(page):
         content=loading,
         alignment=ft.alignment.center)
     )
+    # -------Translation of the page-------------------------------------------------------------------------------------
+    import json
+    # Function to load JSON translation files
+    def load_translation(lang):
+        with open(f"locales/translations.json", "r", encoding="utf-8") as f:
+            return json.load(f).get(lang)
 
-    back_button_text = ft.Text(value=translations[current_language]["back_button_text"], color='black')
+    def change_language(e):
+        page.client_storage.set('language', e)
+        new_translation = load_translation(e)
+        back_button_text.value = new_translation.get('back_button_text')
+        abu_mansur_motrudiy.value = new_translation.get('abu_mansur_motrudiy')
+        appbar_tavilot.value = new_translation.get('appbar_tavilot')
+        appbar_menuscript.value = new_translation.get('appbar_menuscript')
+        appbar_studies.value = new_translation.get('appbar_studies')
+        appbar_resources.value = new_translation.get('appbar_resources')
+        appbar_refusal.value = new_translation.get('appbar_refusal')
+        update_appbar()
+        page.update()
+
+    if page.client_storage.get('language'):
+        current_translation = load_translation(page.client_storage.get('language'))
+    else:
+        current_translation = load_translation("uz")
+
+    back_button_text = ft.Text(current_translation.get('back_button_text'), color='black')
+    abu_mansur_motrudiy = ft.Text(current_translation.get('abu_mansur_motrudiy'))
+    appbar_tavilot = ft.Text(current_translation.get('appbar_tavilot'))
+    appbar_menuscript = ft.Text(current_translation.get('appbar_menuscript'))
+    appbar_studies = ft.Text(current_translation.get('appbar_studies'))
+    appbar_resources = ft.Text(current_translation.get('appbar_resources'))
+    appbar_refusal = ft.Text(current_translation.get('appbar_refusal'))
+
 
     back_button = ft.OutlinedButton(
         content=ft.Row(controls=[
@@ -176,8 +194,10 @@ def al_quron_oquvchilariga(page):
     language_menu = ft.PopupMenuButton(
         content=image,
         items=[
-            ft.PopupMenuItem(text="Uzbekcha", data="uz", on_click=None),# language_selected),
-            ft.PopupMenuItem(text="Kirilcha", data="kr", on_click=None)#language_selected),
+            ft.PopupMenuItem(text="Uzbekcha", data="uz",
+                             on_click=lambda e: change_language(e.control.data)),
+            ft.PopupMenuItem(text="Kirilcha", data="kr",
+                             on_click=lambda e: change_language(e.control.data)),
         ]
     )
 
@@ -218,12 +238,12 @@ def al_quron_oquvchilariga(page):
                 on_click=lambda e, r=route: navigate(e, r)
             )
             for route, route_label in [
-                ("Abu Mansur Motrudiy", "Abu Mansur Motrudiy"),
-                ("Tavilot al-Quron", "Tavilot al-Quron"),
-                ("Qo'lyozma va sharhlar", "Qo'lyozma va sharhlar"),
-                ("Zamonaviy tadqiqotlar", "Zamonaviy tadqiqotlar"),
-                ("Resurslar", "Resurslar"),
-                ("Mutaassib oqimlarga raddiyalar", "Mutaassib oqimlarga raddiyalar")
+                ("Abu Mansur Motrudiy", abu_mansur_motrudiy.value),
+                ("Tavilot al-Quron", appbar_tavilot.value),
+                ("Qo'lyozma va sharhlar", appbar_menuscript.value),
+                ("Zamonaviy tadqiqotlar", appbar_studies.value),
+                ("Resurslar", appbar_resources.value),
+                ("Mutaassib oqimlarga raddiyalar", appbar_refusal.value)
 
             ]
         ]
