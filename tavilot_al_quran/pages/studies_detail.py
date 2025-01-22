@@ -67,7 +67,7 @@ def take_content_id(page, ids):
         # Container to hold the rendered content
         content_container = ft.Container(
             height=page.window.height,
-            margin=30,
+            scale=ft.Scale(scale_x=0.96),
             image_src=os.path.abspath("assets/searchbg.png"),
             image_fit="cover",
             alignment=ft.alignment.center,
