@@ -513,7 +513,6 @@ def surah_page(page):
         ],
         spacing=0
     )
-    page.clean()
 
 
     def fetch_data(query):
@@ -609,5 +608,6 @@ def surah_page(page):
         controls=[],  # Start with an empty control list
     )
     update_appbar(page, search)
+    page.clean()
     page.add(side_bar)
     page.update()

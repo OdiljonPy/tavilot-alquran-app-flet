@@ -231,12 +231,13 @@ def main_page(page):
             response = requests.post(url=url, json=data, headers=headers)
             if response.status_code == 200:
                 page.clean()
-                loading = ft.ProgressRing()
+                loading = ft.ProgressRing(color=TC)
                 page.add(ft.Container(
                     expand=True,
                     adaptive=True,
                     content=loading,
-                    alignment=ft.alignment.center)
+                    alignment=ft.alignment.center
+                )
                 )
                 time.sleep(0.6)
                 page.client_storage.set('access_token', response.json().get('result').get('access_token'))
