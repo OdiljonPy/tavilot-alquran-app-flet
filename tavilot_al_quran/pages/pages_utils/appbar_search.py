@@ -8,9 +8,6 @@ from ..refusal import refusal
 from ..home_page import home
 import os
 
-
-
-
 routes = {
         "Abu Mansur Motrudiy": al_quron_oquvchilariga,
         "Tavilot al-Quron": surah_page,
