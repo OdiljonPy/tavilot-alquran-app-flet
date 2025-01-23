@@ -6,7 +6,11 @@ import os
 
 def juz_button(list_display_juz, right_display, page, text_arabic, text_translate, text_tafsir):
     url = "http://alquran.zerodev.uz/api/v2/juz/"
-    responses = requests.get(url=url)
+    headers = {
+        "Content-Type": "application/json",
+        "Accept-Language": page.client_storage.get('language')
+    }
+    responses = requests.get(url=url, headers=headers)
     if responses.status_code == 200:
         result_lists = responses.json().get('result')
 
@@ -35,15 +39,17 @@ def juz_button(list_display_juz, right_display, page, text_arabic, text_translat
 def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafsir):
     right_display.controls.clear()
     urls = f"http://alquran.zerodev.uz/api/v2/juz/{ids}/"
-    headers = ""
+
     if page.client_storage.get('access_token'):
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {page.client_storage.get('access_token')}"
+            "Authorization": f"Bearer {page.client_storage.get('access_token')}",
+            "Accept-Language": page.client_storage.get('language')
         }
     else:
         headers = {
             "Content-Type": "application/json",
+            "Accept-Language": page.client_storage.get('language')
         }
     juz_response = requests.get(url=urls, headers=headers)
     if juz_response.status_code == 200:

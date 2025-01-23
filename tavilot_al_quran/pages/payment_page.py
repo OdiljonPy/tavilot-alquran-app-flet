@@ -93,7 +93,8 @@ def payment_page(page):
 
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f'Bearer {page.client_storage.get('access_token')}'
+        "Authorization": f'Bearer {page.client_storage.get('access_token')}',
+        "Accept-Language": page.client_storage.get('language')
     }
 
     response = requests.get(url=payment_url, headers=headers)

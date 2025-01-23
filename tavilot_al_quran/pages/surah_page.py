@@ -89,11 +89,13 @@ def surah_page(page):
     if page.client_storage.get('access_token'):
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {page.client_storage.get('access_token')}"
+            "Authorization": f"Bearer {page.client_storage.get('access_token')}",
+            "Accept-Language": page.client_storage.get('language')
         }
     else:
         headers = {
             "Content-Type": "application/json",
+            "Accept-Language": page.client_storage.get('language')
         }
     responses = requests.get(url=urls, headers=headers)
     if responses.status_code == 200:
@@ -365,7 +367,11 @@ def surah_page(page):
     def close_open_button():
         if list_button_number == 1:
             url = "http://alquran.zerodev.uz/api/v2/chapters/"
-            response_data = requests.get(url=url)
+            headers = {
+                "Content-Type": "application/json",
+                "Accept-Language": page.client_storage.get('language')
+            }
+            response_data = requests.get(url=url, headers=headers)
             if response_data.status_code == 200:
                 response_list = response_data.json().get('result')
                 column_data.controls.clear()
@@ -382,7 +388,11 @@ def surah_page(page):
 
         elif list_button_number == 2:
             url = "http://alquran.zerodev.uz/api/v2/juz/"
-            response_data = requests.get(url=url)
+            headers = {
+                "Content-Type": "application/json",
+                "Accept-Language": page.client_storage.get('language')
+            }
+            response_data = requests.get(url=url, headers=headers)
             if response_data.status_code == 200:
                 result_lists = response_data.json().get('result')
                 column_data.controls.clear()
@@ -519,11 +529,13 @@ def surah_page(page):
         if page.client_storage.get('access_token'):
             headers = {
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {page.client_storage.get('access_token')}"
+                "Authorization": f"Bearer {page.client_storage.get('access_token')}",
+                "Accept-Language": page.client_storage.get('language')
             }
         else:
             headers = {
                 "Content-Type": "application/json",
+                "Accept-Language": page.client_storage.get('language')
             }
         response = requests.get(url=url, headers=headers)
         if response.status_code == 200:

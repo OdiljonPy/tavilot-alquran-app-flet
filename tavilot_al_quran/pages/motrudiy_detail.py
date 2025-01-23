@@ -56,7 +56,11 @@ def take_content_id(page, ids):
 
     page.update()
     url = f"http://alquran.zerodev.uz/api/v2/moturudiy/{ids}/"
-    response = requests.get(url=url)
+    headers = {
+        "Content-Type": "application/json",
+        "Accept-Language": page.client_storage.get('language')
+    }
+    response = requests.get(url=url, headers=headers)
     response_data = response.json().get('result').get('description')
 
     # Process HTML to handle base64 images and videos

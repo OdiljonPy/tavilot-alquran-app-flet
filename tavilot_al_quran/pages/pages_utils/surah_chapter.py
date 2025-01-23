@@ -6,7 +6,11 @@ from ..html_pdf_handler import render_description
 
 def surah_chapter(page, list_display, right_display):
     url = "http://alquran.zerodev.uz/api/v2/chapters/"
-    response = requests.get(url=url)
+    headers = {
+        "Content-Type": "application/json",
+        "Accept-Language": page.client_storage.get('language')
+    }
+    response = requests.get(url=url, headers=headers)
     if response.status_code == 200:
         page.clean()
         page.scroll = False
@@ -42,15 +46,18 @@ def surah_chapter(page, list_display, right_display):
 def take_id(ids, right_display, page, number=1):
     from ..main_page import main_page
     right_display.controls.clear()
+
     urls = f"http://alquran.zerodev.uz/api/v2/chapter/{ids}"
     if page.client_storage.get('access_token'):
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {page.client_storage.get('access_token')}"
+            "Authorization": f"Bearer {page.client_storage.get('access_token')}",
+            "Accept-Language": page.client_storage.get('language')
         }
     else:
         headers = {
             "Content-Type": "application/json",
+            "Accept-Language": page.client_storage.get('language')
         }
     responses = requests.get(url=urls, headers=headers)
     if responses.status_code == 200:

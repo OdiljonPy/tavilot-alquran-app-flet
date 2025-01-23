@@ -40,8 +40,7 @@ def studies(page):
         appbar_studies.value = new_translation.get('appbar_studies')
         appbar_resources.value = new_translation.get('appbar_resources')
         appbar_refusal.value = new_translation.get('appbar_refusal')
-        update_appbar()
-        page.update()
+        studies(page)
 
     if page.client_storage.get('language'):
         current_translation = load_translation(page.client_storage.get('language'))
@@ -75,7 +74,11 @@ def studies(page):
     page.update()
 
     url = "http://alquran.zerodev.uz/api/v2/studies/"
-    response = requests.get(url=url)
+    headers = {
+        "Content-Type": "application/json",
+        "Accept-Language": page.client_storage.get('language')
+    }
+    response = requests.get(url=url, headers=headers)
     data_list = ft.Row(wrap=True, expand=True, scroll=ft.ScrollMode.ALWAYS, alignment=ft.MainAxisAlignment.START,
                        adaptive=True)
 

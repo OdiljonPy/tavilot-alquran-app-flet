@@ -60,7 +60,11 @@ def resources_category(page, ids):
 
     page.update()
     url = f"http://alquran.zerodev.uz/api/v2/resources/category/{ids}/"
-    response = requests.get(url=url)
+    headers = {
+        "Content-Type": "application/json",
+        "Accept-Language": page.client_storage.get('language')
+    }
+    response = requests.get(url=url, headers=headers)
     data_list = ft.Row(wrap=True, expand=True, scroll=ft.ScrollMode.ALWAYS, alignment=ft.MainAxisAlignment.START,
                        adaptive=True)
 
