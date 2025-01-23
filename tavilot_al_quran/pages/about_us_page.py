@@ -18,7 +18,11 @@ def about_us_page(page, back_button):
 
     # API call to fetch the "about" page data
     url = "http://alquran.zerodev.uz/api/v2/about/"
-    response = requests.get(url=url)
+    headers = {
+        "Content-Type": "application/json",
+        "Accept-Language": page.client_storage.get('language')
+    }
+    response = requests.get(url=url, headers=headers)
 
     if response.status_code == 200:
         data = response.json().get("result", {}).get("description", "")
