@@ -34,7 +34,8 @@ def juz_button(list_display_juz, right_display, page, text_arabic, text_translat
                             ])
                     ]
                 )
-            ))
+            )
+            )
 
 def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafsir):
     right_display.controls.clear()

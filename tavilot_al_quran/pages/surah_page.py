@@ -131,7 +131,7 @@ def surah_page(page):
                 right_display.controls.append(chapter_n)
                 for result_detail in result_details:
                     right_display.controls.append(ft.Column(
-                        key=result_detail.get('id'),
+                        key=result_detail.get('number'),
                         controls=[ft.Row(
                             expand=True,
                             alignment=ft.MainAxisAlignment.CENTER,
@@ -182,7 +182,7 @@ def surah_page(page):
                 right_display.controls.append(chapter_n)
                 for result_detail in result_details:
                     right_display.controls.append(ft.Column(
-                        key=result_detail.get('id'),
+                        key=result_detail.get('number'),
                         controls=[
                             ft.Row(
                                 expand=True,
@@ -249,7 +249,7 @@ def surah_page(page):
                         content = render_description(result_data.get('description'), page)
                         tafsir_data = ft.Column(
                             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                            key=result_data.get('id'),
+                            key=result_data.get('number'),
                             controls=[
                                 ft.Row(
                                     alignment=ft.MainAxisAlignment.CENTER,
@@ -326,7 +326,7 @@ def surah_page(page):
         right_display.controls.append(chapter_n_d)
         for result_detail_d in result_details:
             right_display.controls.append(ft.Column(
-                key=result_detail_d.get('id'),
+                key=result_detail_d.get('number'),
                 controls=[ft.Row(
                     expand=True,
                     alignment=ft.MainAxisAlignment.CENTER,
@@ -379,9 +379,9 @@ def surah_page(page):
                 for response_detail in response_list:
                     column_data.controls.append(
                         ft.Container(
-                            data=response_detail.get('id'),
+                            data=response_detail.get('number'),
                             on_click=lambda e: take_id(e.control.data, right_display, page),
-                            adaptive=True, content=ft.Text(response_detail.get('id'), color='black'),
+                            adaptive=True, content=ft.Text(response_detail.get('number'), color='black'),
                                      shape=ft.BoxShape.CIRCLE, width=60,
                                      height=60, alignment=ft.alignment.center,
                                      border=ft.border.all(2, color=TC)))
@@ -399,7 +399,7 @@ def surah_page(page):
                 column_data.controls.append(button3)
                 for response_detail in result_lists:
                     column_data.controls.append(ft.Container(
-                        data=response_detail.get('id'),
+                        data=response_detail.get('number'),
                         on_click=lambda e: take_juz_id(e.control.data, right_display, page, text_arabic, text_translate, text_tafsir),
                         adaptive=True, content=ft.Text(response_detail.get('number'), color='black'),
                                  shape=ft.BoxShape.CIRCLE,
@@ -439,6 +439,7 @@ def surah_page(page):
     # Initialize default colors
     button1_color = TC
     button2_color = ft.colors.BLACK
+    juz_button(list_display_juz, right_display, page, text_arabic, text_translate, text_tafsir)
 
     # Define ListView
     list_view = ft.ListView(expand=1, spacing=10)
@@ -453,12 +454,13 @@ def surah_page(page):
             list_button_number = 1
             button1_color = TC
             button2_color = ft.colors.BLACK
+            print("I am in chanpgerrrrerere")
             list_view.controls = list_display.controls
         elif e.control.data == "button2":
             list_button_number = 2
             button1_color = ft.colors.BLACK
             button2_color = TC
-            juz_button(list_display_juz, right_display, page, text_arabic, text_translate, text_tafsir)
+            print("I am herererererererrerer")
             list_view.controls = list_display_juz.controls
 
         # Refresh UI
@@ -589,7 +591,7 @@ def surah_page(page):
             return lambda e: scroll_to_item(item_id, chapter_id)
 
         for search_detail in search_data:
-            item_id = search_detail.get('id')
+            item_id = search_detail.get('number')
             chapter_id = search_detail.get('chapter_id')
 
             # Pass both item_id and chapter_id as default arguments to the lambda function

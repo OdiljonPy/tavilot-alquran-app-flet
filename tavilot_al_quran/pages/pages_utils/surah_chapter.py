@@ -24,13 +24,13 @@ def surah_chapter(page, list_display, right_display):
 
             list_display.controls.append(ft.Container(
                 margin=20,
-                key=i.get('id'),
+                key=i.get('number'),
                 data=i.get('id'),
                 on_click=lambda e: take_id(e.control.data, right_display, page),
                 content=ft.Row(
                     adaptive=True,
                     controls=[
-                        ft.Container(adaptive=True, content=ft.Text(i.get('id'), color='black'),
+                        ft.Container(adaptive=True, content=ft.Text(i.get('number'), color='black'),
                                      shape=ft.BoxShape.CIRCLE, width=60,
                                      height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)),
                         ft.Column(
@@ -93,7 +93,7 @@ def take_id(ids, right_display, page, number=1):
                 right_display.controls.append(chapter_n)
                 for result_detail in result_details:
                     right_display.controls.append(ft.Column(
-                        key=result_detail.get('id'),
+                        key=result_detail.get('number'),
                         controls=[ft.Row(
                             expand=True,
                             alignment=ft.MainAxisAlignment.CENTER,
@@ -144,7 +144,7 @@ def take_id(ids, right_display, page, number=1):
                 right_display.controls.append(chapter_n)
                 for result_detail in result_details:
                     right_display.controls.append(ft.Column(
-                        key=result_detail.get('id'),
+                        key=result_detail.get('number'),
                         controls=[
                             ft.Row(
                                 expand=True,
@@ -210,7 +210,7 @@ def take_id(ids, right_display, page, number=1):
                     if result_data.get('description'):
                         content = render_description(result_data.get('description'), page)
                         tafsir_data = ft.Column(
-                            key=result_data.get('id'),
+                            key=result_data.get('number'),
                             controls=[
                                 ft.Row(
                                     expand=True,
@@ -326,7 +326,7 @@ def take_id(ids, right_display, page, number=1):
             right_display.controls.append(chapter_n)
             for result_detail in result_details:
                 right_display.controls.append(ft.Column(
-                    key=result_detail.get('id'),
+                    key=result_detail.get('number'),
                     controls=[ft.Row(
                         expand=True,
                         alignment=ft.MainAxisAlignment.CENTER,
@@ -376,7 +376,7 @@ def take_id(ids, right_display, page, number=1):
             right_display.controls.append(chapter_n)
             for result_detail in result_details:
                 right_display.controls.append(ft.Column(
-                    key=result_detail.get('id'),
+                    key=result_detail.get('number'),
                     controls=[
                         ft.Row(
                             expand=True,
@@ -441,7 +441,7 @@ def take_id(ids, right_display, page, number=1):
                 if result_data.get('description'):
                     content = render_description(result_data.get('description'), page)
                     tafsir_data = ft.Column(
-                        key=result_data.get('id'),
+                        key=result_data.get('number'),
                         controls=[
                             ft.Row(
                                 expand=True,
