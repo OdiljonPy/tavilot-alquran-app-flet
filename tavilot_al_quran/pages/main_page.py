@@ -14,7 +14,6 @@ def main_page(page):
     page.scroll = False
     page.padding = 0
 
-    page.client_storage.clear()
     if page.client_storage.get('access_token'):
         home(page)
 

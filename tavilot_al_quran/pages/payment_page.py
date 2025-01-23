@@ -52,7 +52,7 @@ def payment_page(page):
             margin=40,
             content=ft.Row(
                 controls=[
-                    ft.Text('Premium version', color=TC, size=40, weight='bold')
+                    ft.Text('Premium versiya', color=TC, size=40, weight='bold')
                 ],
                 alignment=ft.MainAxisAlignment.CENTER
             ),
@@ -69,7 +69,7 @@ def payment_page(page):
     )
 
     description_text = ft.Row(controls=[
-        ft.Text('Премиум версия орқали қуйидаги ҳусусиятларга эга бӯласиз', size=15, expand=True,
+        ft.Text("Premium versiya orqali quyidagi hususiyatlarga ega bo'lasiz", size=20, expand=True,
                 text_align=ft.TextAlign.CENTER)
     ],
         alignment=ft.MainAxisAlignment.CENTER
@@ -116,7 +116,7 @@ def payment_page(page):
         on_click=lambda e: payment_request(e, click_url),
         style=ft.ButtonStyle(side=ft.BorderSide(color=TC, width=3),
                              shape=ft.RoundedRectangleBorder(radius=8)),
-        content=ft.Image(src=os.path.abspath("assets/click_icon.png"))
+        content=ft.Image(src=os.path.abspath("assets/click_icon.png"), width=50, height=70)
     )
 
     payme_button = ft.OutlinedButton(
@@ -130,7 +130,7 @@ def payment_page(page):
     )
 
     payment_text = ft.Row(controls=[
-        ft.Text("To'lov uchun o'zingizga qulay bo'lgan ilovani tanlang", size=15,
+        ft.Text("To'lov uchun o'zingizga qulay bo'lgan ilovani tanlang", size=20,
                 text_align=ft.TextAlign.CENTER),
         click_button,
         payme_button
