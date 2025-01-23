@@ -168,7 +168,7 @@ def take_id(ids, right_display, page, number=1):
                                 controls=[
                                     ft.Text(),
                                     ft.Text(
-                                        value=f"  {result_detail.get('number')}. {result_detail.get('text')}",
+                                        value=f" {result_detail.get('text')}",
                                         size=20,
                                         expand=True,
                                         width=page.window_width, text_align=ft.TextAlign.LEFT
@@ -400,7 +400,7 @@ def take_id(ids, right_display, page, number=1):
                             controls=[
                                 ft.Text(),
                                 ft.Text(
-                                    value=f"  {result_detail.get('number')}. {result_detail.get('text')}",
+                                    value=f" {result_detail.get('text')}",
                                     size=20,
                                     expand=True,
                                     width=page.window_width, text_align=ft.TextAlign.LEFT
@@ -466,7 +466,7 @@ def take_id(ids, right_display, page, number=1):
                                 controls=[
                                     ft.Text(),
                                     ft.Text(
-                                        value=f"  {result_data.get('number')}. {result_data.get('text')}",
+                                        value=f" {result_data.get('text')}",
                                         size=20,
                                         expand=True,
                                         width=page.window_width, text_align=ft.TextAlign.LEFT

@@ -112,7 +112,7 @@ def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafs
                             controls=[
                                 ft.Text(),
                                 ft.Text(
-                                    value=f"{juz_i_verse.get('number')}. {juz_i_verse.get('text')}",
+                                    value=f" {juz_i_verse.get('text')}",
                                     size=20,
                                     expand=True,
                                     width=page.window_width, text_align=ft.TextAlign.LEFT
