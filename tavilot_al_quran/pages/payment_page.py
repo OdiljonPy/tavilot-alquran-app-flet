@@ -42,7 +42,6 @@ def payment_page(page):
         on_click=lambda e: home(page),
     )
 
-
     text_premium = ft.Row(
         adaptive=True,
         controls=[ft.Container(
@@ -52,7 +51,7 @@ def payment_page(page):
             margin=40,
             content=ft.Row(
                 controls=[
-                    ft.Text('Premium versiya', color=TC, size=40, weight='bold')
+                    ft.Text('Premium versiya', color=TC, size=50, weight='bold')
                 ],
                 alignment=ft.MainAxisAlignment.CENTER
             ),
@@ -69,12 +68,13 @@ def payment_page(page):
     )
 
     description_text = ft.Row(controls=[
-        ft.Text("Premium versiya orqali quyidagi hususiyatlarga ega bo'lasiz", size=20, expand=True,
+        ft.Text("Premium versiya orqali quyidagi hususiyatlarga ega bo'lasiz", size=30, expand=True,
                 text_align=ft.TextAlign.CENTER)
     ],
         alignment=ft.MainAxisAlignment.CENTER
     )
     url = ''
+
     def payment_request(e, urls):
         if e.control == click_button:
             click_button.style.side = ft.BorderSide(color=TC, width=3)
@@ -102,12 +102,11 @@ def payment_page(page):
     if response.status_code == 200:
         amount = response.json()
         user_id = response.json().get('user_id')
-        url=f"https://my.click.uz/services/pay?service_id=39892&merchant_id=32039&amount={amount.get('prays_click')}&transaction_param={user_id}"
+        url = f"https://my.click.uz/services/pay?service_id=39892&merchant_id=32039&amount={amount.get('prays_click')}&transaction_param={user_id}"
         click_url = f"https://my.click.uz/services/pay?service_id=39892&merchant_id=32039&amount={amount.get('prays_click')}&transaction_param={user_id}"
-        data=f'm=6746cfafd33fb8548ceca73e;ac.user_id={user_id};a={amount.get('prays_payme')}'
+        data = f'm=6746cfafd33fb8548ceca73e;ac.user_id={user_id};a={amount.get('prays_payme')}'
         encoded_data = base64.b64encode(data.encode('utf-8')).decode('utf-8')
         payme_url = f'https://checkout.paycom.uz/{encoded_data}'
-
 
     click_button = ft.OutlinedButton(
         data=1,
@@ -130,7 +129,7 @@ def payment_page(page):
     )
 
     payment_text = ft.Row(controls=[
-        ft.Text("To'lov uchun o'zingizga qulay bo'lgan ilovani tanlang", size=20,
+        ft.Text("To'lov uchun o'zingizga qulay bo'lgan ilovani tanlang", size=30,
                 text_align=ft.TextAlign.CENTER),
         click_button,
         payme_button
@@ -146,11 +145,11 @@ def payment_page(page):
         alignment=ft.alignment.center,
         content=ft.OutlinedButton(
             on_click=lambda e: redirect_to_pay(url),
-            width=700,
+            width=800,
             height=60,
             adaptive=True,
             expand=True,
-            content=ft.Text(value='Xarid qilish', text_align=ft.TextAlign.CENTER, color=TC),
+            content=ft.Text(value='Xarid qilish', text_align=ft.TextAlign.CENTER, color=TC, size=30),
             style=ft.ButtonStyle(
                 side=ft.BorderSide(color=TC, width=3),
                 shape=ft.RoundedRectangleBorder(radius=8)),
@@ -158,4 +157,8 @@ def payment_page(page):
 
     page.update()
 
-    page.add(text_premium, description_text, payment_text, ft.Text(height=40), pay_button)
+    page.add(ft.Container(
+        alignment=ft.alignment.center,
+        content=ft.Column(
+            spacing=25,
+            controls=[text_premium, description_text, payment_text, ft.Text(height=10), pay_button])))
