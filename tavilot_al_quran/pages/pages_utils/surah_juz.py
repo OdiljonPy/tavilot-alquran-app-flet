@@ -126,4 +126,9 @@ def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafs
                             ft.Divider(color=TC)
                         ])
                     )
+    else:
+        right_display.controls.append(ft.Container(
+            alignment=ft.alignment.center,
+            content=ft.Text("Server bilan bog'lanishda muammo kuzatildi", size=50, color=TC)
+        ))
     page.update()

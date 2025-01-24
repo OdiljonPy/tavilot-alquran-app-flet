@@ -477,5 +477,8 @@ def take_id(ids, right_display, page, number=1):
                         ])
                     right_display.controls.append(tafsir_data),
     else:
-        print("ERROR")
+        right_display.controls.append(ft.Container(
+            alignment=ft.alignment.center,
+            content=ft.Text("Server bilan bog'lanishda muammo kuzatildi", size=50, color=TC)
+        ))
     page.update()

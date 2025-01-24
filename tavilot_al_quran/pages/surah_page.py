@@ -348,6 +348,11 @@ def surah_page(page):
                     ft.Divider(color=TC)
                 ])
             )
+    else:
+        right_display.controls.append(ft.Container(
+            alignment=ft.alignment.center,
+            content=ft.Text("Server bilan bog'lanishda muammo kuzatildi", size=50, color=TC)
+        ))
 
     page.update()
 
@@ -379,7 +384,7 @@ def surah_page(page):
                 for response_detail in response_list:
                     column_data.controls.append(
                         ft.Container(
-                            data=response_detail.get('number'),
+                            data=response_detail.get('id'),
                             on_click=lambda e: take_id(e.control.data, right_display, page),
                             adaptive=True, content=ft.Text(response_detail.get('number'), color='black'),
                                      shape=ft.BoxShape.CIRCLE, width=60,
@@ -399,7 +404,7 @@ def surah_page(page):
                 column_data.controls.append(button3)
                 for response_detail in result_lists:
                     column_data.controls.append(ft.Container(
-                        data=response_detail.get('number'),
+                        data=response_detail.get('id'),
                         on_click=lambda e: take_juz_id(e.control.data, right_display, page, text_arabic, text_translate, text_tafsir),
                         adaptive=True, content=ft.Text(response_detail.get('number'), color='black'),
                                  shape=ft.BoxShape.CIRCLE,
