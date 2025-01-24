@@ -39,6 +39,7 @@ def juz_button(list_display_juz, right_display, page, text_arabic, text_translat
 
 def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafsir):
     right_display.controls.clear()
+
     urls = f"http://alquran.zerodev.uz/api/v2/juz/{ids}/"
 
     if page.client_storage.get('access_token'):
@@ -52,6 +53,14 @@ def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafs
             "Content-Type": "application/json",
             "Accept-Language": page.client_storage.get('language')
         }
+    loading = ft.ProgressRing(color=TC)
+    right_display.controls.append(ft.Container(
+        expand=True,
+        adaptive=True,
+        content=loading,
+        alignment=ft.alignment.center)
+    )
+    page.update()
     juz_response = requests.get(url=urls, headers=headers)
     if juz_response.status_code == 200:
         juz_result_list = juz_response.json().get('result').get('chapters')
@@ -60,7 +69,6 @@ def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafs
             right_display.controls.append(ft.Text('Malumot topilmadi', size=40, color=TC, expand=True, text_align=ft.TextAlign.CENTER))
         else:
             for juz_i in juz_result_list:
-                # right_display.controls.append(right_top_bar)
                 text_arabic.style.color = "white"
                 text_arabic.style.bgcolor = TC
                 text_translate.style.color = ft.colors.BLACK

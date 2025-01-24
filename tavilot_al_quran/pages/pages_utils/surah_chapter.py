@@ -58,6 +58,16 @@ def take_id(ids, right_display, page, number=1):
             "Content-Type": "application/json",
             "Accept-Language": page.client_storage.get('language')
         }
+
+    loading = ft.ProgressRing(color=TC)
+    right_display.controls.append(ft.Container(
+        expand=True,
+        adaptive=True,
+        content=loading,
+        alignment=ft.alignment.center)
+    )
+    page.update()
+
     responses = requests.get(url=urls, headers=headers)
     if responses.status_code == 200:
         result_details = responses.json().get('result').get('verses')
@@ -290,7 +300,7 @@ def take_id(ids, right_display, page, number=1):
             alignment=ft.alignment.center,
             border_radius=20,
             height=30,
-            width=275,
+            width=235,
             bgcolor=ft.colors.GREY_200,
             adaptive=True,
             content=ft.Row(

@@ -38,8 +38,8 @@ def surah_page(page):
 
     list_display = ft.ListView(adaptive=True, spacing=10, padding=20)
     list_display_juz = ft.ListView(adaptive=True, spacing=10, padding=20)
-    right_display = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN, alignment=ft.MainAxisAlignment.CENTER,
-                              horizontal_alignment=ft.CrossAxisAlignment.CENTER)
+    right_display = ft.Container(expand=True, alignment=ft.alignment.center, content=ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN, alignment=ft.MainAxisAlignment.CENTER,
+                              horizontal_alignment=ft.CrossAxisAlignment.CENTER))
 
     page.session.set("button_number", 1)
     #------Buttons------------------------------------------------------------------------------------------------------
@@ -81,10 +81,10 @@ def surah_page(page):
         )
 
     #-------------------------------------------------------------------------------------------------------------------
-    surah_chapter(page, list_display, right_display)
+    surah_chapter(page, list_display, right_display.content)
 
 
-    right_display.controls.clear()
+    right_display.content.controls.clear()
     urls = f"http://alquran.zerodev.uz/api/v2/chapter/{1}"
     if page.client_storage.get('access_token'):
         headers = {
@@ -104,8 +104,8 @@ def surah_page(page):
         def change_response(number=1):
             if number == text_arabic.data:
                 page.session.set("button_number", 1)
-                right_display.controls.clear()
-                right_display.controls.append(right_top_bar)
+                right_display.content.controls.clear()
+                right_display.content.controls.append(right_top_bar)
                 text_arabic.style.color = "white"
                 text_arabic.style.bgcolor = TC
                 text_translate.style.color = ft.colors.BLACK
@@ -128,9 +128,9 @@ def surah_page(page):
                             size=20)
                     ]
                 )
-                right_display.controls.append(chapter_n)
+                right_display.content.controls.append(chapter_n)
                 for result_detail in result_details:
-                    right_display.controls.append(ft.Column(
+                    right_display.content.controls.append(ft.Column(
                         key=result_detail.get('number'),
                         controls=[ft.Row(
                             expand=True,
@@ -155,8 +155,8 @@ def surah_page(page):
                     )
             elif number == text_translate.data:
                 page.session.set("button_number", 2)
-                right_display.controls.clear()
-                right_display.controls.append(right_top_bar)
+                right_display.content.controls.clear()
+                right_display.content.controls.append(right_top_bar)
                 text_translate.style.color = 'white'
                 text_translate.style.bgcolor = TC
                 text_arabic.style.color = ft.colors.BLACK
@@ -179,9 +179,9 @@ def surah_page(page):
                             size=20)
                     ]
                 )
-                right_display.controls.append(chapter_n)
+                right_display.content.controls.append(chapter_n)
                 for result_detail in result_details:
-                    right_display.controls.append(ft.Column(
+                    right_display.content.controls.append(ft.Column(
                         key=result_detail.get('number'),
                         controls=[
                             ft.Row(
@@ -219,8 +219,8 @@ def surah_page(page):
                     )
             elif number == text_tafsir.data:
                 page.session.set("button_number", 3)
-                right_display.controls.clear()
-                right_display.controls.append(right_top_bar)
+                right_display.content.controls.clear()
+                right_display.content.controls.append(right_top_bar)
                 text_tafsir.style.color = "white"
                 text_tafsir.style.bgcolor = TC
                 text_arabic.style.color = ft.colors.BLACK
@@ -243,7 +243,7 @@ def surah_page(page):
                             size=20)
                     ]
                 )
-                right_display.controls.append(chapter_n)
+                right_display.content.controls.append(chapter_n)
                 for result_data in result_details:
                     if result_data.get('description'):
                         content = render_description(result_data.get('description'), page)
@@ -284,7 +284,7 @@ def surah_page(page):
                                 content,
                                 ft.Divider(color=TC)
                             ])
-                        right_display.controls.append(tafsir_data),
+                        right_display.content.controls.append(tafsir_data),
             page.update()  # Update the page to reflect changes
 
 
@@ -293,7 +293,7 @@ def surah_page(page):
             alignment=ft.alignment.center,
             border_radius=20,
             height=30,
-            width=275,
+            width=235,
             bgcolor=ft.colors.GREY_200,
             adaptive=True,
             content=ft.Row(
@@ -306,7 +306,7 @@ def surah_page(page):
                 ]
             )
         )
-        right_display.controls.append(right_top_bar)
+        right_display.content.controls.append(right_top_bar)
         chapter_result_d = responses.json().get('result')
         if chapter_result_d == 1:
             chapter_result_d['type_choice'] = 'Makkada'
@@ -323,9 +323,9 @@ def surah_page(page):
                     size=20)
             ]
         )
-        right_display.controls.append(chapter_n_d)
+        right_display.content.controls.append(chapter_n_d)
         for result_detail_d in result_details:
-            right_display.controls.append(ft.Column(
+            right_display.content.controls.append(ft.Column(
                 key=result_detail_d.get('number'),
                 controls=[ft.Row(
                     expand=True,
@@ -349,7 +349,7 @@ def surah_page(page):
                 ])
             )
     else:
-        right_display.controls.append(ft.Container(
+        right_display.content.controls.append(ft.Container(
             alignment=ft.alignment.center,
             content=ft.Text("Server bilan bog'lanishda muammo kuzatildi", size=50, color=TC)
         ))
@@ -385,7 +385,7 @@ def surah_page(page):
                     column_data.controls.append(
                         ft.Container(
                             data=response_detail.get('id'),
-                            on_click=lambda e: take_id(e.control.data, right_display, page),
+                            on_click=lambda e: take_id(e.control.data, right_display.content, page),
                             adaptive=True, content=ft.Text(response_detail.get('number'), color='black'),
                                      shape=ft.BoxShape.CIRCLE, width=60,
                                      height=60, alignment=ft.alignment.center,
@@ -405,7 +405,7 @@ def surah_page(page):
                 for response_detail in result_lists:
                     column_data.controls.append(ft.Container(
                         data=response_detail.get('id'),
-                        on_click=lambda e: take_juz_id(e.control.data, right_display, page, text_arabic, text_translate, text_tafsir),
+                        on_click=lambda e: take_juz_id(e.control.data, right_display.content, page, text_arabic, text_translate, text_tafsir),
                         adaptive=True, content=ft.Text(response_detail.get('number'), color='black'),
                                  shape=ft.BoxShape.CIRCLE,
                                  width=60,
@@ -444,8 +444,7 @@ def surah_page(page):
     # Initialize default colors
     button1_color = TC
     button2_color = ft.colors.BLACK
-    juz_button(list_display_juz, right_display, page, text_arabic, text_translate, text_tafsir)
-
+    juz_button(list_display_juz, right_display.content, page, text_arabic, text_translate, text_tafsir)
     # Define ListView
     list_view = ft.ListView(expand=1, spacing=10)
     list_view.controls = list_display.controls
@@ -555,10 +554,10 @@ def surah_page(page):
     def scroll_to_item(item_id, chapter_id):
 
         # Perform the necessary actions (e.g., highlight or take some action with chapter_id)
-        take_id(chapter_id, number=page.session.get("button_number"), right_display=right_display, page=page)
+        take_id(chapter_id, number=page.session.get("button_number"), right_display=right_display.content, page=page)
 
         # Find the target element
-        target_element = next((control for control in right_display.controls if control.key == item_id), None)
+        target_element = next((control for control in right_display.content.controls if control.key == item_id), None)
 
         if target_element:
             # Apply highlight style
@@ -575,7 +574,7 @@ def surah_page(page):
                 target_element.update()
 
         # Scroll to the target element
-        right_display.scroll_to(key=f"{item_id}", duration=700, curve=ft.AnimationCurve.BOUNCE_OUT)
+        right_display.content.scroll_to(key=f"{item_id}", duration=700, curve=ft.AnimationCurve.BOUNCE_OUT)
         remove_highlight()
         page.update()
 
