@@ -55,73 +55,75 @@ def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafs
     juz_response = requests.get(url=urls, headers=headers)
     if juz_response.status_code == 200:
         juz_result_list = juz_response.json().get('result').get('chapters')
-
         right_display.controls.clear()
-        for juz_i in juz_result_list:
-            # right_display.controls.append(right_top_bar)
-            text_arabic.style.color = "white"
-            text_arabic.style.bgcolor = TC
-            text_translate.style.color = ft.colors.BLACK
-            text_translate.style.bgcolor = ft.colors.GREY_200
-            text_tafsir.style.color = ft.colors.BLACK
-            text_tafsir.style.bgcolor = ft.colors.GREY_200
-            if juz_i == 1:
-                juz_i['type_choice'] = 'Makkada'
-            else:
-                juz_i['type_choice'] = 'Madinada'
-            juz_n = ft.Column(
-                adaptive=True,
-                expand=True,
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                controls=[
-                    ft.Text(value=f"{juz_i.get('name')} Surasi", size=25),
-                    ft.Text(
-                        value=f"{juz_i.get('type_choice')} Nozil Bo'lga, {juz_i.get('verse_number')} Oyatdan Iborat",
-                        size=20)
-                ]
-            )
-            right_display.controls.append(juz_n)
-            for juz_i_verse in juz_i.get('verses'):
-                if juz_i_verse.get('description'):
-                    content = render_description(juz_i_verse.get('description'), page)
+        if not juz_result_list:
+            right_display.controls.append(ft.Text('Malumot topilmadi', size=40, color=TC, expand=True, text_align=ft.TextAlign.CENTER))
+        else:
+            for juz_i in juz_result_list:
+                # right_display.controls.append(right_top_bar)
+                text_arabic.style.color = "white"
+                text_arabic.style.bgcolor = TC
+                text_translate.style.color = ft.colors.BLACK
+                text_translate.style.bgcolor = ft.colors.GREY_200
+                text_tafsir.style.color = ft.colors.BLACK
+                text_tafsir.style.bgcolor = ft.colors.GREY_200
+                if juz_i == 1:
+                    juz_i['type_choice'] = 'Makkada'
                 else:
-                    content = ft.Text()
-                right_display.controls.append(ft.Column(
+                    juz_i['type_choice'] = 'Madinada'
+                juz_n = ft.Column(
                     adaptive=True,
                     expand=True,
-                    controls=[ft.Row(
-                        alignment=ft.MainAxisAlignment.CENTER,
-                        expand=True,
-                        adaptive=True,
-                        controls=[
-                            ft.Container(
-                                image_src=os.path.abspath("assets/Union.png"),
-                                alignment=ft.alignment.center,
-                                width=50,
-                                height=50,
-                                adaptive=True,
-                                content=ft.Text(value=f"{juz_i_verse.get('number')}")
-                            ),
-                            ft.Text(value=f"{juz_i_verse.get('text_arabic')}", size=20,
-                                    text_align=ft.TextAlign.CENTER,
-                                    expand=True, width=page.window_width,
-                                    font_family="Amiri"),
-                            ft.Text(width=10)
-                        ]),
-                        ft.Row(
-                            controls=[
-                                ft.Text(),
-                                ft.Text(
-                                    value=f" {juz_i_verse.get('text')}",
-                                    size=20,
-                                    expand=True,
-                                    width=page.window_width, text_align=ft.TextAlign.LEFT
-                                ),
-                                ft.Text(width=10),
-                            ]
-                        ),
-                        content,
-                        ft.Divider(color=TC)
-                    ])
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    controls=[
+                        ft.Text(value=f"{juz_i.get('name')} Surasi", size=25),
+                        ft.Text(
+                            value=f"{juz_i.get('type_choice')} Nozil Bo'lga, {juz_i.get('verse_number')} Oyatdan Iborat",
+                            size=20)
+                    ]
                 )
+                right_display.controls.append(juz_n)
+                for juz_i_verse in juz_i.get('verses'):
+                    if juz_i_verse.get('description'):
+                        content = render_description(juz_i_verse.get('description'), page)
+                    else:
+                        content = ft.Text()
+                    right_display.controls.append(ft.Column(
+                        adaptive=True,
+                        expand=True,
+                        controls=[ft.Row(
+                            alignment=ft.MainAxisAlignment.CENTER,
+                            expand=True,
+                            adaptive=True,
+                            controls=[
+                                ft.Container(
+                                    image_src=os.path.abspath("assets/Union.png"),
+                                    alignment=ft.alignment.center,
+                                    width=50,
+                                    height=50,
+                                    adaptive=True,
+                                    content=ft.Text(value=f"{juz_i_verse.get('number')}")
+                                ),
+                                ft.Text(value=f"{juz_i_verse.get('text_arabic')}", size=20,
+                                        text_align=ft.TextAlign.CENTER,
+                                        expand=True, width=page.window_width,
+                                        font_family="Amiri"),
+                                ft.Text(width=10)
+                            ]),
+                            ft.Row(
+                                controls=[
+                                    ft.Text(),
+                                    ft.Text(
+                                        value=f" {juz_i_verse.get('text')}",
+                                        size=20,
+                                        expand=True,
+                                        width=page.window_width, text_align=ft.TextAlign.LEFT
+                                    ),
+                                    ft.Text(width=10),
+                                ]
+                            ),
+                            content,
+                            ft.Divider(color=TC)
+                        ])
+                    )
     page.update()

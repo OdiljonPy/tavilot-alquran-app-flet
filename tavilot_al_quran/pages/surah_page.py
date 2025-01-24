@@ -38,7 +38,7 @@ def surah_page(page):
 
     list_display = ft.ListView(adaptive=True, spacing=10, padding=20)
     list_display_juz = ft.ListView(adaptive=True, spacing=10, padding=20)
-    right_display = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
+    right_display = ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN, alignment=ft.MainAxisAlignment.CENTER,
                               horizontal_alignment=ft.CrossAxisAlignment.CENTER)
 
     page.session.set("button_number", 1)

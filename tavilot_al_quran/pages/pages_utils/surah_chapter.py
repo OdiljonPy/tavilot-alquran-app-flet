@@ -12,7 +12,6 @@ def surah_chapter(page, list_display, right_display):
     }
     response = requests.get(url=url, headers=headers)
     if response.status_code == 200:
-        page.clean()
         page.scroll = False
         result_lists = response.json().get('result')
 
