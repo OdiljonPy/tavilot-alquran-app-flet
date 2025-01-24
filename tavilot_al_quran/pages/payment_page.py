@@ -23,6 +23,14 @@ def payment_page(page):
     TC = '#E9BE5F'
     page.clean()
 
+    loading = ft.ProgressRing(color=TC)
+    page.add(ft.Container(
+        expand=True,
+        adaptive=True,
+        content=loading,
+        alignment=ft.alignment.center)
+    )
+
     back_button_text = ft.Text(value=translations[current_language]["back_button_text"], color='black')
 
     back_button = ft.OutlinedButton(
@@ -100,6 +108,7 @@ def payment_page(page):
     response = requests.get(url=payment_url, headers=headers)
 
     if response.status_code == 200:
+        page.clean()
         amount = response.json()
         user_id = response.json().get('user_id')
         url = f"https://my.click.uz/services/pay?service_id=39892&merchant_id=32039&amount={amount.get('prays_click')}&transaction_param={user_id}"

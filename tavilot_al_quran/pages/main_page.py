@@ -86,13 +86,13 @@ def main_page(page):
                 otp_key = response.json().get('result').get('otp_key')
                 go_to_otp_page(page, otp_key, phone_input)
             elif response.json().get('error_code') == 6:
-                register_result.value = 'User already exist'
+                register_result.value = 'Bunday foydlanuvchi mavjud'
                 phone_input.border_color = 'red'
             elif response.json().get('error_code') == 1:
-                register_result.value = 'Too many attmepts! Try later.'
+                register_result.value = "Judaham kop urinish! Iltimos keyiroq urinib ko'ring."
                 phone_input.border_color = 'red'
             else:
-                register_result.value = 'Invalid phone number'
+                register_result.value = "Notog'ri raqam kiritildi"
                 phone_input.border_color = 'red'
             page.update()
 

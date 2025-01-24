@@ -458,13 +458,11 @@ def surah_page(page):
             list_button_number = 1
             button1_color = TC
             button2_color = ft.colors.BLACK
-            print("I am in chanpgerrrrerere")
             list_view.controls = list_display.controls
         elif e.control.data == "button2":
             list_button_number = 2
             button1_color = ft.colors.BLACK
             button2_color = TC
-            print("I am herererererererrerer")
             list_view.controls = list_display_juz.controls
 
         # Refresh UI
