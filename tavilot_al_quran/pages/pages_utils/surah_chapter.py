@@ -95,7 +95,7 @@ def take_id(ids, right_display, page, number=1):
                     controls=[
                         ft.Text(value=f"{chapter_result.get('name')} surasi", size=25),
                         ft.Text(
-                            value=f"{chapter_result.get('type_choice')} nozil bo'lga, {chapter_result.get('verse_number')} oyatdan iborat",
+                            value=f"{chapter_result.get('type_choice')} nozil bo'lgan, {chapter_result.get('verse_number')} oyatdan iborat",
                             size=20)
                     ]
                 )
@@ -146,7 +146,7 @@ def take_id(ids, right_display, page, number=1):
                     controls=[
                         ft.Text(value=f"{chapter_result.get('name')} surasi", size=25),
                         ft.Text(
-                            value=f"{chapter_result.get('type_choice')} nozil bo'lga, {chapter_result.get('verse_number')} oyatdan iborat",
+                            value=f"{chapter_result.get('type_choice')} nozil bo'lgan, {chapter_result.get('verse_number')} oyatdan iborat",
                             size=20)
                     ]
                 )
@@ -210,7 +210,7 @@ def take_id(ids, right_display, page, number=1):
                     controls=[
                         ft.Text(value=f"{chapter_result.get('name')} Surasi", size=25),
                         ft.Text(
-                            value=f"{chapter_result.get('type_choice')} nozil bo'lga, {chapter_result.get('verse_number')} oyatdan iborat",
+                            value=f"{chapter_result.get('type_choice')} nozil bo'lgan, {chapter_result.get('verse_number')} oyatdan iborat",
                             size=20)
                     ]
                 )
@@ -328,7 +328,7 @@ def take_id(ids, right_display, page, number=1):
                 controls=[
                     ft.Text(value=f"{chapter_result.get('name')} surasi", size=25),
                     ft.Text(
-                        value=f"{chapter_result.get('type_choice')} nozil bo'lga, {chapter_result.get('verse_number')} oyatdan iborat",
+                        value=f"{chapter_result.get('type_choice')} nozil bo'lgan, {chapter_result.get('verse_number')} oyatdan iborat",
                         size=20)
                 ]
             )
@@ -378,7 +378,7 @@ def take_id(ids, right_display, page, number=1):
                 controls=[
                     ft.Text(value=f"{chapter_result.get('name')} surasi", size=25),
                     ft.Text(
-                        value=f"{chapter_result.get('type_choice')} nozil bo'lga, {chapter_result.get('verse_number')} oyatdan iborat",
+                        value=f"{chapter_result.get('type_choice')} nozil bo'lgan, {chapter_result.get('verse_number')} oyatdan iborat",
                         size=20)
                 ]
             )
@@ -441,7 +441,7 @@ def take_id(ids, right_display, page, number=1):
                 controls=[
                     ft.Text(value=f"{chapter_result.get('name')} surasi", size=25),
                     ft.Text(
-                        value=f"{chapter_result.get('type_choice')} nozil bo'lga, {chapter_result.get('verse_number')} oyatdan iborat",
+                        value=f"{chapter_result.get('type_choice')} nozil bo'lgan, {chapter_result.get('verse_number')} oyatdan iborat",
                         size=20)
                 ]
             )
