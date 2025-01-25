@@ -122,9 +122,9 @@ def surah_page(page):
                     expand=True,
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
-                        ft.Text(value=f"{chapter_result.get('name')} Surasi", size=25),
+                        ft.Text(value=f"{chapter_result.get('name')} surasi", size=25),
                         ft.Text(
-                            value=f"{chapter_result.get('type_choice')} Nozil Bo'lga, {chapter_result.get('verse_number')} Oyatdan Iborat",
+                            value=f"{chapter_result.get('type_choice')} nozil bo'lgan, {chapter_result.get('verse_number')} oyatdan iborat",
                             size=20)
                     ]
                 )
@@ -173,9 +173,9 @@ def surah_page(page):
                     expand=True,
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
-                        ft.Text(value=f"{chapter_result.get('name')} Surasi", size=25),
+                        ft.Text(value=f"{chapter_result.get('name')} surasi", size=25),
                         ft.Text(
-                            value=f"{chapter_result.get('type_choice')} Nozil Bo'lga, {chapter_result.get('verse_number')} Oyatdan Iborat",
+                            value=f"{chapter_result.get('type_choice')} nozil bo'lga, {chapter_result.get('verse_number')} oyatdan iborat",
                             size=20)
                     ]
                 )
@@ -237,9 +237,9 @@ def surah_page(page):
                     expand=True,
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
-                        ft.Text(value=f"{chapter_result.get('name')} Surasi", size=25),
+                        ft.Text(value=f"{chapter_result.get('name')} surasi", size=25),
                         ft.Text(
-                            value=f"{chapter_result.get('type_choice')} Nozil Bo'lga, {chapter_result.get('verse_number')} Oyatdan Iborat",
+                            value=f"{chapter_result.get('type_choice')} nozil bo'lga, {chapter_result.get('verse_number')} oyatdan iborat",
                             size=20)
                     ]
                 )
@@ -317,9 +317,9 @@ def surah_page(page):
             expand=True,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             controls=[
-                ft.Text(value=f"{chapter_result_d.get('name')} Surasi", size=25),
+                ft.Text(value=f"{chapter_result_d.get('name')} surasi", size=25),
                 ft.Text(
-                    value=f"{chapter_result_d.get('type_choice')} Nozil Bo'lga, {chapter_result_d.get('verse_number')} Oyatdan Iborat",
+                    value=f"{chapter_result_d.get('type_choice')} nozil bo'lga, {chapter_result_d.get('verse_number')} oyatdan iborat",
                     size=20)
             ]
         )
