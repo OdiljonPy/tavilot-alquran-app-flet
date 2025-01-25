@@ -1,8 +1,10 @@
 import flet as ft
 import requests
 from ..html_pdf_handler import render_description
+
 TC = '#E9BE5F'
 import os
+
 
 def juz_button(list_display_juz, right_display, page, text_arabic, text_translate, text_tafsir):
     url = "http://alquran.zerodev.uz/api/v2/juz/"
@@ -18,7 +20,8 @@ def juz_button(list_display_juz, right_display, page, text_arabic, text_translat
             list_display_juz.controls.append(ft.Container(
                 margin=20,
                 data=i.get('id'),
-                on_click=lambda e: take_juz_id(e.control.data, right_display, page, text_arabic, text_translate, text_tafsir),
+                on_click=lambda e: take_juz_id(e.control.data, right_display, page, text_arabic, text_translate,
+                                               text_tafsir),
                 expand=True,
                 content=ft.Row(
                     controls=[
@@ -36,6 +39,7 @@ def juz_button(list_display_juz, right_display, page, text_arabic, text_translat
                 )
             )
             )
+
 
 def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafsir):
     right_display.controls.clear()
@@ -66,7 +70,8 @@ def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafs
         juz_result_list = juz_response.json().get('result').get('chapters')
         right_display.controls.clear()
         if not juz_result_list:
-            right_display.controls.append(ft.Text('Malumot topilmadi', size=40, color=TC, expand=True, text_align=ft.TextAlign.CENTER))
+            right_display.controls.append(
+                ft.Text('Malumot topilmadi', size=40, color=TC, expand=True, text_align=ft.TextAlign.CENTER))
         else:
             for juz_i in juz_result_list:
                 text_arabic.style.color = "white"
