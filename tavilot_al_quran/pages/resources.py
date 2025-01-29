@@ -11,6 +11,9 @@ def resources(page):
     from .menuscript import menuscript
     from .al_quran_oquvchilariga import al_quron_oquvchilariga
     from .studies import studies
+    from .resources_detail import take_content_id
+    from .pages_utils.appbar_search import update_appbar
+
 
     page.scroll = False
     page.clean()
@@ -220,7 +223,7 @@ def resources(page):
         nonlocal active_route
         if route != active_route:
             active_route = route
-            update_appbar()  # Refresh the AppBar with updated colors
+            update_appbar(page, search)  # Refresh the AppBar with updated colors
             if route in routes:
                 routes[route](page)  # Call the corresponding route function
             else:
@@ -252,42 +255,68 @@ def resources(page):
             ]
         ]
 
-    def update_appbar():
-        page.appbar = ft.AppBar(
-            title=ft.Row(
-                alignment=ft.MainAxisAlignment.CENTER,
-                expand=True,
-                adaptive=True,
-                controls=[
-                    *generate_appbar_actions(),
-                ]
-            ),
-            center_title=True,
-            adaptive=True,
-            leading_width=100,
-            leading=ft.Container(
-                on_click=lambda e: home(page),
-                content=ft.Image(
-                    expand=True,
-                    color='#007577',
-                    src=os.path.abspath("assets/tA'VILOT_Монтажная_область1.svg")
-                )),
-            actions=[
-                ft.Row(
-                    adaptive=True,
-                    expand=True,
-                    alignment=ft.MainAxisAlignment.CENTER,
-                    spacing=15,  # Reduced spacing to allow more room for items
-                    controls=[
-                        language_menu,
-                        logout_icon,
-                        about_us_icon,
-                    ],
-                ),
-            ],
-            bgcolor='white',
-            toolbar_height=80,
-        )
+    def fetch_data(query):
+        url = f"http://alquran.zerodev.uz/api/v2/resources/category/?q={query}"
+        if page.client_storage.get('access_token'):
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {page.client_storage.get('access_token')}",
+                "Accept-Language": page.client_storage.get('language')
+            }
+        else:
+            headers = {
+                "Content-Type": "application/json",
+                "Accept-Language": page.client_storage.get('language')
+            }
+        response = requests.get(url=url, headers=headers)
+        if response.status_code == 200:
+            return response.json().get("result", [])
+        else:
+            print("ERROR")
+        return []
 
-    update_appbar()
+    def handle_submit(e):
+        search.close_view(e.data)
+        query = e.data.strip()
+
+        if not query:
+            search.controls.clear()
+            search.update()
+            return
+
+        search_data = fetch_data(query)
+
+        search.controls.clear()
+
+        for search_detail in search_data:
+            item_id = search_detail.get('id')
+
+            # Pass both item_id and chapter_id as default arguments to the lambda function
+            list_tile = ft.ListTile(
+                key=item_id,
+                data=search_detail.get('id'),
+                on_click=lambda e: take_content_id(page, ids=e.control.data),
+                title=ft.Text(
+                    search_detail.get('file_name')
+                )
+            )
+            search.controls.append(list_tile)
+
+        search.open_view()
+        search.update()  # Refresh the UI with the new data
+
+    search = ft.SearchBar(
+        width=180,
+        height=50,
+        expand=True,
+        bar_bgcolor="white",
+        bar_border_side=ft.BorderSide(color=ft.colors.BLUE, width=1),
+        divider_color=ft.colors.AMBER,
+        bar_leading=ft.Icon(ft.icons.SEARCH),
+        bar_hint_text="Nima o'qimoqchisiz?...",
+        view_hint_text="Searching...",
+        on_submit=handle_submit,  # Trigger search when user submits the query
+        controls=[],  # Start with an empty control list
+    )
+    update_appbar(page, search)
     page.update()

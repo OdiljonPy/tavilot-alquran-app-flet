@@ -3,6 +3,7 @@ import flet as ft
 TC = '#E9BE5F'
 import os
 from ..html_pdf_handler import render_description
+import time
 
 def surah_chapter(page, list_display, right_display):
     url = "http://alquran.zerodev.uz/api/v2/chapters/"
@@ -44,6 +45,88 @@ def surah_chapter(page, list_display, right_display):
 
 def take_id(ids, right_display, page, number=1):
     from ..main_page import main_page
+
+    def scroll_to_it(item_id):
+        # Find the target element
+        target_element = next((control for control in right_display.controls if control.key == int(item_id)), None)
+        # Scroll to the target element
+        if target_element:
+            # Apply highlight style
+            original_bgcolor = target_element.controls[0].controls[0].bgcolor
+            target_element.controls[0].controls[0].bgcolor = "yellow"
+            target_element.update()
+
+        # Function to remove highlight after a delay
+        def remove_highlight():
+            # Sleep for 3 seconds
+            time.sleep(3)
+            # Restore original background color
+            target_element.controls[0].controls[0].bgcolor = original_bgcolor
+            target_element.update()
+
+        # Scroll to the target element
+        right_display.scroll_to(key=f"{item_id}", duration=600, curve=ft.AnimationCurve.BOUNCE_OUT)
+        remove_highlight()
+        page.update()
+    # -------VERSE NUMBER CHOOSER----------------------------------------------------------------------------------------
+    def on_clicked(e):
+        scroll_to_it(num_field.value)
+
+    def increase(e):
+        num_field.value = str(int(num_field.value) + 1)
+        page.update()
+
+    def decrease(e):
+        if int(num_field.value) > 0:  # Prevent negative numbers
+            num_field.value = str(int(num_field.value) - 1)
+            page.update()
+
+    num_field = ft.TextField(
+        value="0",
+        width=130,
+        text_align=ft.TextAlign.CENTER,
+        keyboard_type=ft.KeyboardType.NUMBER,
+        border_radius=8,
+        content_padding=40  # Space for buttons
+    )
+
+    number_input = ft.Stack(
+        adaptive=True,
+        height=35,
+        controls=[
+            num_field,
+            ft.Column([
+                ft.IconButton(ft.icons.EXPAND_LESS, on_click=increase, width=40, height=5, expand=True, adaptive=True,
+                              icon_size=18, padding=0),
+                ft.IconButton(ft.icons.EXPAND_MORE, on_click=decrease, width=40, height=5, expand=True, adaptive=True,
+                              icon_size=18, padding=0),
+            ], width=100,
+                expand=True,
+                spacing=0,
+                run_spacing=0)
+        ])
+
+    surah_verse = ft.Container(
+        alignment=ft.alignment.center_right,
+        content=ft.Column(
+            controls=[
+                number_input,
+                ft.OutlinedButton(
+                    on_click=lambda e: on_clicked(e),
+                    width=100,
+                    text="Oyatga o'tish",
+                    style=ft.ButtonStyle(
+                        color='white',
+                        bgcolor=TC,
+                        shape=ft.RoundedRectangleBorder(radius=10),
+                        side=ft.BorderSide(color=TC, width=1),
+                    )
+                )
+
+            ]
+        )
+    )
+
     right_display.controls.clear()
 
     urls = f"http://alquran.zerodev.uz/api/v2/chapter/{ids}"
@@ -295,24 +378,29 @@ def take_id(ids, right_display, page, number=1):
                 on_click=lambda e: main_page(page)
             )
 
-        right_top_bar = ft.Container(
-            expand=True,
-            alignment=ft.alignment.center,
-            border_radius=20,
-            height=30,
-            width=235,
-            bgcolor=ft.colors.GREY_200,
-            adaptive=True,
-            content=ft.Row(
-                alignment=ft.MainAxisAlignment.CENTER,
+        right_top_bar = ft.Column(
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            controls=[
+            surah_verse,
+            ft.Container(
+                expand=True,
+                alignment=ft.alignment.center,
+                border_radius=20,
+                height=30,
+                width=220,
+                bgcolor=ft.colors.GREY_200,
                 adaptive=True,
-                controls=[
-                    text_arabic,
-                    text_translate,
-                    text_tafsir
-                ]
+                content=ft.Row(
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    adaptive=True,
+                    controls=[
+                        text_arabic,
+                        text_translate,
+                        text_tafsir
+                    ]
+                )
             )
-        )
+        ])
         if page.session.get("button_number") == 1:
             right_display.controls.clear()
             right_display.controls.append(right_top_bar)

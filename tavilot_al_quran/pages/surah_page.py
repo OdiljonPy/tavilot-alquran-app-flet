@@ -3,6 +3,7 @@ import flet as ft
 import requests
 import os
 from .pages_utils.surah_juz import juz_button, take_juz_id
+
 TC = '#E9BE5F'
 from .pages_utils.surah_chapter import surah_chapter, take_id
 from .html_pdf_handler import render_description
@@ -38,11 +39,96 @@ def surah_page(page):
 
     list_display = ft.ListView(adaptive=True, spacing=10, padding=20)
     list_display_juz = ft.ListView(adaptive=True, spacing=10, padding=20)
-    right_display = ft.Container(expand=True, alignment=ft.alignment.center, content=ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN, alignment=ft.MainAxisAlignment.CENTER,
-                              horizontal_alignment=ft.CrossAxisAlignment.CENTER))
+    right_display = ft.Container(expand=True, alignment=ft.alignment.center,
+                                 content=ft.Column(spacing=40, expand=True, adaptive=True, scroll=ft.ScrollMode.HIDDEN,
+                                                   alignment=ft.MainAxisAlignment.CENTER,
+                                                   horizontal_alignment=ft.CrossAxisAlignment.CENTER))
 
     page.session.set("button_number", 1)
-    #------Buttons------------------------------------------------------------------------------------------------------
+
+    def scroll_to_it(item_id):
+        # Find the target element
+        target_element = next((control for control in right_display.content.controls if control.key == int(item_id)), None)
+        # Scroll to the target element
+        if target_element:
+            # Apply highlight style
+            original_bgcolor = target_element.controls[0].controls[0].bgcolor
+            target_element.controls[0].controls[0].bgcolor = "yellow"
+            target_element.update()
+
+        # Function to remove highlight after a delay
+        def remove_highlight():
+            # Sleep for 3 seconds
+            time.sleep(3)
+            # Restore original background color
+            target_element.controls[0].controls[0].bgcolor = original_bgcolor
+            target_element.update()
+
+        # Scroll to the target element
+        right_display.content.scroll_to(key=f"{item_id}", duration=600, curve=ft.AnimationCurve.BOUNCE_OUT)
+        remove_highlight()
+        page.update()
+
+    # -------VERSE NUMBER CHOOSER----------------------------------------------------------------------------------------
+    def on_clicked(e):
+        scroll_to_it(num_field.value)
+
+    def increase(e):
+        num_field.value = str(int(num_field.value) + 1)
+        page.update()
+
+    def decrease(e):
+        if int(num_field.value) > 0:  # Prevent negative numbers
+            num_field.value = str(int(num_field.value) - 1)
+            page.update()
+
+    num_field = ft.TextField(
+        value="0",
+        width=130,
+        text_align=ft.TextAlign.CENTER,
+        keyboard_type=ft.KeyboardType.NUMBER,
+        border_radius=8,
+        content_padding=40  # Space for buttons
+    )
+
+    number_input = ft.Stack(
+        adaptive=True,
+        height=35,
+        controls=[
+            num_field,
+            ft.Column([
+                ft.IconButton(ft.icons.EXPAND_LESS, on_click=increase, width=40, height=5, expand=True, adaptive=True,
+                              icon_size=18, padding=0),
+                ft.IconButton(ft.icons.EXPAND_MORE, on_click=decrease, width=40, height=5, expand=True, adaptive=True,
+                              icon_size=18, padding=0),
+            ], width=100,
+                expand=True,
+                spacing=0,
+                run_spacing=0)
+        ])
+
+    surah_verse = ft.Container(
+        alignment=ft.alignment.center_right,
+        content=ft.Column(
+        controls=[
+            number_input,
+            ft.OutlinedButton(
+                on_click=lambda e: on_clicked(e),
+                width=100,
+                text="Oyatga o'tish",
+                style=ft.ButtonStyle(
+                    color='white',
+                    bgcolor=TC,
+                    shape=ft.RoundedRectangleBorder(radius=10),
+                    side=ft.BorderSide(color=TC, width=1),
+                )
+            )
+
+        ]
+    )
+    )
+
+    # ------Buttons------------------------------------------------------------------------------------------------------
 
     text_arabic = ft.TextButton('Arabcha', data=1, style=ft.ButtonStyle(color='white', bgcolor=TC),
                                 on_click=lambda e: change_response(1))
@@ -80,9 +166,8 @@ def surah_page(page):
             on_click=lambda e: main_page(page)
         )
 
-    #-------------------------------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------------------------------
     surah_chapter(page, list_display, right_display.content)
-
 
     right_display.content.controls.clear()
     urls = f"http://alquran.zerodev.uz/api/v2/chapter/{1}"
@@ -287,25 +372,30 @@ def surah_page(page):
                         right_display.content.controls.append(tafsir_data),
             page.update()  # Update the page to reflect changes
 
-
-        right_top_bar = ft.Container(
-            expand=True,
-            alignment=ft.alignment.center,
-            border_radius=20,
-            height=30,
-            width=235,
-            bgcolor=ft.colors.GREY_200,
-            adaptive=True,
-            content=ft.Row(
-                alignment=ft.MainAxisAlignment.CENTER,
+        right_top_bar = ft.Column(
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            controls=[
+            surah_verse,
+            ft.Container(
+                expand=True,
+                alignment=ft.alignment.center,
+                border_radius=20,
+                height=30,
+                width=220,
+                bgcolor=ft.colors.GREY_200,
                 adaptive=True,
-                controls=[
-                    text_arabic,
-                    text_translate,
-                    text_tafsir
-                ]
+                content=ft.Row(
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    adaptive=True,
+                    controls=[
+                        text_arabic,
+                        text_translate,
+                        text_tafsir
+                    ]
+                )
             )
-        )
+        ])
+
         right_display.content.controls.append(right_top_bar)
         chapter_result_d = responses.json().get('result')
         if chapter_result_d == 1:
@@ -356,7 +446,6 @@ def surah_page(page):
 
     page.update()
 
-
     # -----Close button logic---------------------------------------------------------------------------------------------
     list_button_number = 1
 
@@ -368,7 +457,9 @@ def surah_page(page):
     )
 
     is_cleaned = True
-    column_data = ft.Column(controls=[button3], adaptive=True, spacing=10, scroll=ft.ScrollMode.ALWAYS, expand=True, height=page.adaptive)
+    column_data = ft.Column(controls=[button3], adaptive=True, spacing=10, scroll=ft.ScrollMode.ALWAYS, expand=True,
+                            height=page.adaptive)
+
     def close_open_button():
         if list_button_number == 1:
             url = "http://alquran.zerodev.uz/api/v2/chapters/"
@@ -387,9 +478,9 @@ def surah_page(page):
                             data=response_detail.get('id'),
                             on_click=lambda e: take_id(e.control.data, right_display.content, page),
                             adaptive=True, content=ft.Text(response_detail.get('number'), color='black'),
-                                     shape=ft.BoxShape.CIRCLE, width=60,
-                                     height=60, alignment=ft.alignment.center,
-                                     border=ft.border.all(2, color=TC)))
+                            shape=ft.BoxShape.CIRCLE, width=60,
+                            height=60, alignment=ft.alignment.center,
+                            border=ft.border.all(2, color=TC)))
 
         elif list_button_number == 2:
             url = "http://alquran.zerodev.uz/api/v2/juz/"
@@ -405,13 +496,13 @@ def surah_page(page):
                 for response_detail in result_lists:
                     column_data.controls.append(ft.Container(
                         data=response_detail.get('id'),
-                        on_click=lambda e: take_juz_id(e.control.data, right_display.content, page, text_arabic, text_translate, text_tafsir),
+                        on_click=lambda e: take_juz_id(e.control.data, right_display.content, page, text_arabic,
+                                                       text_translate, text_tafsir),
                         adaptive=True, content=ft.Text(response_detail.get('number'), color='black'),
-                                 shape=ft.BoxShape.CIRCLE,
-                                 width=60,
-                                 height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)))
+                        shape=ft.BoxShape.CIRCLE,
+                        width=60,
+                        height=60, alignment=ft.alignment.center, border=ft.border.all(2, color=TC)))
         page.update()
-
 
     # Function to toggle widgets
     def toggle_widgets(e):
@@ -527,7 +618,6 @@ def surah_page(page):
         spacing=0
     )
 
-
     def fetch_data(query):
         url = f"http://alquran.zerodev.uz/api/v2/search/?q={query}&search_type={page.session.get("button_number")}"
         if page.client_storage.get('access_token'):
@@ -547,7 +637,6 @@ def surah_page(page):
         else:
             print("ERROR")
         return []
-
 
     def scroll_to_item(item_id, chapter_id):
 
