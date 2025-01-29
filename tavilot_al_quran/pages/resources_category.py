@@ -65,8 +65,10 @@ def resources_category(page, ids):
         "Accept-Language": page.client_storage.get('language')
     }
     response = requests.get(url=url, headers=headers)
-    data_list = ft.Row(wrap=True, expand=True, scroll=ft.ScrollMode.ALWAYS, alignment=ft.MainAxisAlignment.START,
-                       adaptive=True)
+    data_list = ft.Container(
+        alignment=ft.alignment.center,
+        content=ft.Row(wrap=True, expand=True, scroll=ft.ScrollMode.ALWAYS, alignment=ft.MainAxisAlignment.START,
+                       adaptive=True))
 
     if response.status_code == 200:
         page.clean()
@@ -98,7 +100,7 @@ def resources_category(page, ids):
                 ),
 
             )
-            data_list.controls.append(motrudiy_data)
+            data_list.content.controls.append(motrudiy_data)
         page.update()
 
     divider = ft.Divider(height=30, color='white')
@@ -111,7 +113,7 @@ def resources_category(page, ids):
             horizontal_alignment=ft.CrossAxisAlignment.START,
             adaptive=True,
             controls=[
-                back_button,
+                ft.Row(controls=[back_button], expand=True, scale=ft.Scale(scale_x=0.95)),
                 ft.Text(height=70),
                 data_list
             ]
