@@ -2,7 +2,7 @@ import requests
 import flet as ft
 from .html_pdf_handler import extract_base64_and_save_images, extract_and_process_videos, render_content
 
-def about_us_page(page, back_button):
+def about_us_page(page):
     TC = '#E9BE5F'
     page.clean()
     page.scroll = False
