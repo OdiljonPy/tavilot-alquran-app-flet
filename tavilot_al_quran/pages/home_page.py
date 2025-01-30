@@ -93,7 +93,7 @@ def home(page):
     )
 
     three_windows = ft.Container(
-        margin=30,
+        margin=20,
         expand=True,
         adaptive=True,
         content=ft.Column(
