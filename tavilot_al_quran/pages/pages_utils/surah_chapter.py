@@ -82,12 +82,14 @@ def take_id(ids, right_display, page, number=1):
             page.update()
 
     num_field = ft.TextField(
+        expand=True,
         value="0",
-        width=130,
+        width=100,
+        max_length=4,
         text_align=ft.TextAlign.CENTER,
         keyboard_type=ft.KeyboardType.NUMBER,
         border_radius=8,
-        content_padding=40  # Space for buttons
+        content_padding=30  # Space for buttons
     )
 
     number_input = ft.Stack(
@@ -96,9 +98,9 @@ def take_id(ids, right_display, page, number=1):
         controls=[
             num_field,
             ft.Column([
-                ft.IconButton(ft.icons.EXPAND_LESS, on_click=increase, width=40, height=5, expand=True, adaptive=True,
+                ft.IconButton(ft.icons.EXPAND_LESS, on_click=increase, width=30, height=5, expand=True, adaptive=True,
                               icon_size=18, padding=0),
-                ft.IconButton(ft.icons.EXPAND_MORE, on_click=decrease, width=40, height=5, expand=True, adaptive=True,
+                ft.IconButton(ft.icons.EXPAND_MORE, on_click=decrease, width=30, height=5, expand=True, adaptive=True,
                               icon_size=18, padding=0),
             ], width=100,
                 expand=True,
@@ -107,6 +109,7 @@ def take_id(ids, right_display, page, number=1):
         ])
 
     surah_verse = ft.Container(
+        margin=10,
         alignment=ft.alignment.center_right,
         content=ft.Column(
             controls=[
