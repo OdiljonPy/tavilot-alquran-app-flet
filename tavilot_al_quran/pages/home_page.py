@@ -49,17 +49,17 @@ def home(page):
         current_translation = load_translation("uz")
 
     back_button_text = ft.Text(current_translation.get('back_button_text'), color='black'),
-    moturudiy_text = ft.Text(current_translation.get('three_window_moturudiy'), size=page.window_width * 0.017,
+    moturudiy_text = ft.Text(current_translation.get('three_window_moturudiy'), size=page.window.width * 0.017,
                              color='white', expand=True)
-    al_quron_text = ft.Text(current_translation.get('al_quron_text'), size=page.window_width * 0.017, color='white',
+    al_quron_text = ft.Text(current_translation.get('al_quron_text'), size=page.window.width * 0.017, color='white',
                             expand=True)
-    menuscript_text = ft.Text(current_translation.get('menuscript_text'), size=page.window_width * 0.017, color='white',
+    menuscript_text = ft.Text(current_translation.get('menuscript_text'), size=page.window.width * 0.017, color='white',
                               expand=True)
-    studies_text = ft.Text(current_translation.get('studies_text'), size=page.window_width * 0.017, color='white',
+    studies_text = ft.Text(current_translation.get('studies_text'), size=page.window.width * 0.017, color='white',
                            expand=True)
-    resources_text = ft.Text(current_translation.get('resources_text'), size=page.window_width * 0.014,
+    resources_text = ft.Text(current_translation.get('resources_text'), size=page.window.width * 0.014,
                               color='white', expand=True)
-    refusal_text = ft.Text(current_translation.get('refusal_text'), size=page.window_width * 0.017,
+    refusal_text = ft.Text(current_translation.get('refusal_text'), size=page.window.width * 0.017,
                             color='white', expand=True)
     abu_mansur_motrudiy = ft.Text(current_translation.get('abu_mansur_motrudiy'))
     appbar_tavilot = ft.Text(current_translation.get('appbar_tavilot'))
@@ -347,7 +347,7 @@ def home(page):
     about_us_icon = ft.IconButton(
         icon=ft.Icons.INFO,
         icon_color=TC,
-        on_click=lambda e: about_us_page(page, back_button)
+        on_click=lambda e: about_us_page(page)
     )
 
     def handle_close(e):
@@ -500,18 +500,18 @@ def home(page):
         )
 
     def on_resize(e):
-        moturudiy_text.size = page.window_width * 0.017
-        al_quron_text.size = page.window_width * 0.017
-        menuscript_text.size = page.window_width * 0.017
-        studies_text.size = page.window_width * 0.017
-        resources_text.size = page.window_width * 0.014
-        refusal_text.size = page.window_width * 0.017
-        abu_mansur_motrudiy.size = page.window_width * 0.017
+        moturudiy_text.size = page.window.width * 0.017
+        al_quron_text.size = page.window.width * 0.017
+        menuscript_text.size = page.window.width * 0.017
+        studies_text.size = page.window.width * 0.017
+        resources_text.size = page.window.width * 0.014
+        refusal_text.size = page.window.width * 0.017
+        abu_mansur_motrudiy.size = page.window.width * 0.017
 
         page.update()
 
     # Attach event listener
-    page.on_resize = on_resize
+    page.on_resized = on_resize
 
     update_appbar()
     page.add(entrance_logo, three_windows)

@@ -147,12 +147,12 @@ def render_description(data, page):
             data_list.append(
                 ft.Text(line, style=ft.TextStyle(font_family='Amiri'), text_align=ft.TextAlign.CENTER, size=20,
                         expand=True,
-                        width=page.window_width)
+                        width=page.window.width)
             )
         else:
             # Render non-Arabic content as Markdown
             if line.strip():
                 data_list.append(ft.Markdown(f"## {line}"))
-    container = ft.Container(margin=30, content=ft.Column(controls=data_list, horizontal_alignment=ft.CrossAxisAlignment.CENTER), alignment=ft.alignment.center, adaptive=True, width=page.window_width)
+    container = ft.Container(margin=30, content=ft.Column(controls=data_list, horizontal_alignment=ft.CrossAxisAlignment.CENTER), alignment=ft.alignment.center, adaptive=True, width=page.window.width)
     return container
 

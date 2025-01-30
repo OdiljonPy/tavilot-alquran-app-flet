@@ -119,7 +119,7 @@ def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafs
                                 ),
                                 ft.Text(value=f"{juz_i_verse.get('text_arabic')}", size=20,
                                         text_align=ft.TextAlign.CENTER,
-                                        expand=True, width=page.window_width,
+                                        expand=True, width=page.window.width,
                                         font_family="Amiri"),
                                 ft.Text(width=10)
                             ]),
@@ -130,7 +130,7 @@ def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafs
                                         value=f" {juz_i_verse.get('text')}",
                                         size=20,
                                         expand=True,
-                                        width=page.window_width, text_align=ft.TextAlign.LEFT
+                                        width=page.window.width, text_align=ft.TextAlign.LEFT
                                     ),
                                     ft.Text(width=10),
                                 ]

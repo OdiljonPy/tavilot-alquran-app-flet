@@ -27,15 +27,15 @@ def surah_page(page):
         adaptive=True,
         bgcolor=TC,  # The line's color
         width=5,  # Thickness of the line
-        height=page.window_width,  # Match the height of the containers
+        height=page.window.width,  # Match the height of the containers
     )
 
     def on_resize(event):
-        divider.height = page.window_width
+        divider.height = page.window.width
         page.update()
 
     # Attach resize event handler
-    page.on_resize = on_resize
+    page.on_resized = on_resize
 
     list_display = ft.ListView(adaptive=True, spacing=10, padding=20)
     list_display_juz = ft.ListView(adaptive=True, spacing=10, padding=20)
@@ -231,7 +231,7 @@ def surah_page(page):
                                     content=ft.Text(value=f"{result_detail.get('number')}")
                                 ),
                                 ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                        width=page.window_width,
+                                        width=page.window.width,
                                         text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                 ft.Text(width=10)
                             ]),
@@ -283,7 +283,7 @@ def surah_page(page):
                                         content=ft.Text(value=f"{result_detail.get('number')}")
                                     ),
                                     ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                            width=page.window_width,
+                                            width=page.window.width,
                                             text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                     ft.Text(width=10)
                                 ]),
@@ -294,7 +294,7 @@ def surah_page(page):
                                         value=f" {result_detail.get('text')}",
                                         size=20,
                                         expand=True,
-                                        width=page.window_width, text_align=ft.TextAlign.LEFT
+                                        width=page.window.width, text_align=ft.TextAlign.LEFT
                                     ),
                                     ft.Text(width=10),
                                 ]
@@ -349,7 +349,7 @@ def surah_page(page):
                                             content=ft.Text(value=f"{result_data.get('number')}")
                                         ),
                                         ft.Text(value=f"{result_data.get('text_arabic')}", size=20,
-                                                width=page.window_width,
+                                                width=page.window.width,
                                                 expand=True,
                                                 text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                         ft.Text(width=10)
@@ -362,7 +362,7 @@ def surah_page(page):
                                             value=f" {result_data.get('text')}",
                                             size=20,
                                             expand=True,
-                                            width=page.window_width, text_align=ft.TextAlign.LEFT
+                                            width=page.window.width, text_align=ft.TextAlign.LEFT
                                         ),
                                         ft.Text(width=10)
                                     ]),
@@ -431,7 +431,7 @@ def surah_page(page):
                             content=ft.Text(value=f"{result_detail_d.get('number')}")
                         ),
                         ft.Text(value=f"{result_detail_d.get('text_arabic')}", size=20, expand=True,
-                                width=page.window_width,
+                                width=page.window.width,
                                 text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                         ft.Text(width=10)
                     ]),
@@ -604,10 +604,10 @@ def surah_page(page):
             ft.Container(
                 bgcolor='white',
                 expand=True,
-                width=page.window_width,
+                width=page.window.width,
                 content=ft.Column(
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                    width=page.window_width,
+                    width=page.window.width,
                     adaptive=True,
                     controls=[
                         right_display

@@ -200,7 +200,7 @@ def take_id(ids, right_display, page, number=1):
                                     content=ft.Text(value=f"{result_detail.get('number')}")
                                 ),
                                 ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                        width=page.window_width,
+                                        width=page.window.width,
                                         text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                 ft.Text(width=10)
                             ]),
@@ -252,7 +252,7 @@ def take_id(ids, right_display, page, number=1):
                                         content=ft.Text(value=f"{result_detail.get('number')}")
                                     ),
                                     ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                            width=page.window_width,
+                                            width=page.window.width,
                                             text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                     ft.Text(width=10)
                                 ]),
@@ -263,7 +263,7 @@ def take_id(ids, right_display, page, number=1):
                                         value=f" {result_detail.get('text')}",
                                         size=20,
                                         expand=True,
-                                        width=page.window_width, text_align=ft.TextAlign.LEFT
+                                        width=page.window.width, text_align=ft.TextAlign.LEFT
                                     ),
                                     ft.Text(width=10),
                                 ]
@@ -318,7 +318,7 @@ def take_id(ids, right_display, page, number=1):
                                             content=ft.Text(value=f"{result_data.get('number')}")
                                         ),
                                         ft.Text(value=f"{result_data.get('text_arabic')}", size=20, expand=True,
-                                                width=page.window_width,
+                                                width=page.window.width,
                                                 text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                         ft.Text(width=10)
                                     ]),
@@ -330,7 +330,7 @@ def take_id(ids, right_display, page, number=1):
                                             value=f" {result_data.get('text')}",
                                             size=20,
                                             expand=True,
-                                            width=page.window_width, text_align=ft.TextAlign.LEFT
+                                            width=page.window.width, text_align=ft.TextAlign.LEFT
                                         ),
                                         ft.Text(width=10)
                                     ]),
@@ -438,7 +438,7 @@ def take_id(ids, right_display, page, number=1):
                                 content=ft.Text(value=f"{result_detail.get('number')}")
                             ),
                             ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                    width=page.window_width,
+                                    width=page.window.width,
                                     text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                             ft.Text(width=10)
                         ]),
@@ -489,7 +489,7 @@ def take_id(ids, right_display, page, number=1):
                                     content=ft.Text(value=f"{result_detail.get('number')}")
                                 ),
                                 ft.Text(value=f"{result_detail.get('text_arabic')}", size=20, expand=True,
-                                        width=page.window_width,
+                                        width=page.window.width,
                                         text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                 ft.Text(width=10)
                             ]),
@@ -500,7 +500,7 @@ def take_id(ids, right_display, page, number=1):
                                     value=f" {result_detail.get('text')}",
                                     size=20,
                                     expand=True,
-                                    width=page.window_width, text_align=ft.TextAlign.LEFT
+                                    width=page.window.width, text_align=ft.TextAlign.LEFT
                                 ),
                                 ft.Text(width=10),
                             ]
@@ -554,7 +554,7 @@ def take_id(ids, right_display, page, number=1):
                                         content=ft.Text(value=f"{result_data.get('number')}")
                                     ),
                                     ft.Text(value=f"{result_data.get('text_arabic')}", size=20, expand=True,
-                                            width=page.window_width,
+                                            width=page.window.width,
                                             text_align=ft.TextAlign.CENTER, font_family="Amiri"),
                                     ft.Text(width=10)
                                 ]),
@@ -566,7 +566,7 @@ def take_id(ids, right_display, page, number=1):
                                         value=f" {result_data.get('text')}",
                                         size=20,
                                         expand=True,
-                                        width=page.window_width, text_align=ft.TextAlign.LEFT
+                                        width=page.window.width, text_align=ft.TextAlign.LEFT
                                     ),
                                     ft.Text(width=10)
                                 ]),

@@ -97,7 +97,7 @@ def pdf_page(page, pdf_file, back_button):
 
     page.add(ft.InteractiveViewer(
         expand=True,
-        min_scale=-5,
+        min_scale=0.1,
         max_scale=5,
         content=ft.Container(
             margin=10,

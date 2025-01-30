@@ -26,8 +26,8 @@ def main_page(page):
             expand=True,
             content=ft.Column(
                 adaptive=True,
-                height=page.window_height,
-                width=page.window_width,
+                height=page.window.height,
+                width=page.window.width,
                 alignment=ft.MainAxisAlignment.CENTER,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                 controls=[
