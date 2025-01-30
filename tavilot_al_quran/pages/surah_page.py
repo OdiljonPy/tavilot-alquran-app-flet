@@ -110,14 +110,16 @@ def surah_page(page):
         ])
 
     surah_verse = ft.Container(
-        margin=10,
+        margin=15,
         alignment=ft.alignment.center_right,
-        content=ft.Column(
+        content=ft.Row(
+            alignment=ft.MainAxisAlignment.END,
         controls=[
             number_input,
             ft.OutlinedButton(
                 on_click=lambda e: on_clicked(e),
                 width=100,
+                height=38,
                 text="Oyatga o'tish",
                 style=ft.ButtonStyle(
                     color='white',
@@ -655,13 +657,13 @@ def surah_page(page):
             target_element.controls[0].controls[0].bgcolor = "yellow"
             target_element.update()
 
-            # Function to remove highlight after a delay
-            def remove_highlight():
-                # Sleep for 3 seconds
-                time.sleep(3)
-                # Restore original background color
-                target_element.controls[0].controls[0].bgcolor = original_bgcolor
-                target_element.update()
+        # Function to remove highlight after a delay
+        def remove_highlight():
+            # Sleep for 3 seconds
+            time.sleep(3)
+            # Restore original background color
+            target_element.controls[0].controls[0].bgcolor = original_bgcolor
+            target_element.update()
 
         # Scroll to the target element
         right_display.content.scroll_to(key=f"{item_id}", duration=700, curve=ft.AnimationCurve.BOUNCE_OUT)

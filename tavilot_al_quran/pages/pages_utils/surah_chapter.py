@@ -109,25 +109,27 @@ def take_id(ids, right_display, page, number=1):
         ])
 
     surah_verse = ft.Container(
-        margin=10,
+        margin=15,
         alignment=ft.alignment.center_right,
-        content=ft.Column(
-            controls=[
-                number_input,
-                ft.OutlinedButton(
-                    on_click=lambda e: on_clicked(e),
-                    width=100,
-                    text="Oyatga o'tish",
-                    style=ft.ButtonStyle(
-                        color='white',
-                        bgcolor=TC,
-                        shape=ft.RoundedRectangleBorder(radius=10),
-                        side=ft.BorderSide(color=TC, width=1),
-                    )
+        content=ft.Row(
+            alignment=ft.MainAxisAlignment.END,
+        controls=[
+            number_input,
+            ft.OutlinedButton(
+                on_click=lambda e: on_clicked(e),
+                width=100,
+                height=38,
+                text="Oyatga o'tish",
+                style=ft.ButtonStyle(
+                    color='white',
+                    bgcolor=TC,
+                    shape=ft.RoundedRectangleBorder(radius=10),
+                    side=ft.BorderSide(color=TC, width=1),
                 )
+            )
 
-            ]
-        )
+        ]
+    )
     )
 
     right_display.controls.clear()
