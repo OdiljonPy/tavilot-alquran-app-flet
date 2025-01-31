@@ -89,6 +89,17 @@ def pdf_page(page, pdf_file, back_button):
                                     color='white', width=200)
     next_button = ft.ElevatedButton("Keyingi", on_click=go_to_next_page, disabled=True, bgcolor=TC, color='white', width=200)
 
+    def on_keyboard(e: ft.KeyboardEvent):
+        if e.key == "Arrow Right":
+            next_button.on_click(go_to_next_page)
+
+        elif e.key == "Arrow Left":
+            prev_button.on_click(go_to_previous_page)
+
+        page.update()
+
+    page.on_keyboard_event = on_keyboard
+
     load_pdf_from_api(requests.get(pdf_file).content)
     page.update()
     page.clean()
@@ -128,3 +139,6 @@ def pdf_page(page, pdf_file, back_button):
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER
             )
         )))
+
+    page.appbar = None
+    page.update()
