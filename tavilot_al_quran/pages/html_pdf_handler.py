@@ -147,7 +147,7 @@ def render_description(data, page):
             data_list.append(
                 ft.Text(line, style=ft.TextStyle(font_family='Amiri'), text_align=ft.TextAlign.CENTER, size=20,
                         expand=True,
-                        width=page.window.width)
+                        width=page.window.width, rtl=True)
             )
         else:
             # Render non-Arabic content as Markdown
