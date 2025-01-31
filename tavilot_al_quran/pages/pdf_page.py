@@ -85,9 +85,9 @@ def pdf_page(page, pdf_file, back_button):
             render_page()
 
     # Only create the buttons once
-    prev_button = ft.ElevatedButton("Previous Page", on_click=go_to_previous_page, disabled=True, bgcolor=TC,
-                                    color='white')
-    next_button = ft.ElevatedButton("Next Page", on_click=go_to_next_page, disabled=True, bgcolor=TC, color='white')
+    prev_button = ft.ElevatedButton("Oldingi", on_click=go_to_previous_page, disabled=True, bgcolor=TC,
+                                    color='white', width=200)
+    next_button = ft.ElevatedButton("Keyingi", on_click=go_to_next_page, disabled=True, bgcolor=TC, color='white', width=200)
 
     load_pdf_from_api(requests.get(pdf_file).content)
     page.update()
