@@ -14,7 +14,24 @@ def main_page(page):
     page.scroll = False
     page.padding = 0
 
-    if page.client_storage.get('access_token'):
+    language = language = page.client_storage.get('language')
+    access_token = page.client_storage.get('access_token')
+
+    urls = f"http://alquran.zerodev.uz/api/v1/auth/me/"
+    if access_token:
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {access_token}",
+            "Accept-Language": language
+        }
+    else:
+        headers = {
+            "Content-Type": "application/json",
+            "Accept-Language": language
+        }
+    responses = requests.get(url=urls, headers=headers)
+
+    if responses.status_code == 200:
         home(page)
 
     else:
