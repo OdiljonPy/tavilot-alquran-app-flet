@@ -89,7 +89,7 @@ def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafs
                     expand=True,
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
-                        ft.Text(value=f"{juz_i.get('name')} surasi", size=25),
+                        ft.Text(value=f"{juz_i.get('name')}", size=25),
                         ft.Text(
                             value=f"{juz_i.get('type_choice')} nozil bo'lgan, {juz_i.get('verse_number')} oyatdan iborat",
                             size=20)
