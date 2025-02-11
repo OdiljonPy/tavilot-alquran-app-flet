@@ -7,6 +7,20 @@ import os
 
 
 def juz_button(list_display_juz, right_display, page, text_arabic, text_translate, text_tafsir):
+    # -------Translation of the page-------------------------------------------------------------------------------------
+    import json
+    def load_translation(lang):
+        with open(f"locales/translations.json", "r", encoding="utf-8") as f:
+            return json.load(f).get(lang)
+
+    if page.client_storage.get('language'):
+        current_translation = load_translation(page.client_storage.get('language'))
+    else:
+        current_translation = load_translation("uz")
+
+    text_juz = ft.Text(current_translation.get("text_juz")).value
+    #-------------------------------------------------------------------------------------------------------------------
+
     url = "http://alquran.zerodev.uz/api/v2/juz/"
     headers = {
         "Content-Type": "application/json",
@@ -32,7 +46,7 @@ def juz_button(list_display_juz, right_display, page, text_arabic, text_translat
                         ft.Column(
                             adaptive=True,
                             controls=[
-                                ft.Text(expand=True, value=f"{i.get('number')}-JUZ", size=20),
+                                ft.Text(expand=True, value=f"{i.get('number')}-{text_juz}", size=20),
                                 ft.Text(f"{i.get('title')}", size=15.5, expand=True)
                             ])
                     ]
@@ -43,6 +57,30 @@ def juz_button(list_display_juz, right_display, page, text_arabic, text_translat
 
 def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafsir):
     right_display.controls.clear()
+
+    # -------Translation of the page-------------------------------------------------------------------------------------
+    import json
+    # Function to load JSON translation files
+    def load_translation(lang):
+        with open(f"locales/translations.json", "r", encoding="utf-8") as f:
+            return json.load(f).get(lang)
+
+    if page.client_storage.get('language'):
+        current_translation = load_translation(page.client_storage.get('language'))
+    else:
+        current_translation = load_translation("uz")
+
+    text_makka = ft.Text(current_translation.get("text_makka")).value
+    text_oyat = ft.Text(current_translation.get("text_oyat")).value
+    nozil_bolgan = ft.Text(current_translation.get('nozil_bolgan')).value
+    oyatdan_iborat = ft.Text(current_translation.get('oyatdan_iborat')).value
+    text_madina = ft.Text(current_translation.get('text_madina')).value
+    text_arab = ft.Text(current_translation.get('text_arab')).value
+    text_meaning = ft.Text(current_translation.get('text_meaning')).value
+    text_description = ft.Text(current_translation.get('text_description')).value
+    text_surah = ft.Text(current_translation.get('text_surah')).value
+    text_juz = ft.Text(current_translation.get("text_juz")).value
+    #-------------------------------------------------------------------------------------------------------------------
 
     urls = f"http://alquran.zerodev.uz/api/v2/juz/{ids}/"
 
@@ -81,9 +119,9 @@ def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafs
                 text_tafsir.style.color = ft.colors.BLACK
                 text_tafsir.style.bgcolor = ft.colors.GREY_200
                 if juz_i == 1:
-                    juz_i['type_choice'] = 'Makkada'
+                    juz_i['type_choice'] = text_makka
                 else:
-                    juz_i['type_choice'] = 'Madinada'
+                    juz_i['type_choice'] = text_madina
                 juz_n = ft.Column(
                     adaptive=True,
                     expand=True,
@@ -139,9 +177,4 @@ def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafs
                             ft.Divider(color=TC)
                         ])
                     )
-    else:
-        right_display.controls.append(ft.Container(
-            alignment=ft.alignment.center,
-            content=ft.Text("Server bilan bog'lanishda muammo kuzatildi", size=50, color=TC)
-        ))
     page.update()

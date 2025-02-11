@@ -27,7 +27,8 @@
     "text_open": "Ochish",
     "text_makkiy": "Makkiy",
     "text_madaniy": "Madaniy",
-    "text_search": "Qidirish..."
+    "text_search": "Qidirish...",
+    "word_oyat": "oyat"
   },
   "kr": {
     "back_button_text": "Оркага кайтиш",
@@ -57,6 +58,7 @@
     "text_open": "Очиш",
     "text_makkiy": "Маккий",
     "text_madaniy": "Маданий",
-    "text_search": "Кидириш..."
+    "text_search": "Кидириш...",
+    "word_oyat": "оят"
   }
 }

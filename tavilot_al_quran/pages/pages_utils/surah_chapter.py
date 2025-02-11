@@ -20,6 +20,7 @@ def surah_chapter(page, list_display, right_display):
 
     text_makkiy = ft.Text(current_translation.get('text_makkiy')).value
     text_madaniy = ft.Text(current_translation.get("text_madaniy")).value
+    word_oyat = ft.Text(current_translation.get('word_oyat')).value
 
     #-------------------------------------------------------------------------------------------------------------------
     url = "http://alquran.zerodev.uz/api/v2/chapters/"
@@ -52,7 +53,7 @@ def surah_chapter(page, list_display, right_display):
                         ft.Column(
                             controls=[
                                 ft.Text(i.get('name'), size=20, expand=True),
-                                ft.Text(f"{i.get('type_choice')}, {i.get('verse_number')} oyat", size=15.5, expand=True)
+                                ft.Text(f"{i.get('type_choice')}, {i.get('verse_number')} {word_oyat}", size=15.5, expand=True)
                             ]),
                         ft.Text(value=i.get('name_arabic'), size=18, text_align=ft.TextAlign.RIGHT, width=150,
                                 font_family='Amiri', expand=True)
@@ -68,48 +69,16 @@ def take_id(ids, right_display, page, number=1):
         with open(f"locales/translations.json", "r", encoding="utf-8") as f:
             return json.load(f).get(lang)
 
-    # def change_language(e):
-    #     page.client_storage.set('language', e)
-    #     new_translation = load_translation(e)
-    #     moturudiy_text.value = new_translation.get("three_window_moturudiy")
-    #     al_quron_text.value = new_translation.get("al_quron_text")
-    #     menuscript_text.value = new_translation.get('menuscript_text')
-    #     studies_text.value = new_translation.get('studies_text')
-    #     resources_text.value = new_translation.get('resources_text')
-    #     refusal_text.value = new_translation.get('refusal_text')
-    #     abu_mansur_motrudiy.value = new_translation.get('abu_mansur_motrudiy')
-    #     appbar_tavilot.value = new_translation.get('appbar_tavilot')
-    #     appbar_menuscript.value = new_translation.get('appbar_menuscript')
-    #     appbar_studies.value = new_translation.get('appbar_studies')
-    #     appbar_resources.value = new_translation.get('appbar_resources')
-    #     appbar_refusal.value = new_translation.get('appbar_refusal')
-    #     text_oyat.value = new_translation.get('text_oyat')
-    #     nozil_bolgan.value = new_translation.get('nozil_bolgan')
-    #     oyatdan_iborat.value = new_translation.get('oyatdan_iborat')
-    #     text_makka.value = new_translation.get('text_makka')
-    #     text_madina.value = new_translation.get("text_madina")
-    #     update_appbar(page)
-    #     page.update()
-
     if page.client_storage.get('language'):
         current_translation = load_translation(page.client_storage.get('language'))
     else:
         current_translation = load_translation("uz")
 
     text_makka = ft.Text(current_translation.get("text_makka")).value
-    text_oyat = ft.Text(current_translation.get("text_oyat")).value
-    nozil_bolgan = ft.Text(current_translation.get('nozil_bolgan')).value
-    oyatdan_iborat = ft.Text(current_translation.get('oyatdan_iborat')).value
     text_madina = ft.Text(current_translation.get('text_madina')).value
     text_arab = ft.Text(current_translation.get('text_arab')).value
     text_meaning = ft.Text(current_translation.get('text_meaning')).value
     text_description = ft.Text(current_translation.get('text_description')).value
-    text_surah = ft.Text(current_translation.get('text_surah')).value
-    text_juz = ft.Text(current_translation.get("text_juz")).value
-    text_close = ft.Text(current_translation.get("text_close")).value
-    text_open = ft.Text(current_translation.get('text_open')).value
-    text_makkiy = ft.Text(current_translation.get('text_makkiy')).value
-    text_madaniy = ft.Text(current_translation.get("text_madaniy")).value
 
     #-------------------------------------------------------------------------------------------------------------------
 
