@@ -44,47 +44,25 @@ def surah_page(page):
         with open(f"locales/translations.json", "r", encoding="utf-8") as f:
             return json.load(f).get(lang)
 
-    def change_language(e):
-        page.client_storage.set('language', e)
-        new_translation = load_translation(e)
-        moturudiy_text.value = new_translation.get("three_window_moturudiy")
-        al_quron_text.value = new_translation.get("al_quron_text")
-        menuscript_text.value = new_translation.get('menuscript_text')
-        studies_text.value = new_translation.get('studies_text')
-        resources_text.value = new_translation.get('resources_text')
-        refusal_text.value = new_translation.get('refusal_text')
-        abu_mansur_motrudiy.value = new_translation.get('abu_mansur_motrudiy')
-        appbar_tavilot.value = new_translation.get('appbar_tavilot')
-        appbar_menuscript.value = new_translation.get('appbar_menuscript')
-        appbar_studies.value = new_translation.get('appbar_studies')
-        appbar_resources.value = new_translation.get('appbar_resources')
-        appbar_refusal.value = new_translation.get('appbar_refusal')
-        update_appbar(page)
-        page.update()
-
     if page.client_storage.get('language'):
         current_translation = load_translation(page.client_storage.get('language'))
     else:
         current_translation = load_translation("uz")
 
-    moturudiy_text = ft.Text(current_translation.get('three_window_moturudiy'), size=page.window.width * 0.017,
-                             color='white', expand=True)
-    al_quron_text = ft.Text(current_translation.get('al_quron_text'), size=page.window.width * 0.017, color='white',
-                            expand=True)
-    menuscript_text = ft.Text(current_translation.get('menuscript_text'), size=page.window.width * 0.017, color='white',
-                              expand=True)
-    studies_text = ft.Text(current_translation.get('studies_text'), size=page.window.width * 0.017, color='white',
-                           expand=True)
-    resources_text = ft.Text(current_translation.get('resources_text'), size=page.window.width * 0.014,
-                              color='white', expand=True)
-    refusal_text = ft.Text(current_translation.get('refusal_text'), size=page.window.width * 0.017,
-                            color='white', expand=True)
-    abu_mansur_motrudiy = ft.Text(current_translation.get('abu_mansur_motrudiy'))
-    appbar_tavilot = ft.Text(current_translation.get('appbar_tavilot'))
-    appbar_menuscript = ft.Text(current_translation.get('appbar_menuscript'))
-    appbar_studies = ft.Text(current_translation.get('appbar_studies'))
-    appbar_resources = ft.Text(current_translation.get('appbar_resources'))
-    appbar_refusal = ft.Text(current_translation.get('appbar_refusal'))
+    text_makka = ft.Text(current_translation.get("text_makka")).value
+    text_oyat = ft.Text(current_translation.get("text_oyat")).value
+    nozil_bolgan = ft.Text(current_translation.get('nozil_bolgan')).value
+    oyatdan_iborat = ft.Text(current_translation.get('oyatdan_iborat')).value
+    text_madina = ft.Text(current_translation.get('text_madina')).value
+    text_arab = ft.Text(current_translation.get('text_arab')).value
+    text_meaning = ft.Text(current_translation.get('text_meaning')).value
+    text_description = ft.Text(current_translation.get('text_description')).value
+    text_surah = ft.Text(current_translation.get('text_surah')).value
+    text_juz = ft.Text(current_translation.get("text_juz")).value
+    text_close = ft.Text(current_translation.get("text_close")).value
+    text_open = ft.Text(current_translation.get('text_open')).value
+    text_search = ft.Text(current_translation.get('text_search')).value
+
     #-------------------------------------------------------------------------------------------------------------------
 
     list_display = ft.ListView(adaptive=True, spacing=10, padding=20)
@@ -159,6 +137,7 @@ def surah_page(page):
                 run_spacing=0)
         ])
 
+
     surah_verse = ft.Container(
         margin=15,
         alignment=ft.alignment.center_right,
@@ -170,7 +149,7 @@ def surah_page(page):
                 on_click=lambda e: on_clicked(e),
                 width=100,
                 height=38,
-                text="Oyatga o'tish",
+                text=text_oyat,
                 style=ft.ButtonStyle(
                     color='white',
                     bgcolor=TC,
@@ -182,24 +161,23 @@ def surah_page(page):
         ]
     )
     )
-
     # ------Buttons------------------------------------------------------------------------------------------------------
 
-    text_arabic = ft.TextButton('Arabcha', data=1, style=ft.ButtonStyle(color='white', bgcolor=TC),
+    text_arabic = ft.TextButton(text_arab, data=1, style=ft.ButtonStyle(color='white', bgcolor=TC),
                                 on_click=lambda e: change_response(1))
-    text_translate = ft.TextButton('Tarjima', data=2,
+    text_translate = ft.TextButton(text_meaning, data=2,
                                    style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
                                    on_click=lambda e: change_response(2))
 
     if page.client_storage.get('access_token') and page.client_storage.get('user_rate') == 2:
-        text_tafsir = ft.TextButton('Tafsir', data=3,
+        text_tafsir = ft.TextButton(text_description, data=3,
                                     style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
                                     on_click=lambda e: change_response(3))
 
     elif page.client_storage.get('access_token') and page.client_storage.get('user_rate') == 1:
         text_tafsir = ft.TextButton(
             content=ft.Row(controls=[
-                ft.Text('Tafsir'),
+                ft.Text(text_description),
                 ft.Image(src=os.path.abspath("assets/lock.png"))
             ]
             ),
@@ -254,9 +232,9 @@ def surah_page(page):
                 text_tafsir.style.bgcolor = ft.colors.GREY_200
                 chapter_result = responses.json().get('result')
                 if chapter_result == 1:
-                    chapter_result['type_choice'] = 'Makkada'
+                    chapter_result['type_choice'] = text_makka
                 else:
-                    chapter_result['type_choice'] = 'Madinada'
+                    chapter_result['type_choice'] = text_madina
                 chapter_n = ft.Column(
                     adaptive=True,
                     expand=True,
@@ -264,7 +242,7 @@ def surah_page(page):
                     controls=[
                         ft.Text(value=f"{chapter_result.get('name')}", size=25),
                         ft.Text(
-                            value=f"{chapter_result.get('type_choice')} nozil bo'lgan, {chapter_result.get('verse_number')} oyatdan iborat",
+                            value=f"{chapter_result.get('type_choice')} {nozil_bolgan}, {chapter_result.get('verse_number')} {oyatdan_iborat}",
                             size=20)
                     ]
                 )
@@ -305,9 +283,9 @@ def surah_page(page):
                 text_tafsir.style.bgcolor = ft.colors.GREY_200
                 chapter_result = responses.json().get('result')
                 if chapter_result == 1:
-                    chapter_result['type_choice'] = 'Makkada'
+                    chapter_result['type_choice'] = text_makka
                 else:
-                    chapter_result['type_choice'] = 'Madinada'
+                    chapter_result['type_choice'] = text_madina
                 chapter_n = ft.Column(
                     adaptive=True,
                     expand=True,
@@ -315,7 +293,7 @@ def surah_page(page):
                     controls=[
                         ft.Text(value=f"{chapter_result.get('name')}", size=25),
                         ft.Text(
-                            value=f"{chapter_result.get('type_choice')} nozil bo'lgan, {chapter_result.get('verse_number')} oyatdan iborat",
+                            value=f"{chapter_result.get('type_choice')} {nozil_bolgan}, {chapter_result.get('verse_number')} {oyatdan_iborat}",
                             size=20)
                     ]
                 )
@@ -369,9 +347,9 @@ def surah_page(page):
                 text_translate.style.bgcolor = ft.colors.GREY_200
                 chapter_result = responses.json().get('result')
                 if chapter_result == 1:
-                    chapter_result['type_choice'] = 'Makkada'
+                    chapter_result['type_choice'] = text_makka
                 else:
-                    chapter_result['type_choice'] = 'Madinada'
+                    chapter_result['type_choice'] = text_madina
                 chapter_n = ft.Column(
                     adaptive=True,
                     expand=True,
@@ -379,7 +357,7 @@ def surah_page(page):
                     controls=[
                         ft.Text(value=f"{chapter_result.get('name')}", size=25),
                         ft.Text(
-                            value=f"{chapter_result.get('type_choice')} nozil bo'lgan, {chapter_result.get('verse_number')} oyatdan iborat",
+                            value=f"{chapter_result.get('type_choice')} {nozil_bolgan}, {chapter_result.get('verse_number')} {oyatdan_iborat}",
                             size=20)
                     ]
                 )
@@ -454,9 +432,9 @@ def surah_page(page):
         right_display.content.controls.append(right_top_bar)
         chapter_result_d = responses.json().get('result')
         if chapter_result_d == 1:
-            chapter_result_d['type_choice'] = 'Makkada'
+            chapter_result_d['type_choice'] = text_makka
         else:
-            chapter_result_d['type_choice'] = 'Madinada'
+            chapter_result_d['type_choice'] = text_madina
         chapter_n_d = ft.Column(
             adaptive=True,
             expand=True,
@@ -464,7 +442,7 @@ def surah_page(page):
             controls=[
                 ft.Text(value=f"{chapter_result_d.get('name')}", size=25),
                 ft.Text(
-                    value=f"{chapter_result_d.get('type_choice')} nozil bo'lgan, {chapter_result_d.get('verse_number')} oyatdan iborat",
+                    value=f"{chapter_result_d.get('type_choice')} {nozil_bolgan}, {chapter_result_d.get('verse_number')} {oyatdan_iborat}",
                     size=20)
             ]
         )
@@ -505,7 +483,7 @@ def surah_page(page):
     list_button_number = 1
 
     button3 = ft.TextButton(
-        text='< Yopish',
+        text=f'< {text_close}',
         data='button3',
         style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC),
         on_click=lambda e: toggle_widgets(e)
@@ -564,12 +542,12 @@ def surah_page(page):
         nonlocal is_cleaned
         if is_cleaned:
             close_open_button()
-            button3.text = "Ochish >"
+            button3.text = f"{text_open} >"
             button3.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC)
             side_bar.controls[0].controls = column_data.controls
             side_bar.controls[0].width = 100
         else:
-            button3.text = "< Yopish"
+            button3.text = f"< {text_close}"
             button3.style = ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=TC)
             side_bar.controls[0].width = 350
             side_bar.controls[0].controls = [ft.Row(
@@ -618,7 +596,7 @@ def surah_page(page):
 
     # Define TextButtons
     button1 = ft.TextButton(
-        "Surah",
+        text=text_surah,
         data="button1",
         style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button1_color),
         on_click=lambda e: button_click(e),
@@ -626,7 +604,7 @@ def surah_page(page):
     )
 
     button2 = ft.TextButton(
-        "Juz",
+        text=text_juz,
         data="button2",
         style=ft.ButtonStyle(text_style=ft.TextStyle(size=20), color=button2_color),
         on_click=lambda e: button_click(e),
@@ -761,8 +739,7 @@ def surah_page(page):
         bar_border_side=ft.BorderSide(color=ft.colors.BLUE, width=1),
         divider_color=ft.colors.AMBER,
         bar_leading=ft.Icon(ft.icons.SEARCH),
-        bar_hint_text="Nima o'qimoqchisiz?...",
-        view_hint_text="Searching...",
+        bar_hint_text=text_search,
         on_submit=handle_submit,  # Trigger search when user submits the query
         controls=[],  # Start with an empty control list
     )

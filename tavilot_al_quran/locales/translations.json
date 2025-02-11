@@ -12,7 +12,22 @@
     "appbar_menuscript": "Qo'lyozma va sharhlar",
     "appbar_studies": "Zamonaviy tadqiqotlar",
     "appbar_resources": "Resurslar",
-    "appbar_refusal": "Mutaassib oqimlarga raddiyalar"
+    "appbar_refusal": "Mutaassib oqimlarga raddiyalar",
+    "text_oyat": "Oyatga o'tish",
+    "nozil_bolgan": "nozil bo'lgan",
+    "oyatdan_iborat": "oyatdan iborat",
+    "text_makka": "Makkada",
+    "text_madina": "Madinada",
+    "text_arab": "Arabcha",
+    "text_meaning": "Tarjima",
+    "text_description": "Tafsir",
+    "text_surah": "Surah",
+    "text_juz": "Juz",
+    "text_close": "Yopish",
+    "text_open": "Ochish",
+    "text_makkiy": "Makkiy",
+    "text_madaniy": "Madaniy",
+    "text_search": "Qidirish..."
   },
   "kr": {
     "back_button_text": "Оркага кайтиш",
@@ -27,6 +42,21 @@
     "appbar_menuscript": "Колйозма ва шархлар",
     "appbar_studies": "Замонавий тадкикотлар",
     "appbar_resources": "Русурслар",
-    "appbar_refusal": "Мутаассиб окимларга раддиялар"
+    "appbar_refusal": "Мутаассиб окимларга раддиялар",
+    "text_oyat": "Оятга отиш",
+    "nozil_bolgan": "нозил болган",
+    "oyatdan_iborat": "оятдан иборат",
+    "text_makka": "Маккада",
+    "text_madina": "Мадинада",
+    "text_arab": "Арабча",
+    "text_meaning": "Таржима",
+    "text_description": "Тафсир",
+    "text_surah": "Сура",
+    "text_juz": "Жуз",
+    "text_close": "Йопиш",
+    "text_open": "Очиш",
+    "text_makkiy": "Маккий",
+    "text_madaniy": "Маданий",
+    "text_search": "Кидириш..."
   }
 }

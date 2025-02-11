@@ -6,6 +6,22 @@ from ..html_pdf_handler import render_description
 import time
 
 def surah_chapter(page, list_display, right_display):
+    # -------Translation of the page-------------------------------------------------------------------------------------
+    import json
+    # Function to load JSON translation files
+    def load_translation(lang):
+        with open(f"locales/translations.json", "r", encoding="utf-8") as f:
+            return json.load(f).get(lang)
+
+    if page.client_storage.get('language'):
+        current_translation = load_translation(page.client_storage.get('language'))
+    else:
+        current_translation = load_translation("uz")
+
+    text_makkiy = ft.Text(current_translation.get('text_makkiy')).value
+    text_madaniy = ft.Text(current_translation.get("text_madaniy")).value
+
+    #-------------------------------------------------------------------------------------------------------------------
     url = "http://alquran.zerodev.uz/api/v2/chapters/"
     headers = {
         "Content-Type": "application/json",
@@ -18,9 +34,9 @@ def surah_chapter(page, list_display, right_display):
 
         for i in result_lists:
             if i.get('type_choice') == 1:
-                i['type_choice'] = 'Makkiy'
+                i['type_choice'] = text_makkiy
             else:
-                i['type_choice'] = 'Madaniy'
+                i['type_choice'] = text_madaniy
 
             list_display.controls.append(ft.Container(
                 margin=20,
@@ -44,6 +60,59 @@ def surah_chapter(page, list_display, right_display):
 
 
 def take_id(ids, right_display, page, number=1):
+
+    # -------Translation of the page-------------------------------------------------------------------------------------
+    import json
+    # Function to load JSON translation files
+    def load_translation(lang):
+        with open(f"locales/translations.json", "r", encoding="utf-8") as f:
+            return json.load(f).get(lang)
+
+    # def change_language(e):
+    #     page.client_storage.set('language', e)
+    #     new_translation = load_translation(e)
+    #     moturudiy_text.value = new_translation.get("three_window_moturudiy")
+    #     al_quron_text.value = new_translation.get("al_quron_text")
+    #     menuscript_text.value = new_translation.get('menuscript_text')
+    #     studies_text.value = new_translation.get('studies_text')
+    #     resources_text.value = new_translation.get('resources_text')
+    #     refusal_text.value = new_translation.get('refusal_text')
+    #     abu_mansur_motrudiy.value = new_translation.get('abu_mansur_motrudiy')
+    #     appbar_tavilot.value = new_translation.get('appbar_tavilot')
+    #     appbar_menuscript.value = new_translation.get('appbar_menuscript')
+    #     appbar_studies.value = new_translation.get('appbar_studies')
+    #     appbar_resources.value = new_translation.get('appbar_resources')
+    #     appbar_refusal.value = new_translation.get('appbar_refusal')
+    #     text_oyat.value = new_translation.get('text_oyat')
+    #     nozil_bolgan.value = new_translation.get('nozil_bolgan')
+    #     oyatdan_iborat.value = new_translation.get('oyatdan_iborat')
+    #     text_makka.value = new_translation.get('text_makka')
+    #     text_madina.value = new_translation.get("text_madina")
+    #     update_appbar(page)
+    #     page.update()
+
+    if page.client_storage.get('language'):
+        current_translation = load_translation(page.client_storage.get('language'))
+    else:
+        current_translation = load_translation("uz")
+
+    text_makka = ft.Text(current_translation.get("text_makka")).value
+    text_oyat = ft.Text(current_translation.get("text_oyat")).value
+    nozil_bolgan = ft.Text(current_translation.get('nozil_bolgan')).value
+    oyatdan_iborat = ft.Text(current_translation.get('oyatdan_iborat')).value
+    text_madina = ft.Text(current_translation.get('text_madina')).value
+    text_arab = ft.Text(current_translation.get('text_arab')).value
+    text_meaning = ft.Text(current_translation.get('text_meaning')).value
+    text_description = ft.Text(current_translation.get('text_description')).value
+    text_surah = ft.Text(current_translation.get('text_surah')).value
+    text_juz = ft.Text(current_translation.get("text_juz")).value
+    text_close = ft.Text(current_translation.get("text_close")).value
+    text_open = ft.Text(current_translation.get('text_open')).value
+    text_makkiy = ft.Text(current_translation.get('text_makkiy')).value
+    text_madaniy = ft.Text(current_translation.get("text_madaniy")).value
+
+    #-------------------------------------------------------------------------------------------------------------------
+
     from ..main_page import main_page
 
     def scroll_to_it(item_id):
@@ -173,9 +242,9 @@ def take_id(ids, right_display, page, number=1):
                 text_tafsir.style.bgcolor = ft.colors.GREY_200
                 chapter_result = responses.json().get('result')
                 if chapter_result == 1:
-                    chapter_result['type_choice'] = 'Makkada'
+                    chapter_result['type_choice'] = text_makka
                 else:
-                    chapter_result['type_choice'] = 'Madinada'
+                    chapter_result['type_choice'] = text_madina
                 chapter_n = ft.Column(
                     adaptive=True,
                     expand=True,
@@ -224,9 +293,9 @@ def take_id(ids, right_display, page, number=1):
                 text_tafsir.style.bgcolor = ft.colors.GREY_200
                 chapter_result = responses.json().get('result')
                 if chapter_result == 1:
-                    chapter_result['type_choice'] = 'Makkada'
+                    chapter_result['type_choice'] = text_makka
                 else:
-                    chapter_result['type_choice'] = 'Madinada'
+                    chapter_result['type_choice'] = text_madina
                 chapter_n = ft.Column(
                     adaptive=True,
                     expand=True,
@@ -288,9 +357,9 @@ def take_id(ids, right_display, page, number=1):
                 text_translate.style.bgcolor = ft.colors.GREY_200
                 chapter_result = responses.json().get('result')
                 if chapter_result == 1:
-                    chapter_result['type_choice'] = 'Makkada'
+                    chapter_result['type_choice'] = text_makka
                 else:
-                    chapter_result['type_choice'] = 'Madinada'
+                    chapter_result['type_choice'] = text_madina
                 chapter_n = ft.Column(
                     adaptive=True,
                     expand=True,
@@ -347,22 +416,22 @@ def take_id(ids, right_display, page, number=1):
                         print("ERROR")
             page.update()  # Update the page to reflect changes
 
-        text_arabic = ft.TextButton('Arabcha', data=1, style=ft.ButtonStyle(color='white', bgcolor=TC),
+        text_arabic = ft.TextButton(text_arab, data=1, style=ft.ButtonStyle(color='white', bgcolor=TC),
                                     on_click=lambda e: change_response(1))
-        text_translate = ft.TextButton('Tarjima', data=2,
+        text_translate = ft.TextButton(text_meaning, data=2,
                                        style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
                                        on_click=lambda e: change_response(2))
 
         text_tafsir = ''
         if page.client_storage.get('access_token') and page.client_storage.get('user_rate') == 2:
-            text_tafsir = ft.TextButton('Tafsir', data=3,
+            text_tafsir = ft.TextButton(text_description, data=3,
                                         style=ft.ButtonStyle(color='black', bgcolor=ft.colors.GREY_200),
                                         on_click=lambda e: change_response(3))
 
         elif page.client_storage.get('access_token') and page.client_storage.get('user_rate') == 1:
             text_tafsir = ft.TextButton(
                 content=ft.Row(controls=[
-                    ft.Text('Tafsir'),
+                    ft.Text(text_description),
                     ft.Image(src=os.path.abspath("assets/lock.png"))
                 ]
                 ),
@@ -374,7 +443,7 @@ def take_id(ids, right_display, page, number=1):
         else:
             text_tafsir = ft.TextButton(
                 content=ft.Row(controls=[
-                    ft.Text('Tafsir'),
+                    ft.Text(text_description),
                     ft.Image(src=os.path.abspath("assets/lock.png"))
                 ]
                 ),
@@ -411,9 +480,9 @@ def take_id(ids, right_display, page, number=1):
             right_display.controls.append(right_top_bar)
             chapter_result = responses.json().get('result')
             if chapter_result == 1:
-                chapter_result['type_choice'] = 'Makkada'
+                chapter_result['type_choice'] = text_makka
             else:
-                chapter_result['type_choice'] = 'Madinada'
+                chapter_result['type_choice'] = text_madina
             chapter_n = ft.Column(
                 adaptive=True,
                 expand=True,
@@ -461,9 +530,9 @@ def take_id(ids, right_display, page, number=1):
             text_tafsir.style.bgcolor = ft.colors.GREY_200
             chapter_result = responses.json().get('result')
             if chapter_result == 1:
-                chapter_result['type_choice'] = 'Makkada'
+                chapter_result['type_choice'] = text_makka
             else:
-                chapter_result['type_choice'] = 'Madinada'
+                chapter_result['type_choice'] = text_madina
             chapter_n = ft.Column(
                 adaptive=True,
                 expand=True,
@@ -524,9 +593,9 @@ def take_id(ids, right_display, page, number=1):
             text_translate.style.bgcolor = ft.colors.GREY_200
             chapter_result = responses.json().get('result')
             if chapter_result == 1:
-                chapter_result['type_choice'] = 'Makkada'
+                chapter_result['type_choice'] = text_makka
             else:
-                chapter_result['type_choice'] = 'Madinada'
+                chapter_result['type_choice'] = text_madina
             chapter_n = ft.Column(
                 adaptive=True,
                 expand=True,
@@ -579,9 +648,4 @@ def take_id(ids, right_display, page, number=1):
                             ft.Divider(color=TC)
                         ])
                     right_display.controls.append(tafsir_data),
-    else:
-        right_display.controls.append(ft.Container(
-            alignment=ft.alignment.center,
-            content=ft.Text("Server bilan bog'lanishda muammo kuzatildi", size=50, color=TC)
-        ))
     page.update()
