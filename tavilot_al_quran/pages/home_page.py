@@ -39,7 +39,7 @@ def home(page):
         appbar_studies.value = new_translation.get('appbar_studies')
         appbar_resources.value = new_translation.get('appbar_resources')
         appbar_refusal.value = new_translation.get('appbar_refusal')
-        update_appbar()
+        update_appbar(page)
         page.update()
 
     if page.client_storage.get('language'):

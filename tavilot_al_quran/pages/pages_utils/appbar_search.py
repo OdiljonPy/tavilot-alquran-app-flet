@@ -147,6 +147,7 @@ def update_appbar(page, search=None):
         ]
     )
 
+
     def generate_appbar_actions():
         return [
             ft.TextButton(
@@ -155,7 +156,7 @@ def update_appbar(page, search=None):
                 text=route_label,
                 style=ft.ButtonStyle(
                     padding=0,
-                    text_style=ft.TextStyle(size=15),
+                    # text_style=ft.TextStyle(size=15),
                     color='#007577' if route == active_route else ft.colors.BLACK,
                 ),
                 on_click=lambda e, r=route: navigate(e, r, page)
@@ -241,3 +242,11 @@ def update_appbar(page, search=None):
             bgcolor='white',
             toolbar_height=80,
         )
+
+        def on_resize(e):
+            abu_mansur_motrudiy.size = page.window.width * 0.017
+
+            page.update()
+
+        # Attach event listener
+        page.on_resized = on_resize
