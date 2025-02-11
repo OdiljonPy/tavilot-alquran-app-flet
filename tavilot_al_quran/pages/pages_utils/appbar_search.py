@@ -31,32 +31,11 @@ def navigate(e, route, page):
             page.add(ft.Text("404 - Page Not Found", size=20))
             page.update()
 
-def generate_appbar_actions(page):
-    return [
-        ft.TextButton(
-            adaptive=True,
-            expand=True,
-            text=route_label,
-            style=ft.ButtonStyle(
-                padding=0,
-                text_style=ft.TextStyle(size=15),
-                color='#007577' if route == active_route else ft.colors.BLACK,
-            ),
-            on_click=lambda e, r=route: navigate(e, r, page)
-        )
-        for route, route_label in [
-            ("Abu Mansur Motrudiy", "Abu Mansur Motrudiy"),
-            ("Tavilot al-Quron", "Tavilot al-Quron"),
-            ("Qo'lyozma va sharhlar", "Qo'lyozma va sharhlar"),
-            ("Zamonaviy tadqiqotlar", "Zamonaviy tadqiqotlar"),
-            ("Resurslar", "Resurslar"),
-            ("Mutaassib oqimlarga raddiyalar", "Mutaassib oqimlarga raddiyalar")
 
-        ]
-    ]
 TC = '#E9BE5F'
 
 def update_appbar(page, search=None):
+
 
     # -------Translation of the page-------------------------------------------------------------------------------------
     import json
@@ -74,19 +53,27 @@ def update_appbar(page, search=None):
         # studies_text.value = new_translation.get('studies_text')
         # resources_text.value = new_translation.get('resources_text')
         # refusal_text.value = new_translation.get('refusal_text')
-        # abu_mansur_motrudiy.value = new_translation.get('abu_mansur_motrudiy')
-        # appbar_tavilot.value = new_translation.get('appbar_tavilot')
-        # appbar_menuscript.value = new_translation.get('appbar_menuscript')
-        # appbar_studies.value = new_translation.get('appbar_studies')
-        # appbar_resources.value = new_translation.get('appbar_resources')
-        # appbar_refusal.value = new_translation.get('appbar_refusal')
-        update_appbar(page)
+        abu_mansur_motrudiy.value = new_translation.get('abu_mansur_motrudiy')
+        appbar_tavilot.value = new_translation.get('appbar_tavilot')
+        appbar_menuscript.value = new_translation.get('appbar_menuscript')
+        appbar_studies.value = new_translation.get('appbar_studies')
+        appbar_resources.value = new_translation.get('appbar_resources')
+        appbar_refusal.value = new_translation.get('appbar_refusal')
+        update_appbar(page, search)
         page.update()
 
     if page.client_storage.get('language'):
         current_translation = load_translation(page.client_storage.get('language'))
     else:
         current_translation = load_translation("uz")
+
+    abu_mansur_motrudiy = ft.Text(current_translation.get('abu_mansur_motrudiy'))
+    appbar_tavilot = ft.Text(current_translation.get('appbar_tavilot'))
+    appbar_menuscript = ft.Text(current_translation.get('appbar_menuscript'))
+    appbar_studies = ft.Text(current_translation.get('appbar_studies'))
+    appbar_resources = ft.Text(current_translation.get('appbar_resources'))
+    appbar_refusal = ft.Text(current_translation.get('appbar_refusal'))
+    #-------------------------------------------------------------------------------------------------------------------
 
     about_us_icon = ft.IconButton(
         icon=ft.Icons.INFO,
@@ -160,6 +147,30 @@ def update_appbar(page, search=None):
         ]
     )
 
+    def generate_appbar_actions():
+        return [
+            ft.TextButton(
+                adaptive=True,
+                expand=True,
+                text=route_label,
+                style=ft.ButtonStyle(
+                    padding=0,
+                    text_style=ft.TextStyle(size=15),
+                    color='#007577' if route == active_route else ft.colors.BLACK,
+                ),
+                on_click=lambda e, r=route: navigate(e, r, page)
+            )
+            for route, route_label in [
+                ("Abu Mansur Motrudiy", abu_mansur_motrudiy.value),
+                ("Tavilot al-Quron", appbar_tavilot.value),
+                ("Qo'lyozma va sharhlar", appbar_menuscript.value),
+                ("Zamonaviy tadqiqotlar", appbar_studies.value),
+                ("Resurslar", appbar_resources.value),
+                ("Mutaassib oqimlarga raddiyalar", appbar_refusal.value)
+
+            ]
+        ]
+
     if search:
         page.appbar = ft.AppBar(
             title=ft.Row(
@@ -167,7 +178,7 @@ def update_appbar(page, search=None):
                 expand=True,
                 adaptive=True,
                 controls=[
-                    *generate_appbar_actions(page),
+                    *generate_appbar_actions(),
                 ]
             ),
             center_title=True,
@@ -201,7 +212,7 @@ def update_appbar(page, search=None):
                 expand=True,
                 adaptive=True,
                 controls=[
-                    *generate_appbar_actions(page),
+                    *generate_appbar_actions(),
                 ]
             ),
             center_title=True,

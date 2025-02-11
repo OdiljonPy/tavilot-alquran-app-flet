@@ -37,6 +37,56 @@ def surah_page(page):
     # Attach resize event handler
     page.on_resized = on_resize
 
+    # -------Translation of the page-------------------------------------------------------------------------------------
+    import json
+    # Function to load JSON translation files
+    def load_translation(lang):
+        with open(f"locales/translations.json", "r", encoding="utf-8") as f:
+            return json.load(f).get(lang)
+
+    def change_language(e):
+        page.client_storage.set('language', e)
+        new_translation = load_translation(e)
+        moturudiy_text.value = new_translation.get("three_window_moturudiy")
+        al_quron_text.value = new_translation.get("al_quron_text")
+        menuscript_text.value = new_translation.get('menuscript_text')
+        studies_text.value = new_translation.get('studies_text')
+        resources_text.value = new_translation.get('resources_text')
+        refusal_text.value = new_translation.get('refusal_text')
+        abu_mansur_motrudiy.value = new_translation.get('abu_mansur_motrudiy')
+        appbar_tavilot.value = new_translation.get('appbar_tavilot')
+        appbar_menuscript.value = new_translation.get('appbar_menuscript')
+        appbar_studies.value = new_translation.get('appbar_studies')
+        appbar_resources.value = new_translation.get('appbar_resources')
+        appbar_refusal.value = new_translation.get('appbar_refusal')
+        update_appbar(page)
+        page.update()
+
+    if page.client_storage.get('language'):
+        current_translation = load_translation(page.client_storage.get('language'))
+    else:
+        current_translation = load_translation("uz")
+
+    moturudiy_text = ft.Text(current_translation.get('three_window_moturudiy'), size=page.window.width * 0.017,
+                             color='white', expand=True)
+    al_quron_text = ft.Text(current_translation.get('al_quron_text'), size=page.window.width * 0.017, color='white',
+                            expand=True)
+    menuscript_text = ft.Text(current_translation.get('menuscript_text'), size=page.window.width * 0.017, color='white',
+                              expand=True)
+    studies_text = ft.Text(current_translation.get('studies_text'), size=page.window.width * 0.017, color='white',
+                           expand=True)
+    resources_text = ft.Text(current_translation.get('resources_text'), size=page.window.width * 0.014,
+                              color='white', expand=True)
+    refusal_text = ft.Text(current_translation.get('refusal_text'), size=page.window.width * 0.017,
+                            color='white', expand=True)
+    abu_mansur_motrudiy = ft.Text(current_translation.get('abu_mansur_motrudiy'))
+    appbar_tavilot = ft.Text(current_translation.get('appbar_tavilot'))
+    appbar_menuscript = ft.Text(current_translation.get('appbar_menuscript'))
+    appbar_studies = ft.Text(current_translation.get('appbar_studies'))
+    appbar_resources = ft.Text(current_translation.get('appbar_resources'))
+    appbar_refusal = ft.Text(current_translation.get('appbar_refusal'))
+    #-------------------------------------------------------------------------------------------------------------------
+
     list_display = ft.ListView(adaptive=True, spacing=10, padding=20)
     list_display_juz = ft.ListView(adaptive=True, spacing=10, padding=20)
     right_display = ft.Container(expand=True, alignment=ft.alignment.center,
