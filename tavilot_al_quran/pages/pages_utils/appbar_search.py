@@ -155,8 +155,8 @@ def update_appbar(page, search=None):
                 expand=True,
                 text=route_label,
                 style=ft.ButtonStyle(
-                    padding=0,
-                    # text_style=ft.TextStyle(size=15),
+                    padding=3,
+                    text_style=ft.TextStyle(size=15, overflow=ft.TextOverflow.ELLIPSIS),
                     color='#007577' if route == active_route else ft.colors.BLACK,
                 ),
                 on_click=lambda e, r=route: navigate(e, r, page)

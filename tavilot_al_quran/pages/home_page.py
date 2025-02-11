@@ -56,8 +56,8 @@ def home(page):
                               expand=True)
     studies_text = ft.Text(current_translation.get('studies_text'), size=page.window.width * 0.017, color='white',
                            expand=True)
-    resources_text = ft.Text(current_translation.get('resources_text'), size=page.window.width * 0.014,
-                              color='white', expand=True)
+    resources_text = ft.Text(current_translation.get('resources_text'), size=page.window.width * 0.017,
+                              color='white', expand=True, overflow=ft.TextOverflow.ELLIPSIS, no_wrap=True)
     refusal_text = ft.Text(current_translation.get('refusal_text'), size=page.window.width * 0.017,
                             color='white', expand=True)
     abu_mansur_motrudiy = ft.Text(current_translation.get('abu_mansur_motrudiy'))
@@ -348,7 +348,7 @@ def home(page):
         al_quron_text.size = page.window.width * 0.017
         menuscript_text.size = page.window.width * 0.017
         studies_text.size = page.window.width * 0.017
-        resources_text.size = page.window.width * 0.014
+        resources_text.size = page.window.width * 0.017
         refusal_text.size = page.window.width * 0.017
         abu_mansur_motrudiy.size = page.window.width * 0.017
 
