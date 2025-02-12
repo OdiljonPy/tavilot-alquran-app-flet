@@ -106,7 +106,6 @@ def render_content(container, parts, video_files, page):
                                         ),
                                     ],
                                     alignment=ft.alignment.center,
-                                    # on_click=redirect_to_youtube,  # Redirect on click
                                 )
                             )
                             video_index += 1
@@ -133,6 +132,11 @@ def render_content(container, parts, video_files, page):
     container.update()
 
 
+def clean_quotes(text):
+    # Remove ** from inside quotes while keeping surrounding **
+    return re.sub(r'\*\*"\*\*(.*?)\*\*"\*\*', r'"**\1**"', text)
+
+
 def render_description(data, page):
     arabic_pattern = r'[\u0600-\u06FF]+'
     markdown_content = md(data)
@@ -141,18 +145,27 @@ def render_description(data, page):
     # Split the content into lines to detect and process Arabic text line by line
     lines = markdown_content.splitlines()
     for line in lines:
+        # Apply cleaning only to quotes
+        cleaned_line = clean_quotes(line)
+
         # Render non-video content as text
-        if re.search(arabic_pattern, line):
+        if re.search(arabic_pattern, cleaned_line):
             # Render Arabic text with a custom font using ft.Text
             data_list.append(
-                ft.Text(line, style=ft.TextStyle(font_family='Amiri'), text_align=ft.TextAlign.CENTER, size=20,
-                        expand=True,
-                        width=page.window.width, rtl=True)
+                ft.Markdown(f"## {ft.Text(cleaned_line, rtl=True).value}", code_style=ft.TextStyle(font_family="Amiri"))
             )
         else:
             # Render non-Arabic content as Markdown
-            if line.strip():
-                data_list.append(ft.Markdown(f"## {line}"))
-    container = ft.Container(margin=30, content=ft.Column(controls=data_list, horizontal_alignment=ft.CrossAxisAlignment.CENTER), alignment=ft.alignment.center, adaptive=True, width=page.window.width)
+            if cleaned_line.strip():
+                data_list.append(ft.Markdown(f"## {cleaned_line}"))
+
+    container = ft.Container(
+        margin=30,
+        content=ft.Column(controls=data_list, horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+        alignment=ft.alignment.center,
+        adaptive=True,
+        width=page.window.width
+    )
+
     return container
 
