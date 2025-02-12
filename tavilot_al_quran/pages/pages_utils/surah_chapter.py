@@ -364,7 +364,9 @@ def take_id(ids, right_display, page, number=1):
                                         ),
                                         ft.Text(value=f"{result_data.get('text_arabic')}", size=20, expand=True,
                                                 width=page.window.width,
-                                                text_align=ft.TextAlign.CENTER, font_family="Amiri"),
+                                                text_align=ft.TextAlign.CENTER, font_family="Amiri",
+                                                weight=ft.FontWeight.BOLD
+                                                ),
                                         ft.Text(width=10)
                                     ]),
                                 ft.Row(
@@ -599,7 +601,8 @@ def take_id(ids, right_display, page, number=1):
                                     ),
                                     ft.Text(value=f"{result_data.get('text_arabic')}", size=20, expand=True,
                                             width=page.window.width,
-                                            text_align=ft.TextAlign.CENTER, font_family="Amiri"),
+                                            text_align=ft.TextAlign.CENTER, font_family="Amiri",
+                                            weight=ft.FontWeight.BOLD),
                                     ft.Text(width=10)
                                 ]),
                             ft.Row(

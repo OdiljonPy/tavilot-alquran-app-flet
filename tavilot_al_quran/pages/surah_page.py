@@ -384,7 +384,9 @@ def surah_page(page):
                                         ft.Text(value=f"{result_data.get('text_arabic')}", size=20,
                                                 width=page.window.width,
                                                 expand=True,
-                                                text_align=ft.TextAlign.CENTER, font_family="Amiri"),
+                                                text_align=ft.TextAlign.CENTER, font_family="Amiri",
+                                                weight=ft.FontWeight.BOLD
+                                                ),
                                         ft.Text(width=10)
                                     ]),
                                 ft.Row(
@@ -415,7 +417,7 @@ def surah_page(page):
                 alignment=ft.alignment.center,
                 border_radius=20,
                 height=30,
-                width=220,
+                width=230,
                 bgcolor=ft.colors.GREY_200,
                 adaptive=True,
                 content=ft.Row(
