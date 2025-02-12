@@ -72,6 +72,8 @@ def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafs
 
     text_makka = ft.Text(current_translation.get("text_makka")).value
     text_madina = ft.Text(current_translation.get('text_madina')).value
+    nozil_bolgan = ft.Text(current_translation.get('nozil_bolgan')).value
+    oyatdan_iborat = ft.Text(current_translation.get('oyatdan_iborat')).value
     #-------------------------------------------------------------------------------------------------------------------
 
     urls = f"http://alquran.zerodev.uz/api/v2/juz/{ids}/"
@@ -121,7 +123,7 @@ def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafs
                     controls=[
                         ft.Text(value=f"{juz_i.get('name')}", size=25),
                         ft.Text(
-                            value=f"{juz_i.get('type_choice')} nozil bo'lgan, {juz_i.get('verse_number')} oyatdan iborat",
+                            value=f"{juz_i.get('type_choice')} {nozil_bolgan}, {juz_i.get('verse_number')} {oyatdan_iborat}",
                             size=20)
                     ]
                 )

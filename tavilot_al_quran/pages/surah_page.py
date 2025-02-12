@@ -395,7 +395,8 @@ def surah_page(page):
                                             value=f" {result_data.get('text')}",
                                             size=20,
                                             expand=True,
-                                            width=page.window.width, text_align=ft.TextAlign.LEFT
+                                            width=page.window.width, text_align=ft.TextAlign.LEFT,
+                                            weight=ft.FontWeight.BOLD
                                         ),
                                         ft.Text(width=10)
                                     ]),
