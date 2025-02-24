@@ -84,9 +84,11 @@ def home(page):
         ),
         height=220,
         alignment=ft.alignment.center,
-        image_src=os.path.abspath("assets/searchbg.png"),
+        image=ft.DecorationImage(
+            src=os.path.abspath("assets/searchbg.png"),
+            fit=ft.ImageFit.FIT_WIDTH,
+        ),
         width=page.adaptive,
-        image_fit='fitWidth',
         padding=50
 
     )

@@ -142,7 +142,7 @@ def take_juz_id(ids, right_display, page, text_arabic, text_translate, text_tafs
                             adaptive=True,
                             controls=[
                                 ft.Container(
-                                    image_src=os.path.abspath("assets/Union.png"),
+                                    image=ft.DecorationImage(src=os.path.abspath("assets/Union.png")),
                                     alignment=ft.alignment.center,
                                     width=50,
                                     height=50,

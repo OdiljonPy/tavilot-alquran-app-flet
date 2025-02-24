@@ -63,11 +63,9 @@ def payment_page(page):
                 ],
                 alignment=ft.MainAxisAlignment.CENTER
             ),
-            image_src=os.path.abspath("assets/searchbg.png"),
+            image=ft.DecorationImage(src=os.path.abspath("assets/searchbg.png"), fit=ft.ImageFit.COVER, opacity=0.5),
             width=1000,
             height=200,
-            image_fit='cover',
-            image_opacity=0.5,
             padding=50
 
         )

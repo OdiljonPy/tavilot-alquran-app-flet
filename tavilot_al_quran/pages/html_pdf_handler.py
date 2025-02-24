@@ -152,7 +152,7 @@ def render_description(data, page):
         if re.search(arabic_pattern, cleaned_line):
             # Render Arabic text with a custom font using ft.Text
             data_list.append(
-                ft.Markdown(f"## {ft.Text(cleaned_line, rtl=True).value}", code_style=ft.TextStyle(font_family="Amiri"))
+                ft.Markdown(f"## {ft.Text(cleaned_line, rtl=True, font_family='Amiri').value}")
             )
         else:
             # Render non-Arabic content as Markdown

@@ -256,7 +256,7 @@ def surah_page(page):
                             adaptive=True,
                             controls=[
                                 ft.Container(
-                                    image_src=os.path.abspath("assets/Union.png"),
+                                    image=ft.DecorationImage(src=os.path.abspath("assets/Union.png"), fit=ft.ImageFit.COVER),
                                     alignment=ft.alignment.center,
                                     width=50,
                                     height=50,
@@ -308,7 +308,7 @@ def surah_page(page):
                                 adaptive=True,
                                 controls=[
                                     ft.Container(
-                                        image_src=os.path.abspath("assets/Union.png"),
+                                        image=ft.DecorationImage(src=os.path.abspath("assets/Union.png")),
                                         alignment=ft.alignment.center,
                                         width=50,
                                         height=50,
@@ -374,7 +374,7 @@ def surah_page(page):
                                     adaptive=True,
                                     controls=[
                                         ft.Container(
-                                            image_src=os.path.abspath("assets/Union.png"),
+                                            image=ft.DecorationImage(src=os.path.abspath("assets/Union.png")),
                                             alignment=ft.alignment.center,
                                             width=50,
                                             height=50,
@@ -459,7 +459,7 @@ def surah_page(page):
                     adaptive=True,
                     controls=[
                         ft.Container(
-                            image_src=os.path.abspath("assets/Union.png"),
+                            image=ft.DecorationImage(src=os.path.abspath("assets/Union.png")),
                             alignment=ft.alignment.center,
                             width=50,
                             height=50,

@@ -75,8 +75,7 @@ def take_content_id(page, ids):
             expand=True,
             height=page.window.height,
             scale=ft.Scale(scale_x=0.96),
-            image_src=os.path.abspath("assets/searchbg.png"),
-            image_fit="cover",
+            image=ft.DecorationImage(src=os.path.abspath("assets/searchbg.png"), fit=ft.ImageFit.COVER),
             alignment=ft.alignment.center,
             content=ft.Container(
                 adaptive=True,
