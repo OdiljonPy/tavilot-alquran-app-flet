@@ -64,13 +64,18 @@ def main_page(page):
 
         # ------Enter without registration button----------------------------------------------------------------------------
 
+        def without_registration(e):
+            page.client_storage.clear()
+            print(page.client_storage.get('access_token'))
+            home(page)
+
         enter_button = ft.Row(
             adaptive=True,
             alignment=ft.MainAxisAlignment.END,
             controls=[
                 ft.OutlinedButton(
                     text="Otkazib yuborish >",
-                    on_click=lambda e: home(page),
+                    on_click=lambda e: without_registration(e),
                     # Link the button to validation
                     width=200,
                     height=40,
