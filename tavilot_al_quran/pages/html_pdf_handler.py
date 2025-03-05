@@ -160,11 +160,11 @@ def render_description(data, page):
                 data_list.append(ft.Markdown(f"## {cleaned_line}"))
 
     container = ft.Container(
+        expand=True,
         margin=30,
-        content=ft.Column(controls=data_list, horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+        content=ft.Column(controls=data_list, horizontal_alignment=ft.CrossAxisAlignment.CENTER, expand=True, adaptive=True),
         alignment=ft.alignment.center,
         adaptive=True,
-        width=page.window.width
     )
 
     return container
