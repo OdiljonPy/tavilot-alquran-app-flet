@@ -34,7 +34,7 @@ def navigate(e, route, page):
 
 TC = '#E9BE5F'
 
-def update_appbar(page, search=None):
+def update_appbar(page, func_page, search=None):
 
 
     # -------Translation of the page-------------------------------------------------------------------------------------
@@ -59,8 +59,7 @@ def update_appbar(page, search=None):
         appbar_studies.value = new_translation.get('appbar_studies')
         appbar_resources.value = new_translation.get('appbar_resources')
         appbar_refusal.value = new_translation.get('appbar_refusal')
-        update_appbar(page, search)
-        page.update()
+        func_page(page)
 
     if page.client_storage.get('language'):
         current_translation = load_translation(page.client_storage.get('language'))

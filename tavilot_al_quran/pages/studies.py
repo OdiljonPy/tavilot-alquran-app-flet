@@ -316,5 +316,5 @@ def studies(page):
         on_submit=handle_submit,  # Trigger search when user submits the query
         controls=[],  # Start with an empty control list
     )
-    update_appbar(page, search)
+    update_appbar(page, func_page=lambda e: studies(page), search=search)
     page.update()

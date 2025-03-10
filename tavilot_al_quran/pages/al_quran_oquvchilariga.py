@@ -135,7 +135,7 @@ def al_quron_oquvchilariga(page):
     )
              )
 
-    update_appbar(page)
+    update_appbar(page, func_page=lambda e: al_quron_oquvchilariga(page))
 
     page.update()
 

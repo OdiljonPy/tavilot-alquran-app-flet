@@ -359,6 +359,6 @@ def home(page):
     # Attach event listener
     page.on_resized = on_resize
 
-    update_appbar(page)
+    update_appbar(page, func_page=lambda e: home(page))
     page.add(entrance_logo, three_windows)
     page.update()

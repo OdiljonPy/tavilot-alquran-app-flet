@@ -151,5 +151,5 @@ def menuscript(page):
     )
     )
 
-    update_appbar(page)
+    update_appbar(page, func_page=lambda e: menuscript(page))
     page.update()

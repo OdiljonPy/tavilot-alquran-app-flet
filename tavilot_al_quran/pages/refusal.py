@@ -136,5 +136,5 @@ def refusal(page):
     )
              )
 
-    update_appbar(page)
+    update_appbar(page, func_page=lambda e: refusal(page))
     page.update()
