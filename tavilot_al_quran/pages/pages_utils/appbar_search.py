@@ -34,7 +34,7 @@ def navigate(e, route, page):
 
 TC = '#E9BE5F'
 
-def update_appbar(page, func_page, search=None):
+def update_appbar(page, func_page=None, search=None):
 
 
     # -------Translation of the page-------------------------------------------------------------------------------------
@@ -74,10 +74,16 @@ def update_appbar(page, func_page, search=None):
     appbar_refusal = ft.Text(current_translation.get('appbar_refusal'))
     #-------------------------------------------------------------------------------------------------------------------
 
+    def about_us_disable(e):
+        global active_route
+        active_route = None
+        update_appbar(page)
+        about_us_page(page)
+
     about_us_icon = ft.IconButton(
         icon=ft.Icons.INFO,
         icon_color=TC,
-        on_click=lambda e: about_us_page(page)
+        on_click=lambda e: about_us_disable(e)
     )
 
     def handle_close(e):
@@ -88,6 +94,8 @@ def update_appbar(page, func_page, search=None):
         page.update()
         from ..main_page import main_page
         page.appbar = None
+        global active_route
+        active_route = None
         page.client_storage.clear()
         main_page(page)
 
@@ -206,6 +214,10 @@ def update_appbar(page, func_page, search=None):
             toolbar_height=80,
         )
     else:
+        def home_go(e):
+            global active_route
+            active_route = None
+            home(page)
         page.appbar = ft.AppBar(
             title=ft.Row(
                 alignment=ft.MainAxisAlignment.CENTER,
@@ -219,7 +231,7 @@ def update_appbar(page, func_page, search=None):
             adaptive=True,
             leading_width=100,
             leading=ft.Container(
-                on_click=lambda e: home(page),
+                on_click=lambda e: home_go(e),
                 content=ft.Image(
                     expand=True,
                     color='#007577',
